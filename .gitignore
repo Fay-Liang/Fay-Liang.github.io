@@ -1,0 +1,21 @@
+# MkDocs 构建产物
+site/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# IDE / 系统
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# 本地环境
+.env
+
+# 索引 / 工具目录
+.codegraph/
+.omo/

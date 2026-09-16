@@ -1,0 +1,162 @@
+# ============================================================
+# MkDocs 配置文件 —— MyProject Docs
+# 主题: Material for MkDocs | 语言: 中文 | 部署: GitHub Pages + mike 多版本
+# ============================================================
+
+# ---------- 站点基础信息 ----------
+site_name: MyProject Docs
+# TODO: 替换为你的 GitHub Pages 实际地址，例如 https://username.github.io/note/
+site_url: https://your-github-username.github.io/your-repo/
+site_description: MyProject 的使用、开发与部署文档
+site_author: Zhang San
+copyright: Copyright &copy; 2026 Zhang San
+
+# ---------- 仓库与编辑链接 ----------
+# TODO: 替换为你的实际仓库地址
+repo_url: https://github.com/your-github-username/your-repo
+repo_name: your-github-username/your-repo
+edit_uri: blob/main/docs/          # "编辑此页" 跳转路径
+
+# ---------- 目录设置 ----------
+docs_dir: docs                     # 源目录（默认 docs）
+site_dir: site                     # 输出目录（默认 site）
+# use_directory_urls: true         # 默认 true：生成目录式 URL（foo/ 而非 foo.html）
+
+# ---------- 主题配置 ----------
+theme:
+  name: material
+  language: zh                     # 简体中文界面
+  features:
+    - navigation.tabs              # 顶级导航标签页
+    - navigation.top               # 回到顶部按钮
+    - navigation.expand            # 默认展开侧边栏
+    - navigation.instant           # 即时加载（无刷新跳转）
+    - navigation.indexes           # 目录页作为索引页
+    - toc.integrate                # 页内目录集成到侧边栏
+    - search.suggest               # 搜索建议
+    - search.highlight             # 搜索高亮
+    - header.autohide              # 滚动时自动隐藏顶部栏
+    - content.code.copy            # 代码块复制按钮
+    - content.tabs.link            # 内容标签页联动
+  palette:
+    - scheme: default              # 浅色模式
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: 切换到深色模式
+    - scheme: slate                # 深色模式
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: 切换到浅色模式
+  font:
+    text: Noto Sans SC             # 正文字体
+    code: JetBrains Mono           # 等宽字体
+  icon:
+    logo: material/library
+    repo: fontawesome/brands/github
+
+# ---------- 导航配置 ----------
+nav:
+  - 首页: index.md
+  - 快速开始:
+      - 安装: getting-started/installation.md
+      - 快速上手: getting-started/quickstart.md
+  - 用户指南:
+      - 配置说明: user-guide/configuration.md
+      - 部署指南: user-guide/deployment.md
+      - 常见问题: user-guide/faq.md
+  - 关于: about.md
+
+# ---------- Markdown 扩展 ----------
+markdown_extensions:
+  # 内置扩展
+  - toc:                           # 目录生成
+      permalink: true              # 标题锚点链接
+      toc_depth: 3                 # 目录深度 1-3 级
+  - tables                         # 表格
+  - admonition                     # 提示框（!!! note / warning / danger）
+  - footnotes                      # 脚注
+  - attr_list                      # HTML 属性（图片尺寸、对齐）
+  - def_list                       # 定义列表
+  - meta                           # 页面元信息（YAML front matter）
+  - md_in_html                     # HTML 内嵌 Markdown
+  - sane_lists                     # 严格列表解析
+  - smarty                         # 智能引号、破折号
+  - abbr                           # 缩写
+  # Pymdown Extensions
+  - pymdownx.highlight:            # 代码高亮
+      anchor_linenums: true        # 行号锚点
+      linenums: true               # 显示行号
+  - pymdownx.superfences:          # 增强围栏代码块，支持 Mermaid
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.inlinehilite          # 行内代码高亮
+  - pymdownx.snippets              # 从外部文件插入代码片段
+  - pymdownx.tabbed:               # 标签页内容
+      alternate_style: true
+  - pymdownx.details               # 折叠块（??? 可折叠提示）
+  - pymdownx.tasklist:             # 任务列表 [x]
+  - pymdownx.emoji:                # Emoji
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.arithmatex:           # LaTeX 数学公式
+      generic: true
+  - pymdownx.keys                  # 键盘按键样式
+  - pymdownx.magiclink             # 自动识别 URL 为链接
+  - pymdownx.caret                 # ^上标^
+  - pymdownx.tilde                 # ~~删除线~~
+  - pymdownx.mark                  # ==高亮==
+  - pymdownx.smartsymbols          # 智能符号（--> 箭头）
+
+# ---------- 插件 ----------
+plugins:
+  - search:                        # 搜索（声明 plugins 后须显式加入）
+      lang:
+        - zh                       # 中文分词搜索
+      separator: '[\s\u200b\-]'
+  - git-revision-date-localized:   # 页面最后修改时间
+      type: datetime
+      locale: zh
+      fallback_to_build_date: true # 非 git 仓库/无历史时回退为构建日期
+  - minify:                        # 压缩产物
+      minify_html: true
+      minify_css: true
+      minify_js: true
+
+# ---------- 自定义资源 ----------
+extra:
+  version:                         # mike 多版本文档
+    provider: mike
+  social:                          # 页脚社交链接（TODO: 替换为真实链接）
+    - icon: fontawesome/brands/github
+      link: https://github.com/your-github-username/your-repo
+    - icon: fontawesome/brands/x-twitter
+      link: https://x.com/your-handle
+
+extra_css:
+  - assets/css/extra.css           # 追加自定义样式
+
+extra_javascript:
+  - assets/js/mathjax.js           # MathJax 配置（必须先于 CDN 脚本加载）
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js
+
+# ---------- 构建与开发行为 ----------
+strict: true                       # 有警告即构建失败（CI 中强烈建议）
+dev_addr: 127.0.0.1:8000           # 开发服务器地址
+validation:                        # 链接与锚点校验级别（strict 模式下警告即失败）
+  links:
+    not_found: warn                # 死链接警告（strict 下视为错误）
+    anchors: warn                  # 无效锚点警告
+    absolute_links: warn           # 绝对链接警告
+  nav:
+    omitted_files: warn            # 未出现在 nav 中的文件
+    not_found: warn
+
+# ---------- mike 部署相关 ----------
+remote_branch: gh-pages            # gh-deploy / mike 目标分支
+remote_name: origin                # 远程仓库名

@@ -1,0 +1,15 @@
+# MkDocs 核心
+mkdocs>=1.6
+mkdocs-material>=9.5
+
+# Pymdown Extensions（Markdown 语法扩展，Material 依赖）
+pymdown-extensions
+
+# 压缩 HTML/CSS/JS 产物
+mkdocs-minify-plugin
+
+# 页面最后修改时间
+mkdocs-git-revision-date-localized-plugin
+
+# 多版本文档管理
+mike

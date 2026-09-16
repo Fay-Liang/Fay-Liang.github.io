@@ -1,0 +1,30 @@
+/* ============================================================
+   MyProject Docs —— 自定义样式
+   追加到 Material 主题之上，随站点一起构建
+   ============================================================ */
+
+/* 站点标题强调 */
+.md-header__title {
+  font-weight: 700;
+}
+
+/* 正文行高微调，改善中文阅读体验 */
+.md-content__inner p,
+.md-content__inner li {
+  line-height: 1.75;
+}
+
+/* 代码块圆角 */
+.md-typeset pre > code {
+  border-radius: 6px;
+}
+
+/* 自定义提示框配色的微调示例 */
+.md-typeset .admonition.note {
+  border-left-width: 4px;
+}
+
+/* 深色模式下微调正文颜色 */
+[data-md-color-scheme="slate"] .md-content__inner {
+  color: #e6e6e6;
+}
