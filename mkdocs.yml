@@ -136,8 +136,6 @@ plugins:
 
 # ---------- 自定义资源 ----------
 extra:
-  version:                         # mike 多版本文档
-    provider: mike
   social:
     - icon: fontawesome/brands/github
       link: https://github.com/Fay-Liang

@@ -1,6 +1,6 @@
 # ============================================================
-# GitHub Actions —— 自动构建并部署 MkDocs 文档（mike 多版本）
-# 推送 main 分支后触发；产物部署到 gh-pages 分支
+# GitHub Actions —— 自动构建并部署 MkDocs 文档（根目录直出）
+# 推送 main 分支后触发；产物直接部署到 gh-pages 分支根目录
 # ============================================================
 name: Deploy MkDocs
 
@@ -10,7 +10,12 @@ on:
   workflow_dispatch:   # 允许手动触发
 
 permissions:
-  contents: write      # mike 需要推送 gh-pages 分支
+  contents: write      # gh-deploy 需要推送 gh-pages 分支
+
+# 同一时间只允许一个部署，避免并发推送互相覆盖
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
 
 jobs:
   deploy:
@@ -18,7 +23,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0            # mike 需要完整 git 历史
+          fetch-depth: 0            # git-revision-date-localized 需要完整 git 历史
 
       - uses: actions/setup-python@v5
         with:
@@ -27,9 +32,8 @@ jobs:
       - name: 安装依赖
         run: pip install -r requirements.txt
 
-      - name: 部署（mike）
+      - name: 部署（gh-deploy）
         run: |
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
-          mike deploy --push --update-aliases latest
-          mike set-default --push latest
+          mkdocs gh-deploy --force

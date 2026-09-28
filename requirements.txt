@@ -10,6 +10,3 @@ mkdocs-minify-plugin
 
 # 页面最后修改时间
 mkdocs-git-revision-date-localized-plugin
-
-# 多版本文档管理
-mike
