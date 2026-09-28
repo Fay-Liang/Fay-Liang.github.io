@@ -152,6 +152,7 @@ extra_css:
 extra_javascript:
   - assets/js/mathjax.js           # MathJax 配置（必须先于 CDN 脚本加载）
   - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js
+  - assets/js/source-title.js      # 右上角按钮的提示文字（覆盖 Material 默认翻译）
 
 # ---------- 构建与开发行为 ----------
 strict: true                       # 有警告即构建失败（CI 中强烈建议）
