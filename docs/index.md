@@ -4,7 +4,7 @@
 
 这里是 **Heureka** 的个人博客，主要记录 **物联网 (IoT)**、**嵌入式系统** 与 **前端开发** 的学习笔记、技术心得与实践项目，偶尔发发牢骚。
 
-![banner](assets/images/banner.webp)
+![banner](assets/images/banner-feather-imagefader.png)
 
 ## 内容导航
 
