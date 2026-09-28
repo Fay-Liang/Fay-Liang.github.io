@@ -28,37 +28,3 @@
 [data-md-color-scheme="slate"] .md-content__inner {
   color: #e6e6e6;
 }
-
-/* ============================================================
-   侧边栏：只显示当前文章的目录
-   ------------------------------------------------------------
-   背景：toc.integrate 会把页内目录嵌进主导航内部，navigation.expand
-   又把整站页面全部展开，于是侧边栏里"整站目录"和"当前文章目录"混在一起。
-   这里在桌面端只保留当前文章的目录，靠两条规则：
-
-     1) 隐藏当前章节里除当前页之外的其他页面
-     2) 隐藏吸顶的章节标题（顶部标签页已经表明所在章节）
-
-   选择器刻意用 > 逐级锁定，避免误伤目录自身的条目——
-   当前页的目录 nav.md-nav--secondary 嵌在更深一层，不会被规则 1 命中。
-   移动端抽屉导航不受影响，仍可正常浏览整站。
-   ============================================================ */
-@media screen and (min-width: 76.25em) {
-  /* 1. 当前章节内，隐藏非当前页。
-        必须排除 .md-nav--secondary：顶级页面的当前项 li 下，
-        目录本体正好是它的直接子 .md-nav，不排除会把目录条目一起隐藏。 */
-  .md-nav--lifted > .md-nav__list > .md-nav__item--active
-    > .md-nav:not(.md-nav--secondary) > .md-nav__list
-    > .md-nav__item:not(.md-nav__item--active) {
-    display: none;
-  }
-
-  /* 2. 隐藏吸顶的章节折叠标签（"学习笔记"那一行）。
-        只锁定 for="__nav_*" 的 label：页面标题是由没有 for 属性的
-        <a class="md-nav__link--active"> 渲染的，早先用 :not([for="__toc"])
-        会把它一并匹配掉，导致顶级页面（如"关于"）的标题消失。 */
-  .md-nav--lifted > .md-nav__list > .md-nav__item--active
-    > .md-nav__link[for^="__nav_"] {
-    display: none;
-  }
-}

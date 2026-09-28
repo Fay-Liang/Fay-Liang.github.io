@@ -30,7 +30,8 @@ theme:
     - navigation.expand            # 默认展开侧边栏
     - navigation.instant           # 即时加载（无刷新跳转）
     - navigation.indexes           # 目录页作为索引页
-    - toc.integrate                # 页内目录集成到侧边栏
+    # - toc.integrate              # 启用后目录并入左侧边栏（右侧不再有目录）
+    #                               当前布局：左侧文章列表 + 右侧当前文章目录
     - search.suggest               # 搜索建议
     - search.highlight             # 搜索高亮
     - header.autohide              # 滚动时自动隐藏顶部栏
@@ -55,6 +56,7 @@ theme:
   icon:
     logo: material/library
     repo: fontawesome/brands/github
+  favicon: assets/images/favicon.ico   # 路径相对 docs_dir，即 docs/assets/images/
 
 # ---------- 导航配置 ----------
 nav:
