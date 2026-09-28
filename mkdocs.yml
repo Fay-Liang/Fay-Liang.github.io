@@ -53,8 +53,12 @@ theme:
   font:
     text: Noto Sans SC             # 正文字体
     code: JetBrains Mono           # 等宽字体
+  # 导航栏站点名左侧的图标：由顶层 logo 指定图片文件（相对 docs_dir）
+  # 注意：Material 模板中 theme.logo 优先于 theme.icon.logo——
+  #       只要这里设了图片，下面的 icon.logo 就不会生效
+  logo: assets/images/favicon.ico
   icon:
-    logo: material/library
+    # logo: material/library        # 被上面的 theme.logo 覆盖，此处已失效
     repo: fontawesome/brands/github
   favicon: assets/images/favicon.ico   # 路径相对 docs_dir，即 docs/assets/images/
 
