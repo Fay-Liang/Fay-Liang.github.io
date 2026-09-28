@@ -154,7 +154,9 @@ validation:                        # 链接与锚点校验级别（strict 模式
     anchors: warn                  # 无效锚点警告
     absolute_links: warn           # 绝对链接警告
   nav:
-    omitted_files: warn            # 未出现在 nav 中的文件
+    omitted_files: info            # 未出现在 nav 中的文件：仅提示，不中断构建
+                                   # （邮箱.md / 友链.md 已从 nav 移除但保留文件，
+                                   #   设 warn 会在 strict 下直接构建失败）
     not_found: warn
 
 # ---------- 部署相关 ----------
