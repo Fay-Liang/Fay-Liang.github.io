@@ -4,9 +4,9 @@
 # ============================================================
 
 # ---------- 站点基础信息 ----------
-site_name: MyProject Docs
+site_name: Heureka's Blog
 site_url: https://fay-liang.github.io/
-site_description: Heureka 的使用、开发与部署文档
+site_description: Heureka 的牢骚窝
 site_author: Heureka
 copyright: Copyright &copy; 2026 Heureka
 
@@ -59,9 +59,6 @@ theme:
 # ---------- 导航配置 ----------
 nav:
   - 首页: index.md
-  - 关于: 关于.md
-  - 邮箱: 邮箱.md
-  - 友链: 友链.md
   - 学习笔记:
       - 51单片机: 学习笔记/51单片机.md
       - STM32: 学习笔记/STM32.md
@@ -75,6 +72,9 @@ nav:
       - 可自主预警的天气小助手: 项目开发/可自主预警的天气小助手.md
   - 参赛笔记:
       - 蓝桥杯单片机: 参赛笔记/蓝桥杯.md
+  - 邮箱: 邮箱.md
+  - 友链: 友链.md
+  - 关于: 关于.md
 
 # ---------- Markdown 扩展 ----------
 markdown_extensions:
