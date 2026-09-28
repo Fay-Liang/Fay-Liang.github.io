@@ -46,3 +46,27 @@
   padding: 0.1rem;
   box-sizing: content-box;   /* 防止 padding 挤占图片高度 */
 }
+
+/* ============================================================
+   顶栏 GitHub 图标：换成实际头像
+   ------------------------------------------------------------
+   Material 的 source 模板只支持图标短名（模板里硬编码了
+   include ".icons/<name>.svg"），无法直接指向图片，故用 CSS 覆盖。
+
+   注意：原 .md-source__icon 是 2rem x 2.4rem 的矩形，直接加
+   border-radius:50% 会变成椭圆，必须先改成正方形。
+   头像文件取自 GitHub 实际头像（avatars.githubusercontent.com），
+   已缩放至 128px 自托管，避免每次加载都请求外部域名。
+   ============================================================ */
+.md-source__icon svg {
+  display: none;                     /* 隐藏原来的 octocat 图标 */
+}
+
+.md-source__icon {
+  width: 2rem;                       /* 原为 2rem x 2.4rem，改正方形 */
+  height: 2rem;
+  background-image: url("../images/avatar.png");
+  background-size: cover;
+  background-position: center;
+  border-radius: 50%;
+}
