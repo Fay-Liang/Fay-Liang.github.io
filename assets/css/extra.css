@@ -28,3 +28,21 @@
 [data-md-color-scheme="slate"] .md-content__inner {
   color: #e6e6e6;
 }
+
+/* ============================================================
+   导航栏 logo：加白色底垫
+   ------------------------------------------------------------
+   logo 图像 50% 的像素完全透明，是按浅色背景设计的。放在深色顶栏
+   上时蓝色部分会糊进背景（对 indigo 实测对比度仅 1.42:1）。这里给
+   它垫一层白色底，无论顶栏换成什么颜色都能保持两种颜色可读。
+
+   同时覆盖顶栏（.md-header__button）和窄屏抽屉标题栏
+   （.md-nav__title .md-nav__button），保证两处外观一致。
+   ============================================================ */
+.md-header__button.md-logo img,
+.md-nav__title .md-nav__button.md-logo img {
+  background-color: #ffffff;
+  border-radius: 0.2rem;
+  padding: 0.1rem;
+  box-sizing: content-box;   /* 防止 padding 挤占图片高度 */
+}
