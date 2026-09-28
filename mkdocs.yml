@@ -11,9 +11,11 @@ site_author: Heureka
 copyright: Copyright &copy; 2026 Heureka
 
 # ---------- 仓库与编辑链接 ----------
-repo_url: https://github.com/Fay-Liang/Fay-Liang.github.io
-repo_name: Fay-Liang.github.io
-edit_uri: blob/main/docs/          # "编辑此页" 跳转路径
+repo_url: https://github.com/Fay-Liang   # 右上角按钮：指向 GitHub 个人主页（非仓库）
+repo_name: Fay-Liang
+edit_uri: https://github.com/Fay-Liang/Fay-Liang.github.io/blob/main/docs/
+                                   # 必须用绝对地址：repo_url 已改为主页，
+                                   # 相对的 blob/main/docs/ 会拼成无效链接
 
 # ---------- 目录设置 ----------
 docs_dir: docs                     # 源目录（默认 docs）
