@@ -1,0 +1,1192 @@
+<!doctype html><html lang=zh class=no-js> <head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="Heureka 的使用、开发与部署文档"><meta name=author content=Heureka><link href=https://fay-liang.github.io/latest/%E6%95%99%E7%A8%8B%E6%96%87%E6%A1%A3/SDCC%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/ rel=canonical><link href=../../%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Linux/ rel=prev><link href=../Ubuntu%E5%BC%80%E6%9C%BA%E4%BA%AE%E5%BA%A6%E6%97%A0%E6%B3%95%E8%87%AA%E5%8A%A8%E8%B0%83%E8%8A%82/ rel=next><link rel=icon href=../../assets/images/favicon.png><meta name=generator content="mkdocs-1.6.1, mkdocs-material-9.7.7"><title>SDCC使用指南 - MyProject Docs</title><link rel=stylesheet href=../../assets/stylesheets/main.ec1eaa64.min.css><link rel=stylesheet href=../../assets/stylesheets/palette.ab4e12ef.min.css><link rel=preconnect href=https://fonts.gstatic.com crossorigin><link rel=stylesheet href="https://fonts.googleapis.com/css?family=Noto+Sans+SC:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback"><style>:root{--md-text-font:"Noto Sans SC";--md-code-font:"JetBrains Mono"}</style><link rel=stylesheet href=../../assets/css/extra.css><script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script></head> <body dir=ltr data-md-color-scheme=default data-md-color-primary=indigo data-md-color-accent=indigo> <input class=md-toggle data-md-toggle=drawer type=checkbox id=__drawer autocomplete=off> <input class=md-toggle data-md-toggle=search type=checkbox id=__search autocomplete=off> <label class=md-overlay for=__drawer></label> <div data-md-component=skip> <a href=#sdcc class=md-skip> 跳转至 </a> </div> <div data-md-component=announce> </div> <div data-md-color-scheme=default data-md-component=outdated hidden> </div> <header class=md-header data-md-component=header> <nav class="md-header__inner md-grid" aria-label=页眉> <a href=../.. title="MyProject Docs" class="md-header__button md-logo" aria-label="MyProject Docs" data-md-component=logo> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg> </a> <label class="md-header__button md-icon" for=__drawer> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg> </label> <div class=md-header__title data-md-component=header-title> <div class=md-header__ellipsis> <div class=md-header__topic> <span class=md-ellipsis> MyProject Docs </span> </div> <div class=md-header__topic data-md-component=header-topic> <span class=md-ellipsis> SDCC使用指南 </span> </div> </div> </div> <form class=md-header__option data-md-component=palette> <input class=md-option data-md-color-media data-md-color-scheme=default data-md-color-primary=indigo data-md-color-accent=indigo aria-label=切换到深色模式 type=radio name=__palette id=__palette_0> <label class="md-header__button md-icon" title=切换到深色模式 for=__palette_1 hidden> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg> </label> <input class=md-option data-md-color-media data-md-color-scheme=slate data-md-color-primary=indigo data-md-color-accent=indigo aria-label=切换到浅色模式 type=radio name=__palette id=__palette_1> <label class="md-header__button md-icon" title=切换到浅色模式 for=__palette_0 hidden> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg> </label> </form> <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script> <label class="md-header__button md-icon" for=__search> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg> </label> <div class=md-search data-md-component=search role=dialog> <label class=md-search__overlay for=__search></label> <div class=md-search__inner role=search> <form class=md-search__form name=search> <input type=text class=md-search__input name=query aria-label=搜索 placeholder=搜索 autocapitalize=off autocorrect=off autocomplete=off spellcheck=false data-md-component=search-query required> <label class="md-search__icon md-icon" for=__search> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg> </label> <nav class=md-search__options aria-label=查找> <button type=reset class="md-search__icon md-icon" title=清空当前内容 aria-label=清空当前内容 tabindex=-1> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg> </button> </nav> <div class=md-search__suggest data-md-component=search-suggest></div> </form> <div class=md-search__output> <div class=md-search__scrollwrap tabindex=0 data-md-scrollfix> <div class=md-search-result data-md-component=search-result> <div class=md-search-result__meta> 正在初始化搜索引擎 </div> <ol class=md-search-result__list role=presentation></ol> </div> </div> </div> </div> </div> <div class=md-header__source> <a href=https://github.com/Fay-Liang/Fay-Liang.github.io title=前往仓库 class=md-source data-md-component=source> <div class="md-source__icon md-icon"> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 512 512"><!-- Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg> </div> <div class=md-source__repository> Fay-Liang.github.io </div> </a> </div> </nav> </header> <div class=md-container data-md-component=container> <nav class=md-tabs aria-label=标签 data-md-component=tabs> <div class=md-grid> <ul class=md-tabs__list> <li class=md-tabs__item> <a href=../.. class=md-tabs__link> 首页 </a> </li> <li class=md-tabs__item> <a href=../../%E5%85%B3%E4%BA%8E/ class=md-tabs__link> 关于 </a> </li> <li class=md-tabs__item> <a href=../../%E9%82%AE%E7%AE%B1/ class=md-tabs__link> 邮箱 </a> </li> <li class=md-tabs__item> <a href=../../%E5%8F%8B%E9%93%BE/ class=md-tabs__link> 友链 </a> </li> <li class=md-tabs__item> <a href=../../%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/51%E5%8D%95%E7%89%87%E6%9C%BA/ class=md-tabs__link> 学习笔记 </a> </li> <li class="md-tabs__item md-tabs__item--active"> <a href=./ class=md-tabs__link> 教程文档 </a> </li> <li class=md-tabs__item> <a href=../../%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91/%E5%85%AD%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA/ class=md-tabs__link> 项目开发 </a> </li> <li class=md-tabs__item> <a href=../../%E5%8F%82%E8%B5%9B%E7%AC%94%E8%AE%B0/%E8%93%9D%E6%A1%A5%E6%9D%AF/ class=md-tabs__link> 参赛笔记 </a> </li> </ul> </div> </nav> <main class=md-main data-md-component=main> <div class="md-main__inner md-grid"> <div class="md-sidebar md-sidebar--primary" data-md-component=sidebar data-md-type=navigation> <div class=md-sidebar__scrollwrap> <div class=md-sidebar__inner> <nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label=导航栏 data-md-level=0> <label class=md-nav__title for=__drawer> <a href=../.. title="MyProject Docs" class="md-nav__button md-logo" aria-label="MyProject Docs" data-md-component=logo> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg> </a> MyProject Docs </label> <div class=md-nav__source> <a href=https://github.com/Fay-Liang/Fay-Liang.github.io title=前往仓库 class=md-source data-md-component=source> <div class="md-source__icon md-icon"> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 512 512"><!-- Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg> </div> <div class=md-source__repository> Fay-Liang.github.io </div> </a> </div> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../.. class=md-nav__link> <span class=md-ellipsis> 首页 </span> </a> </li> <li class=md-nav__item> <a href=../../%E5%85%B3%E4%BA%8E/ class=md-nav__link> <span class=md-ellipsis> 关于 </span> </a> </li> <li class=md-nav__item> <a href=../../%E9%82%AE%E7%AE%B1/ class=md-nav__link> <span class=md-ellipsis> 邮箱 </span> </a> </li> <li class=md-nav__item> <a href=../../%E5%8F%8B%E9%93%BE/ class=md-nav__link> <span class=md-ellipsis> 友链 </span> </a> </li> <li class="md-nav__item md-nav__item--nested"> <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type=checkbox id=__nav_5> <label class=md-nav__link for=__nav_5 id=__nav_5_label tabindex=0> <span class=md-ellipsis> 学习笔记 </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=1 aria-labelledby=__nav_5_label aria-expanded=false> <label class=md-nav__title for=__nav_5> <span class="md-nav__icon md-icon"></span> 学习笔记 </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/51%E5%8D%95%E7%89%87%E6%9C%BA/ class=md-nav__link> <span class=md-ellipsis> 51单片机 </span> </a> </li> <li class=md-nav__item> <a href=../../%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/STM32/ class=md-nav__link> <span class=md-ellipsis> STM32 </span> </a> </li> <li class=md-nav__item> <a href=../../%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/ESP32/ class=md-nav__link> <span class=md-ellipsis> ESP32 </span> </a> </li> <li class=md-nav__item> <a href=../../%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Linux/ class=md-nav__link> <span class=md-ellipsis> Linux </span> </a> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_6 checked> <label class=md-nav__link for=__nav_6 id=__nav_6_label tabindex> <span class=md-ellipsis> 教程文档 </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=1 aria-labelledby=__nav_6_label aria-expanded=true> <label class=md-nav__title for=__nav_6> <span class="md-nav__icon md-icon"></span> 教程文档 </label> <ul class=md-nav__list data-md-scrollfix> <li class="md-nav__item md-nav__item--active"> <input class="md-nav__toggle md-toggle" type=checkbox id=__toc> <label class="md-nav__link md-nav__link--active" for=__toc> <span class=md-ellipsis> SDCC使用指南 </span> <span class="md-nav__icon md-icon"></span> </label> <a href=./ class="md-nav__link md-nav__link--active"> <span class=md-ellipsis> SDCC使用指南 </span> </a> <nav class="md-nav md-nav--secondary" aria-label=目录> <label class=md-nav__title for=__toc> <span class="md-nav__icon md-icon"></span> 目录 </label> <ul class=md-nav__list data-md-component=toc data-md-scrollfix> <li class=md-nav__item> <a href=#sdcc_1 class=md-nav__link> <span class=md-ellipsis> 一、SDCC简介与适用场景 </span> </a> <nav class=md-nav aria-label=一、SDCC简介与适用场景> <ul class=md-nav__list> <li class=md-nav__item> <a href=#sdcc_2 class=md-nav__link> <span class=md-ellipsis> 什么是SDCC？ </span> </a> </li> <li class=md-nav__item> <a href=#_1 class=md-nav__link> <span class=md-ellipsis> 适用场景 </span> </a> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=#_2 class=md-nav__link> <span class=md-ellipsis> 二、安装与配置 </span> </a> <nav class=md-nav aria-label=二、安装与配置> <ul class=md-nav__list> <li class=md-nav__item> <a href=#21-windows class=md-nav__link> <span class=md-ellipsis> 2.1 Windows平台安装 </span> </a> </li> <li class=md-nav__item> <a href=#22-linux class=md-nav__link> <span class=md-ellipsis> 2.2 Linux平台安装 </span> </a> </li> <li class=md-nav__item> <a href=#23-macos class=md-nav__link> <span class=md-ellipsis> 2.3 macOS平台安装 </span> </a> </li> <li class=md-nav__item> <a href=#24 class=md-nav__link> <span class=md-ellipsis> 2.4 环境变量配置（可选） </span> </a> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=#8051 class=md-nav__link> <span class=md-ellipsis> 三、第一个8051程序 </span> </a> <nav class=md-nav aria-label=三、第一个8051程序> <ul class=md-nav__list> <li class=md-nav__item> <a href=#31 class=md-nav__link> <span class=md-ellipsis> 3.1 创建项目结构 </span> </a> </li> <li class=md-nav__item> <a href=#32 class=md-nav__link> <span class=md-ellipsis> 3.2 编写代码 </span> </a> </li> <li class=md-nav__item> <a href=#33 class=md-nav__link> <span class=md-ellipsis> 3.3 编译流程 </span> </a> </li> <li class=md-nav__item> <a href=#34 class=md-nav__link> <span class=md-ellipsis> 3.4 编译选项详解 </span> </a> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=#makefile class=md-nav__link> <span class=md-ellipsis> 四、Makefile自动化构建 </span> </a> <nav class=md-nav aria-label=四、Makefile自动化构建> <ul class=md-nav__list> <li class=md-nav__item> <a href=#41-makefile class=md-nav__link> <span class=md-ellipsis> 4.1 创建Makefile </span> </a> </li> <li class=md-nav__item> <a href=#42-makefile class=md-nav__link> <span class=md-ellipsis> 4.2 使用Makefile </span> </a> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=#sdcckeil class=md-nav__link> <span class=md-ellipsis> 五、SDCC与Keil的对比与迁移 </span> </a> <nav class=md-nav aria-label=五、SDCC与Keil的对比与迁移> <ul class=md-nav__list> <li class=md-nav__item> <a href=#51 class=md-nav__link> <span class=md-ellipsis> 5.1 关键差异 </span> </a> </li> <li class=md-nav__item> <a href=#52-keilsdcc class=md-nav__link> <span class=md-ellipsis> 5.2 Keil代码迁移到SDCC </span> </a> </li> <li class=md-nav__item> <a href=#53 class=md-nav__link> <span class=md-ellipsis> 5.3 便捷的头文件适配 </span> </a> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=#_4 class=md-nav__link> <span class=md-ellipsis> 六、常用编译选项深度解析 </span> </a> <nav class=md-nav aria-label=六、常用编译选项深度解析> <ul class=md-nav__list> <li class=md-nav__item> <a href=#61 class=md-nav__link> <span class=md-ellipsis> 6.1 存储模型选择 </span> </a> </li> <li class=md-nav__item> <a href=#62 class=md-nav__link> <span class=md-ellipsis> 6.2 优化选项 </span> </a> </li> <li class=md-nav__item> <a href=#63 class=md-nav__link> <span class=md-ellipsis> 6.3 代码生成控制 </span> </a> </li> <li class=md-nav__item> <a href=#64 class=md-nav__link> <span class=md-ellipsis> 6.4 调试信息 </span> </a> </li> <li class=md-nav__item> <a href=#65 class=md-nav__link> <span class=md-ellipsis> 6.5 完整编译示例 </span> </a> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=#vscode class=md-nav__link> <span class=md-ellipsis> 七、VSCode开发环境配置 </span> </a> <nav class=md-nav aria-label=七、VSCode开发环境配置> <ul class=md-nav__list> <li class=md-nav__item> <a href=#71-vscode class=md-nav__link> <span class=md-ellipsis> 7.1 为什么需要配置VSCode？ </span> </a> </li> <li class=md-nav__item> <a href=#72-sdcc class=md-nav__link> <span class=md-ellipsis> 7.2 查找SDCC头文件路径 </span> </a> </li> <li class=md-nav__item> <a href=#73-c_cpp_propertiesjson class=md-nav__link> <span class=md-ellipsis> 7.3 配置 c_cpp_properties.json </span> </a> </li> <li class=md-nav__item> <a href=#74-sdcc class=md-nav__link> <span class=md-ellipsis> 7.4 高级配置：解决SDCC关键字识别问题 </span> </a> </li> <li class=md-nav__item> <a href=#75-tasksjson class=md-nav__link> <span class=md-ellipsis> 7.5 配置 tasks.json 实现一键编译 </span> </a> </li> <li class=md-nav__item> <a href=#76-vscode class=md-nav__link> <span class=md-ellipsis> 7.6 推荐的VSCode扩展 </span> </a> </li> <li class=md-nav__item> <a href=#77 class=md-nav__link> <span class=md-ellipsis> 7.7 常见问题与解决方案 </span> </a> </li> <li class=md-nav__item> <a href=#78 class=md-nav__link> <span class=md-ellipsis> 7.8 完整项目配置示例 </span> </a> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=#_6 class=md-nav__link> <span class=md-ellipsis> 💾 八、烧录与调试 </span> </a> <nav class=md-nav aria-label="💾 八、烧录与调试"> <ul class=md-nav__list> <li class=md-nav__item> <a href=#81-stc-ispwindows class=md-nav__link> <span class=md-ellipsis> 8.1 使用STC-ISP工具（Windows） </span> </a> </li> <li class=md-nav__item> <a href=#82-stcgallinuxmac class=md-nav__link> <span class=md-ellipsis> 8.2 使用stcgal命令行工具（Linux/Mac） </span> </a> </li> <li class=md-nav__item> <a href=#83 class=md-nav__link> <span class=md-ellipsis> 8.3 常见烧录问题 </span> </a> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=#_7 class=md-nav__link> <span class=md-ellipsis> 📚 九、进阶技巧 </span> </a> <nav class=md-nav aria-label="📚 九、进阶技巧"> <ul class=md-nav__list> <li class=md-nav__item> <a href=#91 class=md-nav__link> <span class=md-ellipsis> 9.1 内联汇编 </span> </a> </li> <li class=md-nav__item> <a href=#92 class=md-nav__link> <span class=md-ellipsis> 9.2 自定义启动代码 </span> </a> </li> <li class=md-nav__item> <a href=#93 class=md-nav__link> <span class=md-ellipsis> 9.3 库函数使用 </span> </a> </li> <li class=md-nav__item> <a href=#94 class=md-nav__link> <span class=md-ellipsis> 9.4 多模块项目组织 </span> </a> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=#_8 class=md-nav__link> <span class=md-ellipsis> 十、蓝桥杯竞赛专用配置 </span> </a> <nav class=md-nav aria-label=十、蓝桥杯竞赛专用配置> <ul class=md-nav__list> <li class=md-nav__item> <a href=#101 class=md-nav__link> <span class=md-ellipsis> 10.1 蓝桥杯开发板资源 </span> </a> </li> <li class=md-nav__item> <a href=#102-makefile class=md-nav__link> <span class=md-ellipsis> 10.2 蓝桥杯专用Makefile </span> </a> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=#_9 class=md-nav__link> <span class=md-ellipsis> 十一、参考资源 </span> </a> </li> <li class=md-nav__item> <a href=#faq class=md-nav__link> <span class=md-ellipsis> 十二、常见问题排查（FAQ） </span> </a> <nav class=md-nav aria-label=十二、常见问题排查（FAQ）> <ul class=md-nav__list> <li class=md-nav__item> <a href=#121 class=md-nav__link> <span class=md-ellipsis> 12.1 编译问题 </span> </a> </li> <li class=md-nav__item> <a href=#122 class=md-nav__link> <span class=md-ellipsis> 12.2 头文件问题 </span> </a> </li> <li class=md-nav__item> <a href=#123 class=md-nav__link> <span class=md-ellipsis> 12.3 语法兼容问题 </span> </a> </li> <li class=md-nav__item> <a href=#124 class=md-nav__link> <span class=md-ellipsis> 12.4 链接问题 </span> </a> </li> <li class=md-nav__item> <a href=#125-vscode class=md-nav__link> <span class=md-ellipsis> 12.5 VSCode 配置问题 </span> </a> </li> <li class=md-nav__item> <a href=#126 class=md-nav__link> <span class=md-ellipsis> 12.6 烧录问题 </span> </a> </li> <li class=md-nav__item> <a href=#127 class=md-nav__link> <span class=md-ellipsis> 12.7 运行时问题 </span> </a> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=#_10 class=md-nav__link> <span class=md-ellipsis> 十三、快速检查清单 </span> </a> </li> <li class=md-nav__item> <a href=#_11 class=md-nav__link> <span class=md-ellipsis> 总结 </span> </a> </li> <li class=md-nav__item> <a href=#_12 class=md-nav__link> <span class=md-ellipsis> 总结 </span> </a> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=../Ubuntu%E5%BC%80%E6%9C%BA%E4%BA%AE%E5%BA%A6%E6%97%A0%E6%B3%95%E8%87%AA%E5%8A%A8%E8%B0%83%E8%8A%82/ class=md-nav__link> <span class=md-ellipsis> Ubuntu开机亮度无法自动调节 </span> </a> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--nested"> <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type=checkbox id=__nav_7> <label class=md-nav__link for=__nav_7 id=__nav_7_label tabindex=0> <span class=md-ellipsis> 项目开发 </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=1 aria-labelledby=__nav_7_label aria-expanded=false> <label class=md-nav__title for=__nav_7> <span class="md-nav__icon md-icon"></span> 项目开发 </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91/%E5%85%AD%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA/ class=md-nav__link> <span class=md-ellipsis> 六足机器人 </span> </a> </li> <li class=md-nav__item> <a href=../../%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91/%E5%8F%AF%E8%87%AA%E4%B8%BB%E9%A2%84%E8%AD%A6%E7%9A%84%E5%A4%A9%E6%B0%94%E5%B0%8F%E5%8A%A9%E6%89%8B/ class=md-nav__link> <span class=md-ellipsis> 可自主预警的天气小助手 </span> </a> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--nested"> <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type=checkbox id=__nav_8> <label class=md-nav__link for=__nav_8 id=__nav_8_label tabindex=0> <span class=md-ellipsis> 参赛笔记 </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=1 aria-labelledby=__nav_8_label aria-expanded=false> <label class=md-nav__title for=__nav_8> <span class="md-nav__icon md-icon"></span> 参赛笔记 </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../%E5%8F%82%E8%B5%9B%E7%AC%94%E8%AE%B0/%E8%93%9D%E6%A1%A5%E6%9D%AF/ class=md-nav__link> <span class=md-ellipsis> 蓝桥杯单片机 </span> </a> </li> </ul> </nav> </li> </ul> </nav> </div> </div> </div> <div class=md-content data-md-component=content> <article class="md-content__inner md-typeset"> <h1 id=sdcc><strong>SDCC使用指南</strong><a class=headerlink href=#sdcc title="Permanent link">&para;</a></h1> <ul> <li>开源8051单片机开发利器</li> </ul> <blockquote> <p><strong>目标：</strong> 掌握SDCC编译器的安装配置与8051单片机程序开发，实现从源码到HEX文件的完整流程。</p> </blockquote> <hr> <h2 id=sdcc_1>一、SDCC简介与适用场景<a class=headerlink href=#sdcc_1 title="Permanent link">&para;</a></h2> <h3 id=sdcc_2>什么是SDCC？<a class=headerlink href=#sdcc_2 title="Permanent link">&para;</a></h3> <p><strong>SDCC</strong>（Small Device C Compiler）是一个开源的、可重定向的C语言编译器套件，专为8位微控制器设计。</p> <table> <thead> <tr> <th>特性</th> <th>说明</th> </tr> </thead> <tbody> <tr> <td><strong>开源免费</strong></td> <td>GPL许可证，完全免费使用</td> </tr> <tr> <td><strong>跨平台</strong></td> <td>支持Windows、Linux、macOS</td> </tr> <tr> <td><strong>多架构</strong></td> <td>支持8051、STM8、PIC16/18、Z80、HC08等</td> </tr> <tr> <td><strong>标准兼容</strong></td> <td>支持ANSI C89和部分C99特性</td> </tr> <tr> <td><strong>优化能力</strong></td> <td>针对嵌入式优化的代码生成器</td> </tr> </tbody> </table> <h3 id=_1>适用场景<a class=headerlink href=#_1 title="Permanent link">&para;</a></h3> <table> <thead> <tr> <th>场景</th> <th>说明</th> </tr> </thead> <tbody> <tr> <td><strong>蓝桥杯/单片机竞赛</strong></td> <td>官方支持SDCC，替代Keil的免费方案</td> </tr> <tr> <td><strong>开源项目</strong></td> <td>无版权顾虑，适合开源硬件项目</td> </tr> <tr> <td><strong>Linux/Mac开发</strong></td> <td>Keil仅限Windows，SDCC跨平台</td> </tr> <tr> <td><strong>学习研究</strong></td> <td>源码开放，可深入理解编译过程</td> </tr> </tbody> </table> <hr> <h2 id=_2>二、安装与配置<a class=headerlink href=#_2 title="Permanent link">&para;</a></h2> <h3 id=21-windows>2.1 Windows平台安装<a class=headerlink href=#21-windows title="Permanent link">&para;</a></h3> <h4 id=_3>方式一：官方安装包（推荐）<a class=headerlink href=#_3 title="Permanent link">&para;</a></h4> <ol> <li><strong>下载安装包</strong></li> </ol> <ul> <li>访问官网：<a href=https://sdcc.sourceforge.net/ >https://sdcc.sourceforge.net/</a></li> <li>或GitHub Releases：<a href=https://github.com/sdcc/sdcc/releases>https://github.com/sdcc/sdcc/releases</a></li> <li>下载 <code>sdcc-x.x.x-x64-setup.exe</code> 2. <strong>运行安装向导</strong></li> </ul> <p><div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-0-1>1</a></span>
+<span class=normal><a href=#__codelineno-0-2>2</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-0-1 name=__codelineno-0-1></a>双击安装包 → 选择安装路径（建议默认C:\Program Files\SDCC）
+<a id=__codelineno-0-2 name=__codelineno-0-2></a>→ 勾选"Add to PATH" → 完成安装
+</code></pre></div></td></tr></table></div> 3. <strong>验证安装</strong></p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-1-1>1</a></span>
+<span class=normal><a href=#__codelineno-1-2>2</a></span>
+<span class=normal><a href=#__codelineno-1-3>3</a></span>
+<span class=normal><a href=#__codelineno-1-4>4</a></span>
+<span class=normal><a href=#__codelineno-1-5>5</a></span>
+<span class=normal><a href=#__codelineno-1-6>6</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-1-1 name=__codelineno-1-1></a><span class=c># 打开CMD或PowerShell</span>
+<a id=__codelineno-1-2 name=__codelineno-1-2></a><span class=n>sdcc</span> <span class=p>-</span><span class=n>-version</span>
+<a id=__codelineno-1-3 name=__codelineno-1-3></a>
+<a id=__codelineno-1-4 name=__codelineno-1-4></a><span class=c># 预期输出：</span>
+<a id=__codelineno-1-5 name=__codelineno-1-5></a><span class=c># sdcc 4.x.x #xxxx (Linux)</span>
+<a id=__codelineno-1-6 name=__codelineno-1-6></a><span class=c># published under GNU General Public License (GPL)</span>
+</code></pre></div></td></tr></table></div> <h4 id=msys2mingw>方式二：MSYS2/MinGW环境<a class=headerlink href=#msys2mingw title="Permanent link">&para;</a></h4> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-2-1>1</a></span>
+<span class=normal><a href=#__codelineno-2-2>2</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-2-1 name=__codelineno-2-1></a><span class=c1># 在MSYS2终端中执行</span>
+<a id=__codelineno-2-2 name=__codelineno-2-2></a>pacman<span class=w> </span>-S<span class=w> </span>mingw-w64-x86_64-sdcc
+</code></pre></div></td></tr></table></div> <hr> <h3 id=22-linux>2.2 Linux平台安装<a class=headerlink href=#22-linux title="Permanent link">&para;</a></h3> <h4 id=ubuntudebian>Ubuntu/Debian<a class=headerlink href=#ubuntudebian title="Permanent link">&para;</a></h4> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-3-1>1</a></span>
+<span class=normal><a href=#__codelineno-3-2>2</a></span>
+<span class=normal><a href=#__codelineno-3-3>3</a></span>
+<span class=normal><a href=#__codelineno-3-4>4</a></span>
+<span class=normal><a href=#__codelineno-3-5>5</a></span>
+<span class=normal><a href=#__codelineno-3-6>6</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-3-1 name=__codelineno-3-1></a><span class=c1># 安装SDCC及其工具</span>
+<a id=__codelineno-3-2 name=__codelineno-3-2></a>sudo<span class=w> </span>apt<span class=w> </span>update
+<a id=__codelineno-3-3 name=__codelineno-3-3></a>sudo<span class=w> </span>apt<span class=w> </span>install<span class=w> </span>sdcc<span class=w> </span>sdcc-libraries<span class=w> </span>sdcc-doc
+<a id=__codelineno-3-4 name=__codelineno-3-4></a>
+<a id=__codelineno-3-5 name=__codelineno-3-5></a><span class=c1># 安装烧录工具（可选）</span>
+<a id=__codelineno-3-6 name=__codelineno-3-6></a>sudo<span class=w> </span>apt<span class=w> </span>install<span class=w> </span>stcgal<span class=w>  </span><span class=c1># 用于STC单片机烧录</span>
+</code></pre></div></td></tr></table></div> <h4 id=centosrhelfedora>CentOS/RHEL/Fedora<a class=headerlink href=#centosrhelfedora title="Permanent link">&para;</a></h4> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-4-1>1</a></span>
+<span class=normal><a href=#__codelineno-4-2>2</a></span>
+<span class=normal><a href=#__codelineno-4-3>3</a></span>
+<span class=normal><a href=#__codelineno-4-4>4</a></span>
+<span class=normal><a href=#__codelineno-4-5>5</a></span>
+<span class=normal><a href=#__codelineno-4-6>6</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-4-1 name=__codelineno-4-1></a><span class=c1># Fedora</span>
+<a id=__codelineno-4-2 name=__codelineno-4-2></a>sudo<span class=w> </span>dnf<span class=w> </span>install<span class=w> </span>sdcc<span class=w> </span>sdcc-doc
+<a id=__codelineno-4-3 name=__codelineno-4-3></a>
+<a id=__codelineno-4-4 name=__codelineno-4-4></a><span class=c1># CentOS/RHEL（需启用EPEL）</span>
+<a id=__codelineno-4-5 name=__codelineno-4-5></a>sudo<span class=w> </span>yum<span class=w> </span>install<span class=w> </span>epel-release
+<a id=__codelineno-4-6 name=__codelineno-4-6></a>sudo<span class=w> </span>yum<span class=w> </span>install<span class=w> </span>sdcc
+</code></pre></div></td></tr></table></div> <h4 id=arch-linux>Arch Linux<a class=headerlink href=#arch-linux title="Permanent link">&para;</a></h4> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-5-1>1</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-5-1 name=__codelineno-5-1></a>sudo<span class=w> </span>pacman<span class=w> </span>-S<span class=w> </span>sdcc
+</code></pre></div></td></tr></table></div> <hr> <h3 id=23-macos>2.3 macOS平台安装<a class=headerlink href=#23-macos title="Permanent link">&para;</a></h3> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-6-1>1</a></span>
+<span class=normal><a href=#__codelineno-6-2>2</a></span>
+<span class=normal><a href=#__codelineno-6-3>3</a></span>
+<span class=normal><a href=#__codelineno-6-4>4</a></span>
+<span class=normal><a href=#__codelineno-6-5>5</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-6-1 name=__codelineno-6-1></a><span class=c1># 使用Homebrew安装</span>
+<a id=__codelineno-6-2 name=__codelineno-6-2></a>brew<span class=w> </span>install<span class=w> </span>sdcc
+<a id=__codelineno-6-3 name=__codelineno-6-3></a>
+<a id=__codelineno-6-4 name=__codelineno-6-4></a><span class=c1># 验证</span>
+<a id=__codelineno-6-5 name=__codelineno-6-5></a>sdcc<span class=w> </span>--version
+</code></pre></div></td></tr></table></div> <hr> <h3 id=24>2.4 环境变量配置（可选）<a class=headerlink href=#24 title="Permanent link">&para;</a></h3> <p>如果安装后无法识别 <code>sdcc</code> 命令，手动添加PATH：</p> <h4 id=windows>Windows<a class=headerlink href=#windows title="Permanent link">&para;</a></h4> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-7-1>1</a></span>
+<span class=normal><a href=#__codelineno-7-2>2</a></span>
+<span class=normal><a href=#__codelineno-7-3>3</a></span>
+<span class=normal><a href=#__codelineno-7-4>4</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-7-1 name=__codelineno-7-1></a><span class=c># PowerShell（临时）</span>
+<a id=__codelineno-7-2 name=__codelineno-7-2></a><span class=nv>$env:PATH</span> <span class=p>+=</span> <span class=s2>";C:\Program Files\SDCC\bin"</span>
+<a id=__codelineno-7-3 name=__codelineno-7-3></a>
+<a id=__codelineno-7-4 name=__codelineno-7-4></a><span class=c># 永久添加（系统属性 → 环境变量 → Path）</span>
+</code></pre></div></td></tr></table></div> <h4 id=linuxmacos>Linux/macOS<a class=headerlink href=#linuxmacos title="Permanent link">&para;</a></h4> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-8-1>1</a></span>
+<span class=normal><a href=#__codelineno-8-2>2</a></span>
+<span class=normal><a href=#__codelineno-8-3>3</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-8-1 name=__codelineno-8-1></a><span class=c1># 编辑 ~/.bashrc 或 ~/.zshrc</span>
+<a id=__codelineno-8-2 name=__codelineno-8-2></a><span class=nb>echo</span><span class=w> </span><span class=s1>'export PATH="/usr/local/sdcc/bin:$PATH"'</span><span class=w> </span>&gt;&gt;<span class=w> </span>~/.bashrc
+<a id=__codelineno-8-3 name=__codelineno-8-3></a><span class=nb>source</span><span class=w> </span>~/.bashrc
+</code></pre></div></td></tr></table></div> <hr> <h2 id=8051>三、第一个8051程序<a class=headerlink href=#8051 title="Permanent link">&para;</a></h2> <h3 id=31>3.1 创建项目结构<a class=headerlink href=#31 title="Permanent link">&para;</a></h3> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-9-1>1</a></span>
+<span class=normal><a href=#__codelineno-9-2>2</a></span>
+<span class=normal><a href=#__codelineno-9-3>3</a></span>
+<span class=normal><a href=#__codelineno-9-4>4</a></span>
+<span class=normal><a href=#__codelineno-9-5>5</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-9-1 name=__codelineno-9-1></a>my_first_sdcc/
+<a id=__codelineno-9-2 name=__codelineno-9-2></a>├── src/
+<a id=__codelineno-9-3 name=__codelineno-9-3></a>│   └── main.c
+<a id=__codelineno-9-4 name=__codelineno-9-4></a>├── obj/          # 编译输出目录
+<a id=__codelineno-9-5 name=__codelineno-9-5></a>└── bin/          # 最终HEX文件
+</code></pre></div></td></tr></table></div> <h3 id=32>3.2 编写代码<a class=headerlink href=#32 title="Permanent link">&para;</a></h3> <p><strong>src/main.c</strong></p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-10-1> 1</a></span>
+<span class=normal><a href=#__codelineno-10-2> 2</a></span>
+<span class=normal><a href=#__codelineno-10-3> 3</a></span>
+<span class=normal><a href=#__codelineno-10-4> 4</a></span>
+<span class=normal><a href=#__codelineno-10-5> 5</a></span>
+<span class=normal><a href=#__codelineno-10-6> 6</a></span>
+<span class=normal><a href=#__codelineno-10-7> 7</a></span>
+<span class=normal><a href=#__codelineno-10-8> 8</a></span>
+<span class=normal><a href=#__codelineno-10-9> 9</a></span>
+<span class=normal><a href=#__codelineno-10-10>10</a></span>
+<span class=normal><a href=#__codelineno-10-11>11</a></span>
+<span class=normal><a href=#__codelineno-10-12>12</a></span>
+<span class=normal><a href=#__codelineno-10-13>13</a></span>
+<span class=normal><a href=#__codelineno-10-14>14</a></span>
+<span class=normal><a href=#__codelineno-10-15>15</a></span>
+<span class=normal><a href=#__codelineno-10-16>16</a></span>
+<span class=normal><a href=#__codelineno-10-17>17</a></span>
+<span class=normal><a href=#__codelineno-10-18>18</a></span>
+<span class=normal><a href=#__codelineno-10-19>19</a></span>
+<span class=normal><a href=#__codelineno-10-20>20</a></span>
+<span class=normal><a href=#__codelineno-10-21>21</a></span>
+<span class=normal><a href=#__codelineno-10-22>22</a></span>
+<span class=normal><a href=#__codelineno-10-23>23</a></span>
+<span class=normal><a href=#__codelineno-10-24>24</a></span>
+<span class=normal><a href=#__codelineno-10-25>25</a></span>
+<span class=normal><a href=#__codelineno-10-26>26</a></span>
+<span class=normal><a href=#__codelineno-10-27>27</a></span>
+<span class=normal><a href=#__codelineno-10-28>28</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-10-1 name=__codelineno-10-1></a><span class=cm>/*</span>
+<a id=__codelineno-10-2 name=__codelineno-10-2></a><span class=cm> * 第一个SDCC程序：LED闪烁</span>
+<a id=__codelineno-10-3 name=__codelineno-10-3></a><span class=cm> * 目标芯片：STC89C52RC</span>
+<a id=__codelineno-10-4 name=__codelineno-10-4></a><span class=cm> * 晶振：11.0592MHz</span>
+<a id=__codelineno-10-5 name=__codelineno-10-5></a><span class=cm> */</span>
+<a id=__codelineno-10-6 name=__codelineno-10-6></a>
+<a id=__codelineno-10-7 name=__codelineno-10-7></a><span class=cp>#include</span><span class=w> </span><span class=cpf>&lt;8051.h&gt;</span><span class=w>  </span><span class=c1>// SDCC提供的8051头文件</span>
+<a id=__codelineno-10-8 name=__codelineno-10-8></a>
+<a id=__codelineno-10-9 name=__codelineno-10-9></a><span class=c1>// 定义LED引脚（假设接在P1.0）</span>
+<a id=__codelineno-10-10 name=__codelineno-10-10></a><span class=cp>#define LED P1_0</span>
+<a id=__codelineno-10-11 name=__codelineno-10-11></a>
+<a id=__codelineno-10-12 name=__codelineno-10-12></a><span class=c1>// 延时函数（约毫秒级，11.0592MHz）</span>
+<a id=__codelineno-10-13 name=__codelineno-10-13></a><span class=kt>void</span><span class=w> </span><span class=nf>delay_ms</span><span class=p>(</span><span class=kt>unsigned</span><span class=w> </span><span class=kt>int</span><span class=w> </span><span class=n>ms</span><span class=p>)</span><span class=w> </span><span class=p>{</span>
+<a id=__codelineno-10-14 name=__codelineno-10-14></a><span class=w>    </span><span class=kt>unsigned</span><span class=w> </span><span class=kt>int</span><span class=w> </span><span class=n>i</span><span class=p>,</span><span class=w> </span><span class=n>j</span><span class=p>;</span>
+<a id=__codelineno-10-15 name=__codelineno-10-15></a><span class=w>    </span><span class=k>for</span><span class=w> </span><span class=p>(</span><span class=n>i</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=mi>0</span><span class=p>;</span><span class=w> </span><span class=n>i</span><span class=w> </span><span class=o>&lt;</span><span class=w> </span><span class=n>ms</span><span class=p>;</span><span class=w> </span><span class=n>i</span><span class=o>++</span><span class=p>)</span><span class=w> </span><span class=p>{</span>
+<a id=__codelineno-10-16 name=__codelineno-10-16></a><span class=w>        </span><span class=k>for</span><span class=w> </span><span class=p>(</span><span class=n>j</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=mi>0</span><span class=p>;</span><span class=w> </span><span class=n>j</span><span class=w> </span><span class=o>&lt;</span><span class=w> </span><span class=mi>120</span><span class=p>;</span><span class=w> </span><span class=n>j</span><span class=o>++</span><span class=p>);</span><span class=w>  </span><span class=c1>// 约1ms</span>
+<a id=__codelineno-10-17 name=__codelineno-10-17></a><span class=w>    </span><span class=p>}</span>
+<a id=__codelineno-10-18 name=__codelineno-10-18></a><span class=p>}</span>
+<a id=__codelineno-10-19 name=__codelineno-10-19></a>
+<a id=__codelineno-10-20 name=__codelineno-10-20></a><span class=kt>void</span><span class=w> </span><span class=nf>main</span><span class=p>(</span><span class=kt>void</span><span class=p>)</span><span class=w> </span><span class=p>{</span>
+<a id=__codelineno-10-21 name=__codelineno-10-21></a><span class=w>    </span><span class=k>while</span><span class=w> </span><span class=p>(</span><span class=mi>1</span><span class=p>)</span><span class=w> </span><span class=p>{</span>
+<a id=__codelineno-10-22 name=__codelineno-10-22></a><span class=w>        </span><span class=n>LED</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=mi>0</span><span class=p>;</span><span class=w>        </span><span class=c1>// 点亮LED（低电平有效）</span>
+<a id=__codelineno-10-23 name=__codelineno-10-23></a><span class=w>        </span><span class=n>delay_ms</span><span class=p>(</span><span class=mi>500</span><span class=p>);</span><span class=w>  </span><span class=c1>// 延时500ms</span>
+<a id=__codelineno-10-24 name=__codelineno-10-24></a>
+<a id=__codelineno-10-25 name=__codelineno-10-25></a><span class=w>        </span><span class=n>LED</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=mi>1</span><span class=p>;</span><span class=w>        </span><span class=c1>// 熄灭LED</span>
+<a id=__codelineno-10-26 name=__codelineno-10-26></a><span class=w>        </span><span class=n>delay_ms</span><span class=p>(</span><span class=mi>500</span><span class=p>);</span><span class=w>  </span><span class=c1>// 延时500ms</span>
+<a id=__codelineno-10-27 name=__codelineno-10-27></a><span class=w>    </span><span class=p>}</span>
+<a id=__codelineno-10-28 name=__codelineno-10-28></a><span class=p>}</span>
+</code></pre></div></td></tr></table></div> <h3 id=33>3.3 编译流程<a class=headerlink href=#33 title="Permanent link">&para;</a></h3> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-11-1> 1</a></span>
+<span class=normal><a href=#__codelineno-11-2> 2</a></span>
+<span class=normal><a href=#__codelineno-11-3> 3</a></span>
+<span class=normal><a href=#__codelineno-11-4> 4</a></span>
+<span class=normal><a href=#__codelineno-11-5> 5</a></span>
+<span class=normal><a href=#__codelineno-11-6> 6</a></span>
+<span class=normal><a href=#__codelineno-11-7> 7</a></span>
+<span class=normal><a href=#__codelineno-11-8> 8</a></span>
+<span class=normal><a href=#__codelineno-11-9> 9</a></span>
+<span class=normal><a href=#__codelineno-11-10>10</a></span>
+<span class=normal><a href=#__codelineno-11-11>11</a></span>
+<span class=normal><a href=#__codelineno-11-12>12</a></span>
+<span class=normal><a href=#__codelineno-11-13>13</a></span>
+<span class=normal><a href=#__codelineno-11-14>14</a></span>
+<span class=normal><a href=#__codelineno-11-15>15</a></span>
+<span class=normal><a href=#__codelineno-11-16>16</a></span>
+<span class=normal><a href=#__codelineno-11-17>17</a></span>
+<span class=normal><a href=#__codelineno-11-18>18</a></span>
+<span class=normal><a href=#__codelineno-11-19>19</a></span>
+<span class=normal><a href=#__codelineno-11-20>20</a></span>
+<span class=normal><a href=#__codelineno-11-21>21</a></span>
+<span class=normal><a href=#__codelineno-11-22>22</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-11-1 name=__codelineno-11-1></a><span class=c1># 进入项目目录</span>
+<a id=__codelineno-11-2 name=__codelineno-11-2></a><span class=nb>cd</span><span class=w> </span>my_first_sdcc
+<a id=__codelineno-11-3 name=__codelineno-11-3></a>
+<a id=__codelineno-11-4 name=__codelineno-11-4></a><span class=c1># 创建输出目录</span>
+<a id=__codelineno-11-5 name=__codelineno-11-5></a>mkdir<span class=w> </span>-p<span class=w> </span>obj<span class=w> </span>bin
+<a id=__codelineno-11-6 name=__codelineno-11-6></a>
+<a id=__codelineno-11-7 name=__codelineno-11-7></a><span class=c1># 编译C文件</span>
+<a id=__codelineno-11-8 name=__codelineno-11-8></a>sdcc<span class=w> </span>-mmcs51<span class=w> </span>--model-small<span class=w> </span><span class=se>\</span>
+<a id=__codelineno-11-9 name=__codelineno-11-9></a><span class=w>     </span>-I/usr/share/sdcc/include<span class=w> </span><span class=se>\</span>
+<a id=__codelineno-11-10 name=__codelineno-11-10></a><span class=w>     </span>-c<span class=w> </span>src/main.c<span class=w> </span><span class=se>\</span>
+<a id=__codelineno-11-11 name=__codelineno-11-11></a><span class=w>     </span>-o<span class=w> </span>obj/main.rel
+<a id=__codelineno-11-12 name=__codelineno-11-12></a>
+<a id=__codelineno-11-13 name=__codelineno-11-13></a><span class=c1># 链接生成IHX文件</span>
+<a id=__codelineno-11-14 name=__codelineno-11-14></a>sdcc<span class=w> </span>-mmcs51<span class=w> </span>--model-small<span class=w> </span><span class=se>\</span>
+<a id=__codelineno-11-15 name=__codelineno-11-15></a><span class=w>     </span>--code-loc<span class=w> </span>0x0000<span class=w> </span><span class=se>\</span>
+<a id=__codelineno-11-16 name=__codelineno-11-16></a><span class=w>     </span>--xram-loc<span class=w> </span>0x0000<span class=w> </span><span class=se>\</span>
+<a id=__codelineno-11-17 name=__codelineno-11-17></a><span class=w>     </span>--iram-size<span class=w> </span><span class=m>256</span><span class=w> </span><span class=se>\</span>
+<a id=__codelineno-11-18 name=__codelineno-11-18></a><span class=w>     </span>-o<span class=w> </span>bin/firmware.ihx<span class=w> </span><span class=se>\</span>
+<a id=__codelineno-11-19 name=__codelineno-11-19></a><span class=w>     </span>obj/main.rel
+<a id=__codelineno-11-20 name=__codelineno-11-20></a>
+<a id=__codelineno-11-21 name=__codelineno-11-21></a><span class=c1># 转换IHX为HEX格式（通用烧录格式）</span>
+<a id=__codelineno-11-22 name=__codelineno-11-22></a>packihx<span class=w> </span>bin/firmware.ihx<span class=w> </span>&gt;<span class=w> </span>bin/firmware.hex
+</code></pre></div></td></tr></table></div> <h3 id=34>3.4 编译选项详解<a class=headerlink href=#34 title="Permanent link">&para;</a></h3> <table> <thead> <tr> <th>选项</th> <th>说明</th> <th>示例</th> </tr> </thead> <tbody> <tr> <td><code>-mmcs51</code></td> <td>指定目标架构为8051</td> <td>必选</td> </tr> <tr> <td><code>--model-small</code></td> <td>存储模型：小模式（默认）</td> <td>small/medium/large</td> </tr> <tr> <td><code>-c</code></td> <td>只编译不链接</td> <td>生成.rel文件</td> </tr> <tr> <td><code>-o</code></td> <td>指定输出文件</td> <td>可控制输出位置</td> </tr> <tr> <td><code>--code-loc</code></td> <td>代码起始地址</td> <td>通常为0x0000</td> </tr> <tr> <td><code>--xram-loc</code></td> <td>外部RAM起始地址</td> <td>无外部RAM可不设</td> </tr> <tr> <td><code>--iram-size</code></td> <td>内部RAM大小</td> <td>STC89C52为256字节</td> </tr> <tr> <td><code>-I</code></td> <td>指定头文件搜索路径</td> <td>包含8051.h等</td> </tr> </tbody> </table> <hr> <h2 id=makefile>四、Makefile自动化构建<a class=headerlink href=#makefile title="Permanent link">&para;</a></h2> <h3 id=41-makefile>4.1 创建Makefile<a class=headerlink href=#41-makefile title="Permanent link">&para;</a></h3> <p><strong>Makefile</strong></p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-12-1> 1</a></span>
+<span class=normal><a href=#__codelineno-12-2> 2</a></span>
+<span class=normal><a href=#__codelineno-12-3> 3</a></span>
+<span class=normal><a href=#__codelineno-12-4> 4</a></span>
+<span class=normal><a href=#__codelineno-12-5> 5</a></span>
+<span class=normal><a href=#__codelineno-12-6> 6</a></span>
+<span class=normal><a href=#__codelineno-12-7> 7</a></span>
+<span class=normal><a href=#__codelineno-12-8> 8</a></span>
+<span class=normal><a href=#__codelineno-12-9> 9</a></span>
+<span class=normal><a href=#__codelineno-12-10>10</a></span>
+<span class=normal><a href=#__codelineno-12-11>11</a></span>
+<span class=normal><a href=#__codelineno-12-12>12</a></span>
+<span class=normal><a href=#__codelineno-12-13>13</a></span>
+<span class=normal><a href=#__codelineno-12-14>14</a></span>
+<span class=normal><a href=#__codelineno-12-15>15</a></span>
+<span class=normal><a href=#__codelineno-12-16>16</a></span>
+<span class=normal><a href=#__codelineno-12-17>17</a></span>
+<span class=normal><a href=#__codelineno-12-18>18</a></span>
+<span class=normal><a href=#__codelineno-12-19>19</a></span>
+<span class=normal><a href=#__codelineno-12-20>20</a></span>
+<span class=normal><a href=#__codelineno-12-21>21</a></span>
+<span class=normal><a href=#__codelineno-12-22>22</a></span>
+<span class=normal><a href=#__codelineno-12-23>23</a></span>
+<span class=normal><a href=#__codelineno-12-24>24</a></span>
+<span class=normal><a href=#__codelineno-12-25>25</a></span>
+<span class=normal><a href=#__codelineno-12-26>26</a></span>
+<span class=normal><a href=#__codelineno-12-27>27</a></span>
+<span class=normal><a href=#__codelineno-12-28>28</a></span>
+<span class=normal><a href=#__codelineno-12-29>29</a></span>
+<span class=normal><a href=#__codelineno-12-30>30</a></span>
+<span class=normal><a href=#__codelineno-12-31>31</a></span>
+<span class=normal><a href=#__codelineno-12-32>32</a></span>
+<span class=normal><a href=#__codelineno-12-33>33</a></span>
+<span class=normal><a href=#__codelineno-12-34>34</a></span>
+<span class=normal><a href=#__codelineno-12-35>35</a></span>
+<span class=normal><a href=#__codelineno-12-36>36</a></span>
+<span class=normal><a href=#__codelineno-12-37>37</a></span>
+<span class=normal><a href=#__codelineno-12-38>38</a></span>
+<span class=normal><a href=#__codelineno-12-39>39</a></span>
+<span class=normal><a href=#__codelineno-12-40>40</a></span>
+<span class=normal><a href=#__codelineno-12-41>41</a></span>
+<span class=normal><a href=#__codelineno-12-42>42</a></span>
+<span class=normal><a href=#__codelineno-12-43>43</a></span>
+<span class=normal><a href=#__codelineno-12-44>44</a></span>
+<span class=normal><a href=#__codelineno-12-45>45</a></span>
+<span class=normal><a href=#__codelineno-12-46>46</a></span>
+<span class=normal><a href=#__codelineno-12-47>47</a></span>
+<span class=normal><a href=#__codelineno-12-48>48</a></span>
+<span class=normal><a href=#__codelineno-12-49>49</a></span>
+<span class=normal><a href=#__codelineno-12-50>50</a></span>
+<span class=normal><a href=#__codelineno-12-51>51</a></span>
+<span class=normal><a href=#__codelineno-12-52>52</a></span>
+<span class=normal><a href=#__codelineno-12-53>53</a></span>
+<span class=normal><a href=#__codelineno-12-54>54</a></span>
+<span class=normal><a href=#__codelineno-12-55>55</a></span>
+<span class=normal><a href=#__codelineno-12-56>56</a></span>
+<span class=normal><a href=#__codelineno-12-57>57</a></span>
+<span class=normal><a href=#__codelineno-12-58>58</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-12-1 name=__codelineno-12-1></a><span class=c># SDCC Makefile for 8051 Projects</span>
+<a id=__codelineno-12-2 name=__codelineno-12-2></a>
+<a id=__codelineno-12-3 name=__codelineno-12-3></a><span class=c># 项目配置</span>
+<a id=__codelineno-12-4 name=__codelineno-12-4></a><span class=nv>TARGET</span><span class=w>      </span><span class=o>=</span><span class=w> </span>firmware
+<a id=__codelineno-12-5 name=__codelineno-12-5></a><span class=nv>MCU</span><span class=w>         </span><span class=o>=</span><span class=w> </span>mcs51
+<a id=__codelineno-12-6 name=__codelineno-12-6></a><span class=nv>MODEL</span><span class=w>       </span><span class=o>=</span><span class=w> </span>small
+<a id=__codelineno-12-7 name=__codelineno-12-7></a>
+<a id=__codelineno-12-8 name=__codelineno-12-8></a><span class=c># 目录配置</span>
+<a id=__codelineno-12-9 name=__codelineno-12-9></a><span class=nv>SRC_DIR</span><span class=w>     </span><span class=o>=</span><span class=w> </span>src
+<a id=__codelineno-12-10 name=__codelineno-12-10></a><span class=nv>OBJ_DIR</span><span class=w>     </span><span class=o>=</span><span class=w> </span>obj
+<a id=__codelineno-12-11 name=__codelineno-12-11></a><span class=nv>BIN_DIR</span><span class=w>     </span><span class=o>=</span><span class=w> </span>bin
+<a id=__codelineno-12-12 name=__codelineno-12-12></a>
+<a id=__codelineno-12-13 name=__codelineno-12-13></a><span class=c># 工具链</span>
+<a id=__codelineno-12-14 name=__codelineno-12-14></a><span class=nv>CC</span><span class=w>          </span><span class=o>=</span><span class=w> </span>sdcc
+<a id=__codelineno-12-15 name=__codelineno-12-15></a><span class=nv>PACKIHX</span><span class=w>     </span><span class=o>=</span><span class=w> </span>packihx
+<a id=__codelineno-12-16 name=__codelineno-12-16></a><span class=nv>RM</span><span class=w>          </span><span class=o>=</span><span class=w> </span>rm<span class=w> </span>-rf
+<a id=__codelineno-12-17 name=__codelineno-12-17></a>
+<a id=__codelineno-12-18 name=__codelineno-12-18></a><span class=c># 编译选项</span>
+<a id=__codelineno-12-19 name=__codelineno-12-19></a><span class=nv>CFLAGS</span><span class=w>      </span><span class=o>=</span><span class=w> </span>-m<span class=k>$(</span>MCU<span class=k>)</span><span class=w> </span>--model-<span class=k>$(</span>MODEL<span class=k>)</span><span class=w> </span>-I/usr/share/sdcc/include
+<a id=__codelineno-12-20 name=__codelineno-12-20></a><span class=nv>LDFLAGS</span><span class=w>     </span><span class=o>=</span><span class=w> </span>-m<span class=k>$(</span>MCU<span class=k>)</span><span class=w> </span>--model-<span class=k>$(</span>MODEL<span class=k>)</span><span class=w> </span><span class=se>\</span>
+<a id=__codelineno-12-21 name=__codelineno-12-21></a><span class=w>              </span>--code-loc<span class=w> </span>0x0000<span class=w> </span><span class=se>\</span>
+<a id=__codelineno-12-22 name=__codelineno-12-22></a><span class=w>              </span>--xram-loc<span class=w> </span>0x0000<span class=w> </span><span class=se>\</span>
+<a id=__codelineno-12-23 name=__codelineno-12-23></a><span class=w>              </span>--iram-size<span class=w> </span><span class=m>256</span>
+<a id=__codelineno-12-24 name=__codelineno-12-24></a>
+<a id=__codelineno-12-25 name=__codelineno-12-25></a><span class=c># 源文件和对象文件</span>
+<a id=__codelineno-12-26 name=__codelineno-12-26></a><span class=nv>SOURCES</span><span class=w>     </span><span class=o>=</span><span class=w> </span><span class=k>$(</span>wildcard<span class=w> </span><span class=k>$(</span>SRC_DIR<span class=k>)</span>/*.c<span class=k>)</span>
+<a id=__codelineno-12-27 name=__codelineno-12-27></a><span class=nv>OBJECTS</span><span class=w>     </span><span class=o>=</span><span class=w> </span><span class=k>$(</span>patsubst<span class=w> </span><span class=k>$(</span>SRC_DIR<span class=k>)</span>/%.c,<span class=k>$(</span>OBJ_DIR<span class=k>)</span>/%.rel,<span class=k>$(</span>SOURCES<span class=k>))</span>
+<a id=__codelineno-12-28 name=__codelineno-12-28></a>
+<a id=__codelineno-12-29 name=__codelineno-12-29></a><span class=c># 默认目标</span>
+<a id=__codelineno-12-30 name=__codelineno-12-30></a><span class=nf>all</span><span class=o>:</span><span class=w> </span><span class=n>directories</span> <span class=k>$(</span><span class=nv>BIN_DIR</span><span class=k>)</span>/<span class=k>$(</span><span class=nv>TARGET</span><span class=k>)</span>.<span class=n>hex</span>
+<a id=__codelineno-12-31 name=__codelineno-12-31></a><span class=w>    </span>@echo<span class=w> </span><span class=s2>"编译完成: </span><span class=k>$(</span>BIN_DIR<span class=k>)</span><span class=s2>/</span><span class=k>$(</span>TARGET<span class=k>)</span><span class=s2>.hex"</span>
+<a id=__codelineno-12-32 name=__codelineno-12-32></a>
+<a id=__codelineno-12-33 name=__codelineno-12-33></a><span class=c># 创建目录</span>
+<a id=__codelineno-12-34 name=__codelineno-12-34></a><span class=nf>directories</span><span class=o>:</span>
+<a id=__codelineno-12-35 name=__codelineno-12-35></a><span class=w>    </span>@mkdir<span class=w> </span>-p<span class=w> </span><span class=k>$(</span>OBJ_DIR<span class=k>)</span><span class=w> </span><span class=k>$(</span>BIN_DIR<span class=k>)</span>
+<a id=__codelineno-12-36 name=__codelineno-12-36></a>
+<a id=__codelineno-12-37 name=__codelineno-12-37></a><span class=c># 编译规则：.c -&gt; .rel</span>
+<a id=__codelineno-12-38 name=__codelineno-12-38></a><span class=nf>$(OBJ_DIR)/%.rel</span><span class=o>:</span><span class=w> </span><span class=k>$(</span><span class=nv>SRC_DIR</span><span class=k>)</span>/%.<span class=n>c</span>
+<a id=__codelineno-12-39 name=__codelineno-12-39></a><span class=w>    </span><span class=k>$(</span>CC<span class=k>)</span><span class=w> </span><span class=k>$(</span>CFLAGS<span class=k>)</span><span class=w> </span>-c<span class=w> </span>$&lt;<span class=w> </span>-o<span class=w> </span><span class=nv>$@</span>
+<a id=__codelineno-12-40 name=__codelineno-12-40></a>
+<a id=__codelineno-12-41 name=__codelineno-12-41></a><span class=c># 链接规则：生成IHX</span>
+<a id=__codelineno-12-42 name=__codelineno-12-42></a><span class=nf>$(BIN_DIR)/$(TARGET).ihx</span><span class=o>:</span><span class=w> </span><span class=k>$(</span><span class=nv>OBJECTS</span><span class=k>)</span>
+<a id=__codelineno-12-43 name=__codelineno-12-43></a><span class=w>    </span><span class=k>$(</span>CC<span class=k>)</span><span class=w> </span><span class=k>$(</span>LDFLAGS<span class=k>)</span><span class=w> </span>-o<span class=w> </span><span class=nv>$@</span><span class=w> </span><span class=k>$(</span>OBJECTS<span class=k>)</span>
+<a id=__codelineno-12-44 name=__codelineno-12-44></a>
+<a id=__codelineno-12-45 name=__codelineno-12-45></a><span class=c># 转换IHX -&gt; HEX</span>
+<a id=__codelineno-12-46 name=__codelineno-12-46></a><span class=nf>$(BIN_DIR)/$(TARGET).hex</span><span class=o>:</span><span class=w> </span><span class=k>$(</span><span class=nv>BIN_DIR</span><span class=k>)</span>/<span class=k>$(</span><span class=nv>TARGET</span><span class=k>)</span>.<span class=n>ihx</span>
+<a id=__codelineno-12-47 name=__codelineno-12-47></a><span class=w>    </span><span class=k>$(</span>PACKIHX<span class=k>)</span><span class=w> </span>$&lt;<span class=w> </span>&gt;<span class=w> </span><span class=nv>$@</span>
+<a id=__codelineno-12-48 name=__codelineno-12-48></a>
+<a id=__codelineno-12-49 name=__codelineno-12-49></a><span class=c># 清理</span>
+<a id=__codelineno-12-50 name=__codelineno-12-50></a><span class=nf>clean</span><span class=o>:</span>
+<a id=__codelineno-12-51 name=__codelineno-12-51></a><span class=w>    </span><span class=k>$(</span>RM<span class=k>)</span><span class=w> </span><span class=k>$(</span>OBJ_DIR<span class=k>)</span><span class=w> </span><span class=k>$(</span>BIN_DIR<span class=k>)</span>
+<a id=__codelineno-12-52 name=__codelineno-12-52></a><span class=w>    </span>@echo<span class=w> </span><span class=s2>"清理完成"</span>
+<a id=__codelineno-12-53 name=__codelineno-12-53></a>
+<a id=__codelineno-12-54 name=__codelineno-12-54></a><span class=c># 烧录（需安装stcgal）</span>
+<a id=__codelineno-12-55 name=__codelineno-12-55></a><span class=nf>flash</span><span class=o>:</span><span class=w> </span><span class=k>$(</span><span class=nv>BIN_DIR</span><span class=k>)</span>/<span class=k>$(</span><span class=nv>TARGET</span><span class=k>)</span>.<span class=n>hex</span>
+<a id=__codelineno-12-56 name=__codelineno-12-56></a><span class=w>    </span>stcgal<span class=w> </span>-p<span class=w> </span>/dev/ttyUSB0<span class=w> </span>-b<span class=w> </span><span class=m>9600</span><span class=w> </span><span class=k>$(</span>BIN_DIR<span class=k>)</span>/<span class=k>$(</span>TARGET<span class=k>)</span>.hex
+<a id=__codelineno-12-57 name=__codelineno-12-57></a>
+<a id=__codelineno-12-58 name=__codelineno-12-58></a><span class=nf>.PHONY</span><span class=o>:</span><span class=w> </span><span class=n>all</span> <span class=n>directories</span> <span class=n>clean</span> <span class=n>flash</span>
+</code></pre></div></td></tr></table></div> <h3 id=42-makefile>4.2 使用Makefile<a class=headerlink href=#42-makefile title="Permanent link">&para;</a></h3> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-13-1> 1</a></span>
+<span class=normal><a href=#__codelineno-13-2> 2</a></span>
+<span class=normal><a href=#__codelineno-13-3> 3</a></span>
+<span class=normal><a href=#__codelineno-13-4> 4</a></span>
+<span class=normal><a href=#__codelineno-13-5> 5</a></span>
+<span class=normal><a href=#__codelineno-13-6> 6</a></span>
+<span class=normal><a href=#__codelineno-13-7> 7</a></span>
+<span class=normal><a href=#__codelineno-13-8> 8</a></span>
+<span class=normal><a href=#__codelineno-13-9> 9</a></span>
+<span class=normal><a href=#__codelineno-13-10>10</a></span>
+<span class=normal><a href=#__codelineno-13-11>11</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-13-1 name=__codelineno-13-1></a><span class=c1># 编译整个项目</span>
+<a id=__codelineno-13-2 name=__codelineno-13-2></a>make
+<a id=__codelineno-13-3 name=__codelineno-13-3></a>
+<a id=__codelineno-13-4 name=__codelineno-13-4></a><span class=c1># 清理编译结果</span>
+<a id=__codelineno-13-5 name=__codelineno-13-5></a>make<span class=w> </span>clean
+<a id=__codelineno-13-6 name=__codelineno-13-6></a>
+<a id=__codelineno-13-7 name=__codelineno-13-7></a><span class=c1># 编译并烧录（Linux）</span>
+<a id=__codelineno-13-8 name=__codelineno-13-8></a>make<span class=w> </span>flash
+<a id=__codelineno-13-9 name=__codelineno-13-9></a>
+<a id=__codelineno-13-10 name=__codelineno-13-10></a><span class=c1># 多文件项目自动处理</span>
+<a id=__codelineno-13-11 name=__codelineno-13-11></a><span class=c1># 只需在src/目录添加.c文件，Makefile自动识别</span>
+</code></pre></div></td></tr></table></div> <hr> <h2 id=sdcckeil>五、SDCC与Keil的对比与迁移<a class=headerlink href=#sdcckeil title="Permanent link">&para;</a></h2> <h3 id=51>5.1 关键差异<a class=headerlink href=#51 title="Permanent link">&para;</a></h3> <table> <thead> <tr> <th>特性</th> <th>SDCC</th> <th>Keil C51</th> </tr> </thead> <tbody> <tr> <td><strong>费用</strong></td> <td>免费开源</td> <td>商业软件（有评估版）</td> </tr> <tr> <td><strong>头文件</strong></td> <td><code>&lt;8051.h&gt;</code>、<code>&lt;8052.h&gt;</code></td> <td><code>&lt;reg51.h&gt;</code>、<code>&lt;reg52.h&gt;</code></td> </tr> <tr> <td><strong>中断语法</strong></td> <td><code>void ISR(void) __interrupt 0</code></td> <td><code>void ISR(void) interrupt 0</code></td> </tr> <tr> <td><strong>sfr定义</strong></td> <td><code>__sfr __at (0x80) P0;</code></td> <td><code>sfr P0 = 0x80;</code></td> </tr> <tr> <td><strong>sbit定义</strong></td> <td><code>__sbit __at (0x90) P1_0;</code></td> <td><code>sbit P1_0 = P1^0;</code></td> </tr> <tr> <td><strong>位变量</strong></td> <td><code>__bit flag;</code></td> <td><code>bit flag;</code></td> </tr> <tr> <td><strong>存储类型</strong></td> <td><code>__data</code>、<code>__xdata</code>、<code>__code</code></td> <td><code>data</code>、<code>xdata</code>、<code>code</code></td> </tr> </tbody> </table> <h3 id=52-keilsdcc>5.2 Keil代码迁移到SDCC<a class=headerlink href=#52-keilsdcc title="Permanent link">&para;</a></h3> <p><strong>原Keil代码：</strong></p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-14-1> 1</a></span>
+<span class=normal><a href=#__codelineno-14-2> 2</a></span>
+<span class=normal><a href=#__codelineno-14-3> 3</a></span>
+<span class=normal><a href=#__codelineno-14-4> 4</a></span>
+<span class=normal><a href=#__codelineno-14-5> 5</a></span>
+<span class=normal><a href=#__codelineno-14-6> 6</a></span>
+<span class=normal><a href=#__codelineno-14-7> 7</a></span>
+<span class=normal><a href=#__codelineno-14-8> 8</a></span>
+<span class=normal><a href=#__codelineno-14-9> 9</a></span>
+<span class=normal><a href=#__codelineno-14-10>10</a></span>
+<span class=normal><a href=#__codelineno-14-11>11</a></span>
+<span class=normal><a href=#__codelineno-14-12>12</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-14-1 name=__codelineno-14-1></a><span class=cp>#include</span><span class=w> </span><span class=cpf>&lt;reg52.h&gt;</span>
+<a id=__codelineno-14-2 name=__codelineno-14-2></a>
+<a id=__codelineno-14-3 name=__codelineno-14-3></a><span class=n>sbit</span><span class=w> </span><span class=n>LED</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>P1</span><span class=o>^</span><span class=mi>0</span><span class=p>;</span>
+<a id=__codelineno-14-4 name=__codelineno-14-4></a><span class=n>sfr</span><span class=w> </span><span class=n>MYREG</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=mh>0xA0</span><span class=p>;</span>
+<a id=__codelineno-14-5 name=__codelineno-14-5></a>
+<a id=__codelineno-14-6 name=__codelineno-14-6></a><span class=n>bit</span><span class=w> </span><span class=n>flag</span><span class=p>;</span>
+<a id=__codelineno-14-7 name=__codelineno-14-7></a><span class=n>data</span><span class=w> </span><span class=kt>unsigned</span><span class=w> </span><span class=kt>char</span><span class=w> </span><span class=n>var</span><span class=p>;</span>
+<a id=__codelineno-14-8 name=__codelineno-14-8></a><span class=n>xdata</span><span class=w> </span><span class=kt>unsigned</span><span class=w> </span><span class=kt>char</span><span class=w> </span><span class=n>buffer</span><span class=p>[</span><span class=mi>100</span><span class=p>];</span>
+<a id=__codelineno-14-9 name=__codelineno-14-9></a>
+<a id=__codelineno-14-10 name=__codelineno-14-10></a><span class=kt>void</span><span class=w> </span><span class=nf>timer_isr</span><span class=p>(</span><span class=kt>void</span><span class=p>)</span><span class=w> </span><span class=n>interrupt</span><span class=w> </span><span class=mi>1</span><span class=w> </span><span class=p>{</span>
+<a id=__codelineno-14-11 name=__codelineno-14-11></a><span class=w>    </span><span class=c1>// 中断服务程序</span>
+<a id=__codelineno-14-12 name=__codelineno-14-12></a><span class=p>}</span>
+</code></pre></div></td></tr></table></div> <p><strong>SDCC兼容版本：</strong></p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-15-1> 1</a></span>
+<span class=normal><a href=#__codelineno-15-2> 2</a></span>
+<span class=normal><a href=#__codelineno-15-3> 3</a></span>
+<span class=normal><a href=#__codelineno-15-4> 4</a></span>
+<span class=normal><a href=#__codelineno-15-5> 5</a></span>
+<span class=normal><a href=#__codelineno-15-6> 6</a></span>
+<span class=normal><a href=#__codelineno-15-7> 7</a></span>
+<span class=normal><a href=#__codelineno-15-8> 8</a></span>
+<span class=normal><a href=#__codelineno-15-9> 9</a></span>
+<span class=normal><a href=#__codelineno-15-10>10</a></span>
+<span class=normal><a href=#__codelineno-15-11>11</a></span>
+<span class=normal><a href=#__codelineno-15-12>12</a></span>
+<span class=normal><a href=#__codelineno-15-13>13</a></span>
+<span class=normal><a href=#__codelineno-15-14>14</a></span>
+<span class=normal><a href=#__codelineno-15-15>15</a></span>
+<span class=normal><a href=#__codelineno-15-16>16</a></span>
+<span class=normal><a href=#__codelineno-15-17>17</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-15-1 name=__codelineno-15-1></a><span class=cp>#include</span><span class=w> </span><span class=cpf>&lt;8052.h&gt;</span>
+<a id=__codelineno-15-2 name=__codelineno-15-2></a>
+<a id=__codelineno-15-3 name=__codelineno-15-3></a><span class=c1>// sbit定义方式不同</span>
+<a id=__codelineno-15-4 name=__codelineno-15-4></a><span class=n>__sbit</span><span class=w> </span><span class=nf>__at</span><span class=w> </span><span class=p>(</span><span class=mh>0x90</span><span class=p>)</span><span class=w> </span><span class=n>LED</span><span class=p>;</span><span class=w>  </span><span class=c1>// P1.0 = 0x90</span>
+<a id=__codelineno-15-5 name=__codelineno-15-5></a>
+<a id=__codelineno-15-6 name=__codelineno-15-6></a><span class=c1>// sfr定义</span>
+<a id=__codelineno-15-7 name=__codelineno-15-7></a><span class=n>__sfr</span><span class=w> </span><span class=nf>__at</span><span class=w> </span><span class=p>(</span><span class=mh>0xA0</span><span class=p>)</span><span class=w> </span><span class=n>MYREG</span><span class=p>;</span>
+<a id=__codelineno-15-8 name=__codelineno-15-8></a>
+<a id=__codelineno-15-9 name=__codelineno-15-9></a><span class=c1>// 位变量和存储类型</span>
+<a id=__codelineno-15-10 name=__codelineno-15-10></a><span class=n>__bit</span><span class=w> </span><span class=n>flag</span><span class=p>;</span>
+<a id=__codelineno-15-11 name=__codelineno-15-11></a><span class=n>__data</span><span class=w> </span><span class=kt>unsigned</span><span class=w> </span><span class=kt>char</span><span class=w> </span><span class=n>var</span><span class=p>;</span>
+<a id=__codelineno-15-12 name=__codelineno-15-12></a><span class=n>__xdata</span><span class=w> </span><span class=kt>unsigned</span><span class=w> </span><span class=kt>char</span><span class=w> </span><span class=n>buffer</span><span class=p>[</span><span class=mi>100</span><span class=p>];</span>
+<a id=__codelineno-15-13 name=__codelineno-15-13></a>
+<a id=__codelineno-15-14 name=__codelineno-15-14></a><span class=c1>// 中断服务程序</span>
+<a id=__codelineno-15-15 name=__codelineno-15-15></a><span class=kt>void</span><span class=w> </span><span class=nf>timer_isr</span><span class=p>(</span><span class=kt>void</span><span class=p>)</span><span class=w> </span><span class=n>__interrupt</span><span class=w> </span><span class=mi>1</span><span class=w> </span><span class=p>{</span>
+<a id=__codelineno-15-16 name=__codelineno-15-16></a><span class=w>    </span><span class=c1>// 中断服务程序</span>
+<a id=__codelineno-15-17 name=__codelineno-15-17></a><span class=p>}</span>
+</code></pre></div></td></tr></table></div> <h3 id=53>5.3 便捷的头文件适配<a class=headerlink href=#53 title="Permanent link">&para;</a></h3> <p><strong>创建sdcc_compat.h：</strong></p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-16-1> 1</a></span>
+<span class=normal><a href=#__codelineno-16-2> 2</a></span>
+<span class=normal><a href=#__codelineno-16-3> 3</a></span>
+<span class=normal><a href=#__codelineno-16-4> 4</a></span>
+<span class=normal><a href=#__codelineno-16-5> 5</a></span>
+<span class=normal><a href=#__codelineno-16-6> 6</a></span>
+<span class=normal><a href=#__codelineno-16-7> 7</a></span>
+<span class=normal><a href=#__codelineno-16-8> 8</a></span>
+<span class=normal><a href=#__codelineno-16-9> 9</a></span>
+<span class=normal><a href=#__codelineno-16-10>10</a></span>
+<span class=normal><a href=#__codelineno-16-11>11</a></span>
+<span class=normal><a href=#__codelineno-16-12>12</a></span>
+<span class=normal><a href=#__codelineno-16-13>13</a></span>
+<span class=normal><a href=#__codelineno-16-14>14</a></span>
+<span class=normal><a href=#__codelineno-16-15>15</a></span>
+<span class=normal><a href=#__codelineno-16-16>16</a></span>
+<span class=normal><a href=#__codelineno-16-17>17</a></span>
+<span class=normal><a href=#__codelineno-16-18>18</a></span>
+<span class=normal><a href=#__codelineno-16-19>19</a></span>
+<span class=normal><a href=#__codelineno-16-20>20</a></span>
+<span class=normal><a href=#__codelineno-16-21>21</a></span>
+<span class=normal><a href=#__codelineno-16-22>22</a></span>
+<span class=normal><a href=#__codelineno-16-23>23</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-16-1 name=__codelineno-16-1></a><span class=cm>/* sdcc_compat.h - Keil到SDCC的兼容层 */</span>
+<a id=__codelineno-16-2 name=__codelineno-16-2></a><span class=cp>#ifndef SDCC_COMPAT_H</span>
+<a id=__codelineno-16-3 name=__codelineno-16-3></a><span class=cp>#define SDCC_COMPAT_H</span>
+<a id=__codelineno-16-4 name=__codelineno-16-4></a>
+<a id=__codelineno-16-5 name=__codelineno-16-5></a><span class=c1>// 简化sfr定义</span>
+<a id=__codelineno-16-6 name=__codelineno-16-6></a><span class=cp>#define SFR(name, addr)         __sfr __at (addr) name</span>
+<a id=__codelineno-16-7 name=__codelineno-16-7></a><span class=cp>#define SBIT(name, addr, bit)   __sbit __at (addr + bit) name</span>
+<a id=__codelineno-16-8 name=__codelineno-16-8></a>
+<a id=__codelineno-16-9 name=__codelineno-16-9></a><span class=c1>// 简化存储类型</span>
+<a id=__codelineno-16-10 name=__codelineno-16-10></a><span class=cp>#define data    __data</span>
+<a id=__codelineno-16-11 name=__codelineno-16-11></a><span class=cp>#define xdata   __xdata</span>
+<a id=__codelineno-16-12 name=__codelineno-16-12></a><span class=cp>#define code    __code</span>
+<a id=__codelineno-16-13 name=__codelineno-16-13></a><span class=cp>#define idata   __idata</span>
+<a id=__codelineno-16-14 name=__codelineno-16-14></a><span class=cp>#define pdata   __pdata</span>
+<a id=__codelineno-16-15 name=__codelineno-16-15></a><span class=cp>#define bit     __bit</span>
+<a id=__codelineno-16-16 name=__codelineno-16-16></a>
+<a id=__codelineno-16-17 name=__codelineno-16-17></a><span class=c1>// 简化中断定义</span>
+<a id=__codelineno-16-18 name=__codelineno-16-18></a><span class=cp>#define interrupt(n) __interrupt n</span>
+<a id=__codelineno-16-19 name=__codelineno-16-19></a>
+<a id=__codelineno-16-20 name=__codelineno-16-20></a><span class=c1>// 简化sbit（如果已知地址）</span>
+<a id=__codelineno-16-21 name=__codelineno-16-21></a><span class=cp>#define SBIT(port, pin) __sbit __at (port + pin)</span>
+<a id=__codelineno-16-22 name=__codelineno-16-22></a>
+<a id=__codelineno-16-23 name=__codelineno-16-23></a><span class=cp>#endif</span>
+</code></pre></div></td></tr></table></div> <p><strong>使用兼容层：</strong></p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-17-1>1</a></span>
+<span class=normal><a href=#__codelineno-17-2>2</a></span>
+<span class=normal><a href=#__codelineno-17-3>3</a></span>
+<span class=normal><a href=#__codelineno-17-4>4</a></span>
+<span class=normal><a href=#__codelineno-17-5>5</a></span>
+<span class=normal><a href=#__codelineno-17-6>6</a></span>
+<span class=normal><a href=#__codelineno-17-7>7</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-17-1 name=__codelineno-17-1></a><span class=cp>#include</span><span class=w> </span><span class=cpf>&lt;8051.h&gt;</span>
+<a id=__codelineno-17-2 name=__codelineno-17-2></a><span class=cp>#include</span><span class=w> </span><span class=cpf>"sdcc_compat.h"</span>
+<a id=__codelineno-17-3 name=__codelineno-17-3></a>
+<a id=__codelineno-17-4 name=__codelineno-17-4></a><span class=c1>// 现在可以用类似Keil的语法</span>
+<a id=__codelineno-17-5 name=__codelineno-17-5></a><span class=n>SBIT</span><span class=p>(</span><span class=n>LED</span><span class=p>,</span><span class=w> </span><span class=mh>0x90</span><span class=p>,</span><span class=w> </span><span class=mi>0</span><span class=p>);</span><span class=w>  </span><span class=c1>// P1.0</span>
+<a id=__codelineno-17-6 name=__codelineno-17-6></a><span class=n>__bit</span><span class=w> </span><span class=n>flag</span><span class=p>;</span>
+<a id=__codelineno-17-7 name=__codelineno-17-7></a><span class=n>data</span><span class=w> </span><span class=kt>unsigned</span><span class=w> </span><span class=kt>char</span><span class=w> </span><span class=n>var</span><span class=p>;</span>
+</code></pre></div></td></tr></table></div> <hr> <h2 id=_4>六、常用编译选项深度解析<a class=headerlink href=#_4 title="Permanent link">&para;</a></h2> <h3 id=61>6.1 存储模型选择<a class=headerlink href=#61 title="Permanent link">&para;</a></h3> <table> <thead> <tr> <th>模型</th> <th>描述</th> <th>适用场景</th> </tr> </thead> <tbody> <tr> <td><code>--model-small</code></td> <td>默认data存储，速度快</td> <td>内部RAM充足时使用</td> </tr> <tr> <td><code>--model-medium</code></td> <td>代码在xdata，变量在data</td> <td>代码量大、RAM充足</td> </tr> <tr> <td><code>--model-large</code></td> <td>所有数据在xdata</td> <td>RAM紧张、代码量大</td> </tr> </tbody> </table> <h3 id=62>6.2 优化选项<a class=headerlink href=#62 title="Permanent link">&para;</a></h3> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-18-1>1</a></span>
+<span class=normal><a href=#__codelineno-18-2>2</a></span>
+<span class=normal><a href=#__codelineno-18-3>3</a></span>
+<span class=normal><a href=#__codelineno-18-4>4</a></span>
+<span class=normal><a href=#__codelineno-18-5>5</a></span>
+<span class=normal><a href=#__codelineno-18-6>6</a></span>
+<span class=normal><a href=#__codelineno-18-7>7</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-18-1 name=__codelineno-18-1></a><span class=c1># 优化级别（0-3，默认1）</span>
+<a id=__codelineno-18-2 name=__codelineno-18-2></a>sdcc<span class=w> </span>-mmcs51<span class=w> </span>--opt-code-speed<span class=w>    </span><span class=c1># 优化代码速度</span>
+<a id=__codelineno-18-3 name=__codelineno-18-3></a>sdcc<span class=w> </span>-mmcs51<span class=w> </span>--opt-code-size<span class=w>     </span><span class=c1># 优化代码大小</span>
+<a id=__codelineno-18-4 name=__codelineno-18-4></a>
+<a id=__codelineno-18-5 name=__codelineno-18-5></a><span class=c1># 禁用某些优化（调试用）</span>
+<a id=__codelineno-18-6 name=__codelineno-18-6></a>sdcc<span class=w> </span>-mmcs51<span class=w> </span>--nooverlay<span class=w>         </span><span class=c1># 禁用寄存器覆盖优化</span>
+<a id=__codelineno-18-7 name=__codelineno-18-7></a>sdcc<span class=w> </span>-mmcs51<span class=w> </span>--nogcse<span class=w>            </span><span class=c1># 禁用公共子表达式消除</span>
+</code></pre></div></td></tr></table></div> <h3 id=63>6.3 代码生成控制<a class=headerlink href=#63 title="Permanent link">&para;</a></h3> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-19-1>1</a></span>
+<span class=normal><a href=#__codelineno-19-2>2</a></span>
+<span class=normal><a href=#__codelineno-19-3>3</a></span>
+<span class=normal><a href=#__codelineno-19-4>4</a></span>
+<span class=normal><a href=#__codelineno-19-5>5</a></span>
+<span class=normal><a href=#__codelineno-19-6>6</a></span>
+<span class=normal><a href=#__codelineno-19-7>7</a></span>
+<span class=normal><a href=#__codelineno-19-8>8</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-19-1 name=__codelineno-19-1></a><span class=c1># 指定代码起始地址（带中断向量表）</span>
+<a id=__codelineno-19-2 name=__codelineno-19-2></a>sdcc<span class=w> </span>-mmcs51<span class=w> </span>--code-loc<span class=w> </span>0x0000
+<a id=__codelineno-19-3 name=__codelineno-19-3></a>
+<a id=__codelineno-19-4 name=__codelineno-19-4></a><span class=c1># 指定中断向量表偏移（如使用Bootloader）</span>
+<a id=__codelineno-19-5 name=__codelineno-19-5></a>sdcc<span class=w> </span>-mmcs51<span class=w> </span>--code-loc<span class=w> </span>0x1000<span class=w>   </span><span class=c1># 从4KB偏移开始</span>
+<a id=__codelineno-19-6 name=__codelineno-19-6></a>
+<a id=__codelineno-19-7 name=__codelineno-19-7></a><span class=c1># 指定堆栈位置</span>
+<a id=__codelineno-19-8 name=__codelineno-19-8></a>sdcc<span class=w> </span>-mmcs51<span class=w> </span>--iram-size<span class=w> </span><span class=m>256</span><span class=w> </span>--stack-loc<span class=w> </span>0x80<span class=w>  </span><span class=c1># 堆栈从0x80开始</span>
+</code></pre></div></td></tr></table></div> <h3 id=64>6.4 调试信息<a class=headerlink href=#64 title="Permanent link">&para;</a></h3> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-20-1>1</a></span>
+<span class=normal><a href=#__codelineno-20-2>2</a></span>
+<span class=normal><a href=#__codelineno-20-3>3</a></span>
+<span class=normal><a href=#__codelineno-20-4>4</a></span>
+<span class=normal><a href=#__codelineno-20-5>5</a></span>
+<span class=normal><a href=#__codelineno-20-6>6</a></span>
+<span class=normal><a href=#__codelineno-20-7>7</a></span>
+<span class=normal><a href=#__codelineno-20-8>8</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-20-1 name=__codelineno-20-1></a><span class=c1># 生成调试符号（用于仿真器调试）</span>
+<a id=__codelineno-20-2 name=__codelineno-20-2></a>sdcc<span class=w> </span>-mmcs51<span class=w> </span>--debug
+<a id=__codelineno-20-3 name=__codelineno-20-3></a>
+<a id=__codelineno-20-4 name=__codelineno-20-4></a><span class=c1># 生成汇编列表文件</span>
+<a id=__codelineno-20-5 name=__codelineno-20-5></a>sdcc<span class=w> </span>-mmcs51<span class=w> </span>-c<span class=w> </span>main.c<span class=w> </span>--callee-saves
+<a id=__codelineno-20-6 name=__codelineno-20-6></a>
+<a id=__codelineno-20-7 name=__codelineno-20-7></a><span class=c1># 查看预处理结果</span>
+<a id=__codelineno-20-8 name=__codelineno-20-8></a>sdcc<span class=w> </span>-mmcs51<span class=w> </span>-E<span class=w> </span>main.c
+</code></pre></div></td></tr></table></div> <h3 id=65>6.5 完整编译示例<a class=headerlink href=#65 title="Permanent link">&para;</a></h3> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-21-1> 1</a></span>
+<span class=normal><a href=#__codelineno-21-2> 2</a></span>
+<span class=normal><a href=#__codelineno-21-3> 3</a></span>
+<span class=normal><a href=#__codelineno-21-4> 4</a></span>
+<span class=normal><a href=#__codelineno-21-5> 5</a></span>
+<span class=normal><a href=#__codelineno-21-6> 6</a></span>
+<span class=normal><a href=#__codelineno-21-7> 7</a></span>
+<span class=normal><a href=#__codelineno-21-8> 8</a></span>
+<span class=normal><a href=#__codelineno-21-9> 9</a></span>
+<span class=normal><a href=#__codelineno-21-10>10</a></span>
+<span class=normal><a href=#__codelineno-21-11>11</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-21-1 name=__codelineno-21-1></a><span class=c1># 大型项目完整编译命令</span>
+<a id=__codelineno-21-2 name=__codelineno-21-2></a>sdcc<span class=w> </span>-mmcs51<span class=w> </span><span class=se>\</span>
+<a id=__codelineno-21-3 name=__codelineno-21-3></a><span class=w>     </span>--model-small<span class=w> </span><span class=se>\</span>
+<a id=__codelineno-21-4 name=__codelineno-21-4></a><span class=w>     </span>--opt-code-speed<span class=w> </span><span class=se>\</span>
+<a id=__codelineno-21-5 name=__codelineno-21-5></a><span class=w>     </span>--code-loc<span class=w> </span>0x0000<span class=w> </span><span class=se>\</span>
+<a id=__codelineno-21-6 name=__codelineno-21-6></a><span class=w>     </span>--xram-loc<span class=w> </span>0x0000<span class=w> </span><span class=se>\</span>
+<a id=__codelineno-21-7 name=__codelineno-21-7></a><span class=w>     </span>--iram-size<span class=w> </span><span class=m>256</span><span class=w> </span><span class=se>\</span>
+<a id=__codelineno-21-8 name=__codelineno-21-8></a><span class=w>     </span>--stack-loc<span class=w> </span>0x30<span class=w> </span><span class=se>\</span>
+<a id=__codelineno-21-9 name=__codelineno-21-9></a><span class=w>     </span>--debug<span class=w> </span><span class=se>\</span>
+<a id=__codelineno-21-10 name=__codelineno-21-10></a><span class=w>     </span>-I./include<span class=w> </span><span class=se>\</span>
+<a id=__codelineno-21-11 name=__codelineno-21-11></a><span class=w>     </span>-c<span class=w> </span>main.c<span class=w> </span>-o<span class=w> </span>main.rel
+</code></pre></div></td></tr></table></div> <hr> <h2 id=vscode>七、VSCode开发环境配置<a class=headerlink href=#vscode title="Permanent link">&para;</a></h2> <h3 id=71-vscode>7.1 为什么需要配置VSCode？<a class=headerlink href=#71-vscode title="Permanent link">&para;</a></h3> <p>使用VSCode开发8051程序时，默认情况下：</p> <ul> <li>❌ 头文件（如 <code>&lt;8051.h&gt;</code>）会显示红色波浪线（找不到头文件）</li> <li>❌ 没有代码补全和智能提示</li> <li>❌ 无法跳转到定义</li> <li>❌ <code>__sfr</code>、<code>__interrupt</code> 等SDCC关键字被标记为错误</li> </ul> <p>通过正确配置 <strong>C/C++ 扩展</strong> 的 <code>c_cpp_properties.json</code>，可以解决以上所有问题。</p> <hr> <h3 id=72-sdcc>7.2 查找SDCC头文件路径<a class=headerlink href=#72-sdcc title="Permanent link">&para;</a></h3> <p>配置前需要先找到SDCC头文件的安装位置：</p> <h4 id=windows_1>Windows<a class=headerlink href=#windows_1 title="Permanent link">&para;</a></h4> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-22-1>1</a></span>
+<span class=normal><a href=#__codelineno-22-2>2</a></span>
+<span class=normal><a href=#__codelineno-22-3>3</a></span>
+<span class=normal><a href=#__codelineno-22-4>4</a></span>
+<span class=normal><a href=#__codelineno-22-5>5</a></span>
+<span class=normal><a href=#__codelineno-22-6>6</a></span>
+<span class=normal><a href=#__codelineno-22-7>7</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-22-1 name=__codelineno-22-1></a><span class=c># PowerShell中执行</span>
+<a id=__codelineno-22-2 name=__codelineno-22-2></a><span class=n>sdcc</span> <span class=p>-</span><span class=n>-print-search-dirs</span>
+<a id=__codelineno-22-3 name=__codelineno-22-3></a>
+<a id=__codelineno-22-4 name=__codelineno-22-4></a><span class=c># 头文件通常在以下位置之一：</span>
+<a id=__codelineno-22-5 name=__codelineno-22-5></a><span class=c># C:\Program Files\SDCC\include</span>
+<a id=__codelineno-22-6 name=__codelineno-22-6></a><span class=c># C:\sdcc\include</span>
+<a id=__codelineno-22-7 name=__codelineno-22-7></a><span class=c># C:\Users\&lt;用户名&gt;\scoop\apps\sdcc\current\include  (Scoop安装)</span>
+</code></pre></div></td></tr></table></div> <h4 id=linux>Linux<a class=headerlink href=#linux title="Permanent link">&para;</a></h4> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-23-1>1</a></span>
+<span class=normal><a href=#__codelineno-23-2>2</a></span>
+<span class=normal><a href=#__codelineno-23-3>3</a></span>
+<span class=normal><a href=#__codelineno-23-4>4</a></span>
+<span class=normal><a href=#__codelineno-23-5>5</a></span>
+<span class=normal><a href=#__codelineno-23-6>6</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-23-1 name=__codelineno-23-1></a><span class=c1># 查找头文件路径</span>
+<a id=__codelineno-23-2 name=__codelineno-23-2></a>find<span class=w> </span>/usr<span class=w> </span>-name<span class=w> </span><span class=s2>"8051.h"</span><span class=w> </span><span class=m>2</span>&gt;/dev/null
+<a id=__codelineno-23-3 name=__codelineno-23-3></a>
+<a id=__codelineno-23-4 name=__codelineno-23-4></a><span class=c1># 常见位置：</span>
+<a id=__codelineno-23-5 name=__codelineno-23-5></a><span class=c1># /usr/share/sdcc/include</span>
+<a id=__codelineno-23-6 name=__codelineno-23-6></a><span class=c1># /usr/local/sdcc/include</span>
+</code></pre></div></td></tr></table></div> <h4 id=macos>macOS<a class=headerlink href=#macos title="Permanent link">&para;</a></h4> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-24-1>1</a></span>
+<span class=normal><a href=#__codelineno-24-2>2</a></span>
+<span class=normal><a href=#__codelineno-24-3>3</a></span>
+<span class=normal><a href=#__codelineno-24-4>4</a></span>
+<span class=normal><a href=#__codelineno-24-5>5</a></span>
+<span class=normal><a href=#__codelineno-24-6>6</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-24-1 name=__codelineno-24-1></a><span class=c1># Homebrew安装的位置</span>
+<a id=__codelineno-24-2 name=__codelineno-24-2></a>find<span class=w> </span>/opt<span class=w> </span>-name<span class=w> </span><span class=s2>"8051.h"</span><span class=w> </span><span class=m>2</span>&gt;/dev/null
+<a id=__codelineno-24-3 name=__codelineno-24-3></a>
+<a id=__codelineno-24-4 name=__codelineno-24-4></a><span class=c1># 常见位置：</span>
+<a id=__codelineno-24-5 name=__codelineno-24-5></a><span class=c1># /opt/homebrew/Cellar/sdcc/4.x.x/share/sdcc/include  (Apple Silicon)</span>
+<a id=__codelineno-24-6 name=__codelineno-24-6></a><span class=c1># /usr/local/Cellar/sdcc/4.x.x/share/sdcc/include      (Intel)</span>
+</code></pre></div></td></tr></table></div> <hr> <h3 id=73-c_cpp_propertiesjson>7.3 配置 c_cpp_properties.json<a class=headerlink href=#73-c_cpp_propertiesjson title="Permanent link">&para;</a></h3> <p>在项目根目录创建 <code>.vscode</code> 文件夹，并创建 <code>c_cpp_properties.json</code>：</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-25-1> 1</a></span>
+<span class=normal><a href=#__codelineno-25-2> 2</a></span>
+<span class=normal><a href=#__codelineno-25-3> 3</a></span>
+<span class=normal><a href=#__codelineno-25-4> 4</a></span>
+<span class=normal><a href=#__codelineno-25-5> 5</a></span>
+<span class=normal><a href=#__codelineno-25-6> 6</a></span>
+<span class=normal><a href=#__codelineno-25-7> 7</a></span>
+<span class=normal><a href=#__codelineno-25-8> 8</a></span>
+<span class=normal><a href=#__codelineno-25-9> 9</a></span>
+<span class=normal><a href=#__codelineno-25-10>10</a></span>
+<span class=normal><a href=#__codelineno-25-11>11</a></span>
+<span class=normal><a href=#__codelineno-25-12>12</a></span>
+<span class=normal><a href=#__codelineno-25-13>13</a></span>
+<span class=normal><a href=#__codelineno-25-14>14</a></span>
+<span class=normal><a href=#__codelineno-25-15>15</a></span>
+<span class=normal><a href=#__codelineno-25-16>16</a></span>
+<span class=normal><a href=#__codelineno-25-17>17</a></span>
+<span class=normal><a href=#__codelineno-25-18>18</a></span>
+<span class=normal><a href=#__codelineno-25-19>19</a></span>
+<span class=normal><a href=#__codelineno-25-20>20</a></span>
+<span class=normal><a href=#__codelineno-25-21>21</a></span>
+<span class=normal><a href=#__codelineno-25-22>22</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-25-1 name=__codelineno-25-1></a><span class=p>{</span>
+<a id=__codelineno-25-2 name=__codelineno-25-2></a><span class=w>    </span><span class=nt>"configurations"</span><span class=p>:</span><span class=w> </span><span class=p>[</span>
+<a id=__codelineno-25-3 name=__codelineno-25-3></a><span class=w>        </span><span class=p>{</span>
+<a id=__codelineno-25-4 name=__codelineno-25-4></a><span class=w>            </span><span class=nt>"name"</span><span class=p>:</span><span class=w> </span><span class=s2>"SDCC 8051"</span><span class=p>,</span>
+<a id=__codelineno-25-5 name=__codelineno-25-5></a><span class=w>            </span><span class=nt>"includePath"</span><span class=p>:</span><span class=w> </span><span class=p>[</span>
+<a id=__codelineno-25-6 name=__codelineno-25-6></a><span class=w>                </span><span class=s2>"${workspaceFolder}/**"</span><span class=p>,</span>
+<a id=__codelineno-25-7 name=__codelineno-25-7></a><span class=w>                </span><span class=s2>"C:/Program Files/SDCC/include/**"</span>
+<a id=__codelineno-25-8 name=__codelineno-25-8></a><span class=w>            </span><span class=p>],</span>
+<a id=__codelineno-25-9 name=__codelineno-25-9></a><span class=w>            </span><span class=nt>"defines"</span><span class=p>:</span><span class=w> </span><span class=p>[</span>
+<a id=__codelineno-25-10 name=__codelineno-25-10></a><span class=w>                </span><span class=s2>"SDCC"</span><span class=p>,</span>
+<a id=__codelineno-25-11 name=__codelineno-25-11></a><span class=w>                </span><span class=s2>"__SDCC"</span><span class=p>,</span>
+<a id=__codelineno-25-12 name=__codelineno-25-12></a><span class=w>                </span><span class=s2>"__SDCC_mcs51"</span>
+<a id=__codelineno-25-13 name=__codelineno-25-13></a><span class=w>            </span><span class=p>],</span>
+<a id=__codelineno-25-14 name=__codelineno-25-14></a><span class=w>            </span><span class=nt>"compilerPath"</span><span class=p>:</span><span class=w> </span><span class=s2>"C:/Program Files/SDCC/bin/sdcc.exe"</span><span class=p>,</span>
+<a id=__codelineno-25-15 name=__codelineno-25-15></a><span class=w>            </span><span class=nt>"cStandard"</span><span class=p>:</span><span class=w> </span><span class=s2>"c99"</span><span class=p>,</span>
+<a id=__codelineno-25-16 name=__codelineno-25-16></a><span class=w>            </span><span class=nt>"cppStandard"</span><span class=p>:</span><span class=w> </span><span class=s2>"c++11"</span><span class=p>,</span>
+<a id=__codelineno-25-17 name=__codelineno-25-17></a><span class=w>            </span><span class=nt>"intelliSenseMode"</span><span class=p>:</span><span class=w> </span><span class=s2>"gcc-x64"</span><span class=p>,</span>
+<a id=__codelineno-25-18 name=__codelineno-25-18></a><span class=w>            </span><span class=nt>"configurationProvider"</span><span class=p>:</span><span class=w> </span><span class=s2>"ms-vscode.makefile-tools"</span>
+<a id=__codelineno-25-19 name=__codelineno-25-19></a><span class=w>        </span><span class=p>}</span>
+<a id=__codelineno-25-20 name=__codelineno-25-20></a><span class=w>    </span><span class=p>],</span>
+<a id=__codelineno-25-21 name=__codelineno-25-21></a><span class=w>    </span><span class=nt>"version"</span><span class=p>:</span><span class=w> </span><span class=mi>4</span>
+<a id=__codelineno-25-22 name=__codelineno-25-22></a><span class=p>}</span>
+</code></pre></div></td></tr></table></div> <h4 id=_5>各平台路径配置示例<a class=headerlink href=#_5 title="Permanent link">&para;</a></h4> <p><strong>Windows（默认安装）：</strong></p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-26-1>1</a></span>
+<span class=normal><a href=#__codelineno-26-2>2</a></span>
+<span class=normal><a href=#__codelineno-26-3>3</a></span>
+<span class=normal><a href=#__codelineno-26-4>4</a></span>
+<span class=normal><a href=#__codelineno-26-5>5</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-26-1 name=__codelineno-26-1></a><span class=nt>"includePath"</span><span class=p>:</span><span class=w> </span><span class=p>[</span>
+<a id=__codelineno-26-2 name=__codelineno-26-2></a><span class=w>    </span><span class=s2>"${workspaceFolder}/**"</span><span class=p>,</span>
+<a id=__codelineno-26-3 name=__codelineno-26-3></a><span class=w>    </span><span class=s2>"C:/Program Files/SDCC/include/**"</span>
+<a id=__codelineno-26-4 name=__codelineno-26-4></a><span class=p>],</span>
+<a id=__codelineno-26-5 name=__codelineno-26-5></a><span class=nt>"compilerPath"</span><span class=p>:</span><span class=w> </span><span class=s2>"C:/Program Files/SDCC/bin/sdcc.exe"</span>
+</code></pre></div></td></tr></table></div> <p><strong>Windows（Scoop安装）：</strong></p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-27-1>1</a></span>
+<span class=normal><a href=#__codelineno-27-2>2</a></span>
+<span class=normal><a href=#__codelineno-27-3>3</a></span>
+<span class=normal><a href=#__codelineno-27-4>4</a></span>
+<span class=normal><a href=#__codelineno-27-5>5</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-27-1 name=__codelineno-27-1></a><span class=nt>"includePath"</span><span class=p>:</span><span class=w> </span><span class=p>[</span>
+<a id=__codelineno-27-2 name=__codelineno-27-2></a><span class=w>    </span><span class=s2>"${workspaceFolder}/**"</span><span class=p>,</span>
+<a id=__codelineno-27-3 name=__codelineno-27-3></a><span class=w>    </span><span class=s2>"C:/Users/&lt;你的用户名&gt;/scoop/apps/sdcc/current/include/**"</span>
+<a id=__codelineno-27-4 name=__codelineno-27-4></a><span class=p>],</span>
+<a id=__codelineno-27-5 name=__codelineno-27-5></a><span class=nt>"compilerPath"</span><span class=p>:</span><span class=w> </span><span class=s2>"C:/Users/&lt;你的用户名&gt;/scoop/apps/sdcc/current/bin/sdcc.exe"</span>
+</code></pre></div></td></tr></table></div> <p><strong>Linux：</strong></p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-28-1>1</a></span>
+<span class=normal><a href=#__codelineno-28-2>2</a></span>
+<span class=normal><a href=#__codelineno-28-3>3</a></span>
+<span class=normal><a href=#__codelineno-28-4>4</a></span>
+<span class=normal><a href=#__codelineno-28-5>5</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-28-1 name=__codelineno-28-1></a><span class=nt>"includePath"</span><span class=p>:</span><span class=w> </span><span class=p>[</span>
+<a id=__codelineno-28-2 name=__codelineno-28-2></a><span class=w>    </span><span class=s2>"${workspaceFolder}/**"</span><span class=p>,</span>
+<a id=__codelineno-28-3 name=__codelineno-28-3></a><span class=w>    </span><span class=s2>"/usr/share/sdcc/include/**"</span>
+<a id=__codelineno-28-4 name=__codelineno-28-4></a><span class=p>],</span>
+<a id=__codelineno-28-5 name=__codelineno-28-5></a><span class=nt>"compilerPath"</span><span class=p>:</span><span class=w> </span><span class=s2>"/usr/bin/sdcc"</span>
+</code></pre></div></td></tr></table></div> <p><strong>macOS（Apple Silicon）：</strong></p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-29-1>1</a></span>
+<span class=normal><a href=#__codelineno-29-2>2</a></span>
+<span class=normal><a href=#__codelineno-29-3>3</a></span>
+<span class=normal><a href=#__codelineno-29-4>4</a></span>
+<span class=normal><a href=#__codelineno-29-5>5</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-29-1 name=__codelineno-29-1></a><span class=nt>"includePath"</span><span class=p>:</span><span class=w> </span><span class=p>[</span>
+<a id=__codelineno-29-2 name=__codelineno-29-2></a><span class=w>    </span><span class=s2>"${workspaceFolder}/**"</span><span class=p>,</span>
+<a id=__codelineno-29-3 name=__codelineno-29-3></a><span class=w>    </span><span class=s2>"/opt/homebrew/Cellar/sdcc/4.4.0/share/sdcc/include/**"</span>
+<a id=__codelineno-29-4 name=__codelineno-29-4></a><span class=p>],</span>
+<a id=__codelineno-29-5 name=__codelineno-29-5></a><span class=nt>"compilerPath"</span><span class=p>:</span><span class=w> </span><span class=s2>"/opt/homebrew/bin/sdcc"</span>
+</code></pre></div></td></tr></table></div> <hr> <h3 id=74-sdcc>7.4 高级配置：解决SDCC关键字识别问题<a class=headerlink href=#74-sdcc title="Permanent link">&para;</a></h3> <p>SDCC使用特殊的语法（如 <code>__sfr</code>、<code>__interrupt</code>），VSCode默认会标记为错误。创建自定义配置文件：</p> <h4 id=sdcc_customh>创建 sdcc_custom.h<a class=headerlink href=#sdcc_customh title="Permanent link">&para;</a></h4> <p>在项目 <code>include/</code> 目录创建 <code>sdcc_custom.h</code>：</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-30-1> 1</a></span>
+<span class=normal><a href=#__codelineno-30-2> 2</a></span>
+<span class=normal><a href=#__codelineno-30-3> 3</a></span>
+<span class=normal><a href=#__codelineno-30-4> 4</a></span>
+<span class=normal><a href=#__codelineno-30-5> 5</a></span>
+<span class=normal><a href=#__codelineno-30-6> 6</a></span>
+<span class=normal><a href=#__codelineno-30-7> 7</a></span>
+<span class=normal><a href=#__codelineno-30-8> 8</a></span>
+<span class=normal><a href=#__codelineno-30-9> 9</a></span>
+<span class=normal><a href=#__codelineno-30-10>10</a></span>
+<span class=normal><a href=#__codelineno-30-11>11</a></span>
+<span class=normal><a href=#__codelineno-30-12>12</a></span>
+<span class=normal><a href=#__codelineno-30-13>13</a></span>
+<span class=normal><a href=#__codelineno-30-14>14</a></span>
+<span class=normal><a href=#__codelineno-30-15>15</a></span>
+<span class=normal><a href=#__codelineno-30-16>16</a></span>
+<span class=normal><a href=#__codelineno-30-17>17</a></span>
+<span class=normal><a href=#__codelineno-30-18>18</a></span>
+<span class=normal><a href=#__codelineno-30-19>19</a></span>
+<span class=normal><a href=#__codelineno-30-20>20</a></span>
+<span class=normal><a href=#__codelineno-30-21>21</a></span>
+<span class=normal><a href=#__codelineno-30-22>22</a></span>
+<span class=normal><a href=#__codelineno-30-23>23</a></span>
+<span class=normal><a href=#__codelineno-30-24>24</a></span>
+<span class=normal><a href=#__codelineno-30-25>25</a></span>
+<span class=normal><a href=#__codelineno-30-26>26</a></span>
+<span class=normal><a href=#__codelineno-30-27>27</a></span>
+<span class=normal><a href=#__codelineno-30-28>28</a></span>
+<span class=normal><a href=#__codelineno-30-29>29</a></span>
+<span class=normal><a href=#__codelineno-30-30>30</a></span>
+<span class=normal><a href=#__codelineno-30-31>31</a></span>
+<span class=normal><a href=#__codelineno-30-32>32</a></span>
+<span class=normal><a href=#__codelineno-30-33>33</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-30-1 name=__codelineno-30-1></a><span class=cm>/* sdcc_custom.h - 用于VSCode IntelliSense识别SDCC关键字 */</span>
+<a id=__codelineno-30-2 name=__codelineno-30-2></a><span class=cp>#ifndef SDCC_CUSTOM_H</span>
+<a id=__codelineno-30-3 name=__codelineno-30-3></a><span class=cp>#define SDCC_CUSTOM_H</span>
+<a id=__codelineno-30-4 name=__codelineno-30-4></a>
+<a id=__codelineno-30-5 name=__codelineno-30-5></a><span class=cm>/* 仅在非SDCC编译器时定义这些宏（即VSCode解析时） */</span>
+<a id=__codelineno-30-6 name=__codelineno-30-6></a><span class=cp>#ifndef __SDCC</span>
+<a id=__codelineno-30-7 name=__codelineno-30-7></a>
+<a id=__codelineno-30-8 name=__codelineno-30-8></a><span class=w>    </span><span class=cm>/* SDCC存储类型修饰符 */</span>
+<a id=__codelineno-30-9 name=__codelineno-30-9></a><span class=w>    </span><span class=cp>#define __data</span>
+<a id=__codelineno-30-10 name=__codelineno-30-10></a><span class=w>    </span><span class=cp>#define __xdata</span>
+<a id=__codelineno-30-11 name=__codelineno-30-11></a><span class=w>    </span><span class=cp>#define __idata</span>
+<a id=__codelineno-30-12 name=__codelineno-30-12></a><span class=w>    </span><span class=cp>#define __pdata</span>
+<a id=__codelineno-30-13 name=__codelineno-30-13></a><span class=w>    </span><span class=cp>#define __code</span>
+<a id=__codelineno-30-14 name=__codelineno-30-14></a><span class=w>    </span><span class=cp>#define __bit unsigned char</span>
+<a id=__codelineno-30-15 name=__codelineno-30-15></a>
+<a id=__codelineno-30-16 name=__codelineno-30-16></a><span class=w>    </span><span class=cm>/* SDCC特殊功能寄存器 */</span>
+<a id=__codelineno-30-17 name=__codelineno-30-17></a><span class=w>    </span><span class=cp>#define __sfr volatile unsigned char</span>
+<a id=__codelineno-30-18 name=__codelineno-30-18></a><span class=w>    </span><span class=cp>#define __sbit volatile unsigned char</span>
+<a id=__codelineno-30-19 name=__codelineno-30-19></a><span class=w>    </span><span class=cp>#define __at(x)</span>
+<a id=__codelineno-30-20 name=__codelineno-30-20></a>
+<a id=__codelineno-30-21 name=__codelineno-30-21></a><span class=w>    </span><span class=cm>/* SDCC中断 */</span>
+<a id=__codelineno-30-22 name=__codelineno-30-22></a><span class=w>    </span><span class=cp>#define __interrupt(x)</span>
+<a id=__codelineno-30-23 name=__codelineno-30-23></a><span class=w>    </span><span class=cp>#define __using(x)</span>
+<a id=__codelineno-30-24 name=__codelineno-30-24></a><span class=w>    </span><span class=cp>#define __naked</span>
+<a id=__codelineno-30-25 name=__codelineno-30-25></a><span class=w>    </span><span class=cp>#define __critical</span>
+<a id=__codelineno-30-26 name=__codelineno-30-26></a>
+<a id=__codelineno-30-27 name=__codelineno-30-27></a><span class=w>    </span><span class=cm>/* 内联汇编 */</span>
+<a id=__codelineno-30-28 name=__codelineno-30-28></a><span class=w>    </span><span class=cp>#define __asm</span>
+<a id=__codelineno-30-29 name=__codelineno-30-29></a><span class=w>    </span><span class=cp>#define __endasm</span>
+<a id=__codelineno-30-30 name=__codelineno-30-30></a>
+<a id=__codelineno-30-31 name=__codelineno-30-31></a><span class=cp>#endif </span><span class=cm>/* __SDCC */</span>
+<a id=__codelineno-30-32 name=__codelineno-30-32></a>
+<a id=__codelineno-30-33 name=__codelineno-30-33></a><span class=cp>#endif </span><span class=cm>/* SDCC_CUSTOM_H */</span>
+</code></pre></div></td></tr></table></div> <h4 id=c_cpp_propertiesjson>修改 c_cpp_properties.json<a class=headerlink href=#c_cpp_propertiesjson title="Permanent link">&para;</a></h4> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-31-1> 1</a></span>
+<span class=normal><a href=#__codelineno-31-2> 2</a></span>
+<span class=normal><a href=#__codelineno-31-3> 3</a></span>
+<span class=normal><a href=#__codelineno-31-4> 4</a></span>
+<span class=normal><a href=#__codelineno-31-5> 5</a></span>
+<span class=normal><a href=#__codelineno-31-6> 6</a></span>
+<span class=normal><a href=#__codelineno-31-7> 7</a></span>
+<span class=normal><a href=#__codelineno-31-8> 8</a></span>
+<span class=normal><a href=#__codelineno-31-9> 9</a></span>
+<span class=normal><a href=#__codelineno-31-10>10</a></span>
+<span class=normal><a href=#__codelineno-31-11>11</a></span>
+<span class=normal><a href=#__codelineno-31-12>12</a></span>
+<span class=normal><a href=#__codelineno-31-13>13</a></span>
+<span class=normal><a href=#__codelineno-31-14>14</a></span>
+<span class=normal><a href=#__codelineno-31-15>15</a></span>
+<span class=normal><a href=#__codelineno-31-16>16</a></span>
+<span class=normal><a href=#__codelineno-31-17>17</a></span>
+<span class=normal><a href=#__codelineno-31-18>18</a></span>
+<span class=normal><a href=#__codelineno-31-19>19</a></span>
+<span class=normal><a href=#__codelineno-31-20>20</a></span>
+<span class=normal><a href=#__codelineno-31-21>21</a></span>
+<span class=normal><a href=#__codelineno-31-22>22</a></span>
+<span class=normal><a href=#__codelineno-31-23>23</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-31-1 name=__codelineno-31-1></a><span class=p>{</span>
+<a id=__codelineno-31-2 name=__codelineno-31-2></a><span class=w>    </span><span class=nt>"configurations"</span><span class=p>:</span><span class=w> </span><span class=p>[</span>
+<a id=__codelineno-31-3 name=__codelineno-31-3></a><span class=w>        </span><span class=p>{</span>
+<a id=__codelineno-31-4 name=__codelineno-31-4></a><span class=w>            </span><span class=nt>"name"</span><span class=p>:</span><span class=w> </span><span class=s2>"SDCC 8051"</span><span class=p>,</span>
+<a id=__codelineno-31-5 name=__codelineno-31-5></a><span class=w>            </span><span class=nt>"includePath"</span><span class=p>:</span><span class=w> </span><span class=p>[</span>
+<a id=__codelineno-31-6 name=__codelineno-31-6></a><span class=w>                </span><span class=s2>"${workspaceFolder}/**"</span><span class=p>,</span>
+<a id=__codelineno-31-7 name=__codelineno-31-7></a><span class=w>                </span><span class=s2>"C:/Program Files/SDCC/include/**"</span>
+<a id=__codelineno-31-8 name=__codelineno-31-8></a><span class=w>            </span><span class=p>],</span>
+<a id=__codelineno-31-9 name=__codelineno-31-9></a><span class=w>            </span><span class=nt>"defines"</span><span class=p>:</span><span class=w> </span><span class=p>[</span>
+<a id=__codelineno-31-10 name=__codelineno-31-10></a><span class=w>                </span><span class=s2>"SDCC"</span><span class=p>,</span>
+<a id=__codelineno-31-11 name=__codelineno-31-11></a><span class=w>                </span><span class=s2>"__SDCC"</span><span class=p>,</span>
+<a id=__codelineno-31-12 name=__codelineno-31-12></a><span class=w>                </span><span class=s2>"__SDCC_mcs51"</span>
+<a id=__codelineno-31-13 name=__codelineno-31-13></a><span class=w>            </span><span class=p>],</span>
+<a id=__codelineno-31-14 name=__codelineno-31-14></a><span class=w>            </span><span class=nt>"forcedInclude"</span><span class=p>:</span><span class=w> </span><span class=p>[</span>
+<a id=__codelineno-31-15 name=__codelineno-31-15></a><span class=w>                </span><span class=s2>"${workspaceFolder}/include/sdcc_custom.h"</span>
+<a id=__codelineno-31-16 name=__codelineno-31-16></a><span class=w>            </span><span class=p>],</span>
+<a id=__codelineno-31-17 name=__codelineno-31-17></a><span class=w>            </span><span class=nt>"compilerPath"</span><span class=p>:</span><span class=w> </span><span class=s2>"C:/Program Files/SDCC/bin/sdcc.exe"</span><span class=p>,</span>
+<a id=__codelineno-31-18 name=__codelineno-31-18></a><span class=w>            </span><span class=nt>"cStandard"</span><span class=p>:</span><span class=w> </span><span class=s2>"c99"</span><span class=p>,</span>
+<a id=__codelineno-31-19 name=__codelineno-31-19></a><span class=w>            </span><span class=nt>"intelliSenseMode"</span><span class=p>:</span><span class=w> </span><span class=s2>"gcc-x64"</span>
+<a id=__codelineno-31-20 name=__codelineno-31-20></a><span class=w>        </span><span class=p>}</span>
+<a id=__codelineno-31-21 name=__codelineno-31-21></a><span class=w>    </span><span class=p>],</span>
+<a id=__codelineno-31-22 name=__codelineno-31-22></a><span class=w>    </span><span class=nt>"version"</span><span class=p>:</span><span class=w> </span><span class=mi>4</span>
+<a id=__codelineno-31-23 name=__codelineno-31-23></a><span class=p>}</span>
+</code></pre></div></td></tr></table></div> <p><strong>效果：</strong> VSCode会将SDCC关键字识别为有效语法，不再显示错误。</p> <hr> <h3 id=75-tasksjson>7.5 配置 tasks.json 实现一键编译<a class=headerlink href=#75-tasksjson title="Permanent link">&para;</a></h3> <p>在 <code>.vscode</code> 文件夹创建 <code>tasks.json</code>，实现VSCode内一键编译：</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-32-1> 1</a></span>
+<span class=normal><a href=#__codelineno-32-2> 2</a></span>
+<span class=normal><a href=#__codelineno-32-3> 3</a></span>
+<span class=normal><a href=#__codelineno-32-4> 4</a></span>
+<span class=normal><a href=#__codelineno-32-5> 5</a></span>
+<span class=normal><a href=#__codelineno-32-6> 6</a></span>
+<span class=normal><a href=#__codelineno-32-7> 7</a></span>
+<span class=normal><a href=#__codelineno-32-8> 8</a></span>
+<span class=normal><a href=#__codelineno-32-9> 9</a></span>
+<span class=normal><a href=#__codelineno-32-10>10</a></span>
+<span class=normal><a href=#__codelineno-32-11>11</a></span>
+<span class=normal><a href=#__codelineno-32-12>12</a></span>
+<span class=normal><a href=#__codelineno-32-13>13</a></span>
+<span class=normal><a href=#__codelineno-32-14>14</a></span>
+<span class=normal><a href=#__codelineno-32-15>15</a></span>
+<span class=normal><a href=#__codelineno-32-16>16</a></span>
+<span class=normal><a href=#__codelineno-32-17>17</a></span>
+<span class=normal><a href=#__codelineno-32-18>18</a></span>
+<span class=normal><a href=#__codelineno-32-19>19</a></span>
+<span class=normal><a href=#__codelineno-32-20>20</a></span>
+<span class=normal><a href=#__codelineno-32-21>21</a></span>
+<span class=normal><a href=#__codelineno-32-22>22</a></span>
+<span class=normal><a href=#__codelineno-32-23>23</a></span>
+<span class=normal><a href=#__codelineno-32-24>24</a></span>
+<span class=normal><a href=#__codelineno-32-25>25</a></span>
+<span class=normal><a href=#__codelineno-32-26>26</a></span>
+<span class=normal><a href=#__codelineno-32-27>27</a></span>
+<span class=normal><a href=#__codelineno-32-28>28</a></span>
+<span class=normal><a href=#__codelineno-32-29>29</a></span>
+<span class=normal><a href=#__codelineno-32-30>30</a></span>
+<span class=normal><a href=#__codelineno-32-31>31</a></span>
+<span class=normal><a href=#__codelineno-32-32>32</a></span>
+<span class=normal><a href=#__codelineno-32-33>33</a></span>
+<span class=normal><a href=#__codelineno-32-34>34</a></span>
+<span class=normal><a href=#__codelineno-32-35>35</a></span>
+<span class=normal><a href=#__codelineno-32-36>36</a></span>
+<span class=normal><a href=#__codelineno-32-37>37</a></span>
+<span class=normal><a href=#__codelineno-32-38>38</a></span>
+<span class=normal><a href=#__codelineno-32-39>39</a></span>
+<span class=normal><a href=#__codelineno-32-40>40</a></span>
+<span class=normal><a href=#__codelineno-32-41>41</a></span>
+<span class=normal><a href=#__codelineno-32-42>42</a></span>
+<span class=normal><a href=#__codelineno-32-43>43</a></span>
+<span class=normal><a href=#__codelineno-32-44>44</a></span>
+<span class=normal><a href=#__codelineno-32-45>45</a></span>
+<span class=normal><a href=#__codelineno-32-46>46</a></span>
+<span class=normal><a href=#__codelineno-32-47>47</a></span>
+<span class=normal><a href=#__codelineno-32-48>48</a></span>
+<span class=normal><a href=#__codelineno-32-49>49</a></span>
+<span class=normal><a href=#__codelineno-32-50>50</a></span>
+<span class=normal><a href=#__codelineno-32-51>51</a></span>
+<span class=normal><a href=#__codelineno-32-52>52</a></span>
+<span class=normal><a href=#__codelineno-32-53>53</a></span>
+<span class=normal><a href=#__codelineno-32-54>54</a></span>
+<span class=normal><a href=#__codelineno-32-55>55</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-32-1 name=__codelineno-32-1></a><span class=p>{</span>
+<a id=__codelineno-32-2 name=__codelineno-32-2></a><span class=w>    </span><span class=nt>"version"</span><span class=p>:</span><span class=w> </span><span class=s2>"2.0.0"</span><span class=p>,</span>
+<a id=__codelineno-32-3 name=__codelineno-32-3></a><span class=w>    </span><span class=nt>"tasks"</span><span class=p>:</span><span class=w> </span><span class=p>[</span>
+<a id=__codelineno-32-4 name=__codelineno-32-4></a><span class=w>        </span><span class=p>{</span>
+<a id=__codelineno-32-5 name=__codelineno-32-5></a><span class=w>            </span><span class=nt>"label"</span><span class=p>:</span><span class=w> </span><span class=s2>"SDCC Build"</span><span class=p>,</span>
+<a id=__codelineno-32-6 name=__codelineno-32-6></a><span class=w>            </span><span class=nt>"type"</span><span class=p>:</span><span class=w> </span><span class=s2>"shell"</span><span class=p>,</span>
+<a id=__codelineno-32-7 name=__codelineno-32-7></a><span class=w>            </span><span class=nt>"command"</span><span class=p>:</span><span class=w> </span><span class=s2>"make"</span><span class=p>,</span>
+<a id=__codelineno-32-8 name=__codelineno-32-8></a><span class=w>            </span><span class=nt>"args"</span><span class=p>:</span><span class=w> </span><span class=p>[],</span>
+<a id=__codelineno-32-9 name=__codelineno-32-9></a><span class=w>            </span><span class=nt>"group"</span><span class=p>:</span><span class=w> </span><span class=p>{</span>
+<a id=__codelineno-32-10 name=__codelineno-32-10></a><span class=w>                </span><span class=nt>"kind"</span><span class=p>:</span><span class=w> </span><span class=s2>"build"</span><span class=p>,</span>
+<a id=__codelineno-32-11 name=__codelineno-32-11></a><span class=w>                </span><span class=nt>"isDefault"</span><span class=p>:</span><span class=w> </span><span class=kc>true</span>
+<a id=__codelineno-32-12 name=__codelineno-32-12></a><span class=w>            </span><span class=p>},</span>
+<a id=__codelineno-32-13 name=__codelineno-32-13></a><span class=w>            </span><span class=nt>"presentation"</span><span class=p>:</span><span class=w> </span><span class=p>{</span>
+<a id=__codelineno-32-14 name=__codelineno-32-14></a><span class=w>                </span><span class=nt>"echo"</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=p>,</span>
+<a id=__codelineno-32-15 name=__codelineno-32-15></a><span class=w>                </span><span class=nt>"reveal"</span><span class=p>:</span><span class=w> </span><span class=s2>"always"</span><span class=p>,</span>
+<a id=__codelineno-32-16 name=__codelineno-32-16></a><span class=w>                </span><span class=nt>"focus"</span><span class=p>:</span><span class=w> </span><span class=kc>false</span><span class=p>,</span>
+<a id=__codelineno-32-17 name=__codelineno-32-17></a><span class=w>                </span><span class=nt>"panel"</span><span class=p>:</span><span class=w> </span><span class=s2>"shared"</span>
+<a id=__codelineno-32-18 name=__codelineno-32-18></a><span class=w>            </span><span class=p>},</span>
+<a id=__codelineno-32-19 name=__codelineno-32-19></a><span class=w>            </span><span class=nt>"problemMatcher"</span><span class=p>:</span><span class=w> </span><span class=p>{</span>
+<a id=__codelineno-32-20 name=__codelineno-32-20></a><span class=w>                </span><span class=nt>"pattern"</span><span class=p>:</span><span class=w> </span><span class=p>{</span>
+<a id=__codelineno-32-21 name=__codelineno-32-21></a><span class=w>                    </span><span class=nt>"regexp"</span><span class=p>:</span><span class=w> </span><span class=s2>"^(.*):(\\d+):\\s*(error|warning|syntax error):\\s*(.*)$"</span><span class=p>,</span>
+<a id=__codelineno-32-22 name=__codelineno-32-22></a><span class=w>                    </span><span class=nt>"file"</span><span class=p>:</span><span class=w> </span><span class=mi>1</span><span class=p>,</span>
+<a id=__codelineno-32-23 name=__codelineno-32-23></a><span class=w>                    </span><span class=nt>"line"</span><span class=p>:</span><span class=w> </span><span class=mi>2</span><span class=p>,</span>
+<a id=__codelineno-32-24 name=__codelineno-32-24></a><span class=w>                    </span><span class=nt>"severity"</span><span class=p>:</span><span class=w> </span><span class=mi>3</span><span class=p>,</span>
+<a id=__codelineno-32-25 name=__codelineno-32-25></a><span class=w>                    </span><span class=nt>"message"</span><span class=p>:</span><span class=w> </span><span class=mi>4</span>
+<a id=__codelineno-32-26 name=__codelineno-32-26></a><span class=w>                </span><span class=p>}</span>
+<a id=__codelineno-32-27 name=__codelineno-32-27></a><span class=w>            </span><span class=p>}</span>
+<a id=__codelineno-32-28 name=__codelineno-32-28></a><span class=w>        </span><span class=p>},</span>
+<a id=__codelineno-32-29 name=__codelineno-32-29></a><span class=w>        </span><span class=p>{</span>
+<a id=__codelineno-32-30 name=__codelineno-32-30></a><span class=w>            </span><span class=nt>"label"</span><span class=p>:</span><span class=w> </span><span class=s2>"SDCC Clean"</span><span class=p>,</span>
+<a id=__codelineno-32-31 name=__codelineno-32-31></a><span class=w>            </span><span class=nt>"type"</span><span class=p>:</span><span class=w> </span><span class=s2>"shell"</span><span class=p>,</span>
+<a id=__codelineno-32-32 name=__codelineno-32-32></a><span class=w>            </span><span class=nt>"command"</span><span class=p>:</span><span class=w> </span><span class=s2>"make"</span><span class=p>,</span>
+<a id=__codelineno-32-33 name=__codelineno-32-33></a><span class=w>            </span><span class=nt>"args"</span><span class=p>:</span><span class=w> </span><span class=p>[</span><span class=s2>"clean"</span><span class=p>],</span>
+<a id=__codelineno-32-34 name=__codelineno-32-34></a><span class=w>            </span><span class=nt>"group"</span><span class=p>:</span><span class=w> </span><span class=s2>"build"</span>
+<a id=__codelineno-32-35 name=__codelineno-32-35></a><span class=w>        </span><span class=p>},</span>
+<a id=__codelineno-32-36 name=__codelineno-32-36></a><span class=w>        </span><span class=p>{</span>
+<a id=__codelineno-32-37 name=__codelineno-32-37></a><span class=w>            </span><span class=nt>"label"</span><span class=p>:</span><span class=w> </span><span class=s2>"SDCC Build (Windows No Makefile)"</span><span class=p>,</span>
+<a id=__codelineno-32-38 name=__codelineno-32-38></a><span class=w>            </span><span class=nt>"type"</span><span class=p>:</span><span class=w> </span><span class=s2>"shell"</span><span class=p>,</span>
+<a id=__codelineno-32-39 name=__codelineno-32-39></a><span class=w>            </span><span class=nt>"command"</span><span class=p>:</span><span class=w> </span><span class=s2>"sdcc"</span><span class=p>,</span>
+<a id=__codelineno-32-40 name=__codelineno-32-40></a><span class=w>            </span><span class=nt>"args"</span><span class=p>:</span><span class=w> </span><span class=p>[</span>
+<a id=__codelineno-32-41 name=__codelineno-32-41></a><span class=w>                </span><span class=s2>"-mmcs51"</span><span class=p>,</span>
+<a id=__codelineno-32-42 name=__codelineno-32-42></a><span class=w>                </span><span class=s2>"--model-small"</span><span class=p>,</span>
+<a id=__codelineno-32-43 name=__codelineno-32-43></a><span class=w>                </span><span class=s2>"-I${config:sdcc.includePath}"</span><span class=p>,</span>
+<a id=__codelineno-32-44 name=__codelineno-32-44></a><span class=w>                </span><span class=s2>"-c"</span><span class=p>,</span>
+<a id=__codelineno-32-45 name=__codelineno-32-45></a><span class=w>                </span><span class=s2>"${file}"</span><span class=p>,</span>
+<a id=__codelineno-32-46 name=__codelineno-32-46></a><span class=w>                </span><span class=s2>"-o"</span><span class=p>,</span>
+<a id=__codelineno-32-47 name=__codelineno-32-47></a><span class=w>                </span><span class=s2>"${workspaceFolder}/obj/${fileBasenameNoExtension}.rel"</span>
+<a id=__codelineno-32-48 name=__codelineno-32-48></a><span class=w>            </span><span class=p>],</span>
+<a id=__codelineno-32-49 name=__codelineno-32-49></a><span class=w>            </span><span class=nt>"group"</span><span class=p>:</span><span class=w> </span><span class=s2>"build"</span><span class=p>,</span>
+<a id=__codelineno-32-50 name=__codelineno-32-50></a><span class=w>            </span><span class=nt>"windows"</span><span class=p>:</span><span class=w> </span><span class=p>{</span>
+<a id=__codelineno-32-51 name=__codelineno-32-51></a><span class=w>                </span><span class=nt>"command"</span><span class=p>:</span><span class=w> </span><span class=s2>"C:/Program Files/SDCC/bin/sdcc.exe"</span>
+<a id=__codelineno-32-52 name=__codelineno-32-52></a><span class=w>            </span><span class=p>}</span>
+<a id=__codelineno-32-53 name=__codelineno-32-53></a><span class=w>        </span><span class=p>}</span>
+<a id=__codelineno-32-54 name=__codelineno-32-54></a><span class=w>    </span><span class=p>]</span>
+<a id=__codelineno-32-55 name=__codelineno-32-55></a><span class=p>}</span>
+</code></pre></div></td></tr></table></div> <p><strong>使用方法：</strong></p> <ul> <li><code>Ctrl+Shift+B</code> → 选择 &ldquo;SDCC Build&rdquo; 编译项目</li> <li>错误会直接显示在&rdquo;问题&rdquo;面板中</li> </ul> <hr> <h3 id=76-vscode>7.6 推荐的VSCode扩展<a class=headerlink href=#76-vscode title="Permanent link">&para;</a></h3> <table> <thead> <tr> <th>扩展</th> <th>功能</th> <th>推荐度</th> </tr> </thead> <tbody> <tr> <td><strong>C/C++</strong> (Microsoft)</td> <td>IntelliSense、调试支持</td> <td>⭐⭐⭐⭐⭐</td> </tr> <tr> <td><strong>C/C++ Extension Pack</strong></td> <td>完整C/C++开发套件</td> <td>⭐⭐⭐⭐⭐</td> </tr> <tr> <td><strong>Makefile Tools</strong></td> <td>Makefile项目支持</td> <td>⭐⭐⭐⭐</td> </tr> <tr> <td><strong>hexdump for VSCode</strong></td> <td>查看HEX文件</td> <td>⭐⭐⭐</td> </tr> <tr> <td><strong>Intel Hex Format</strong></td> <td>HEX文件语法高亮</td> <td>⭐⭐⭐</td> </tr> </tbody> </table> <hr> <h3 id=77>7.7 常见问题与解决方案<a class=headerlink href=#77 title="Permanent link">&para;</a></h3> <h4 id=1include-errors-detected->问题1：&rdquo;#include errors detected&rdquo; - 头文件找不到<a class=headerlink href=#1include-errors-detected- title="Permanent link">&para;</a></h4> <p><strong>现象：</strong></p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-33-1>1</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-33-1 name=__codelineno-33-1></a><span class=cp>#include</span><span class=w> </span><span class=cpf>&lt;8051.h&gt;</span><span class=w>  </span><span class=c1>// 红色波浪线，提示 "cannot open source file"</span>
+</code></pre></div></td></tr></table></div> <p><strong>解决方案：</strong></p> <ol> <li>确认 <code>c_cpp_properties.json</code> 中的 <code>includePath</code> 包含SDCC头文件目录</li> <li>路径使用正斜杠 <code>/</code> 或双反斜杠 <code>\\</code></li> <li>检查SDCC是否安装正确： <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-34-1>1</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-34-1 name=__codelineno-34-1></a>sdcc<span class=w> </span>--print-search-dirs
+</code></pre></div></td></tr></table></div></li> </ol> <h4 id=2identifier-__sfr-is-undefined>问题2：&rdquo;identifier __sfr is undefined&rdquo;<a class=headerlink href=#2identifier-__sfr-is-undefined title="Permanent link">&para;</a></h4> <p><strong>现象：</strong></p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-35-1>1</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-35-1 name=__codelineno-35-1></a><span class=n>__sfr</span><span class=w> </span><span class=nf>__at</span><span class=w> </span><span class=p>(</span><span class=mh>0x80</span><span class=p>)</span><span class=w> </span><span class=n>P0</span><span class=p>;</span><span class=w>  </span><span class=c1>// __sfr 被标记为错误</span>
+</code></pre></div></td></tr></table></div> <p><strong>解决方案：</strong></p> <ol> <li>在 <code>defines</code> 中添加 <code>"__SDCC"</code></li> <li>或使用 <code>forcedInclude</code> 包含 <code>sdcc_custom.h</code></li> <li>将鼠标悬停在错误上，选择 &ldquo;Quick Fix&rdquo; → &ldquo;Edit includePath setting&rdquo;</li> </ol> <h4 id=3intellisense>问题3：IntelliSense 模式不匹配<a class=headerlink href=#3intellisense title="Permanent link">&para;</a></h4> <p><strong>现象：</strong></p> <ul> <li>代码补全不工作</li> <li>跳转到定义失败</li> </ul> <p><strong>解决方案：</strong></p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-36-1>1</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-36-1 name=__codelineno-36-1></a><span class=nt>"intelliSenseMode"</span><span class=p>:</span><span class=w> </span><span class=s2>"gcc-x64"</span>
+</code></pre></div></td></tr></table></div> <p>避免使用 <code>msvc-x64</code> 或 <code>clang-x64</code>，SDCC与GCC更兼容。</p> <h4 id=4windows>问题4：Windows 路径包含空格导致的问题<a class=headerlink href=#4windows title="Permanent link">&para;</a></h4> <p><strong>现象：</strong></p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-37-1>1</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-37-1 name=__codelineno-37-1></a>'C:/Program' 不是内部或外部命令
+</code></pre></div></td></tr></table></div> <p><strong>解决方案：</strong></p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-38-1>1</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-38-1 name=__codelineno-38-1></a><span class=nt>"compilerPath"</span><span class=p>:</span><span class=w> </span><span class=s2>"C:\\Program Files\\SDCC\\bin\\sdcc.exe"</span>
+</code></pre></div></td></tr></table></div> <p>或使用短路径：</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-39-1>1</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-39-1 name=__codelineno-39-1></a><span class=nt>"compilerPath"</span><span class=p>:</span><span class=w> </span><span class=s2>"C:/Progra~1/SDCC/bin/sdcc.exe"</span>
+</code></pre></div></td></tr></table></div> <h4 id=5>问题5：无法识别特定芯片的头文件<a class=headerlink href=#5 title="Permanent link">&para;</a></h4> <p><strong>现象：</strong></p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-40-1>1</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-40-1 name=__codelineno-40-1></a><span class=cp>#include</span><span class=w> </span><span class=cpf>&lt;STC89C52RC.h&gt;</span><span class=w>  </span><span class=c1>// 找不到</span>
+</code></pre></div></td></tr></table></div> <p><strong>解决方案：</strong></p> <ol> <li>SDCC只提供通用头文件 <code>&lt;8051.h&gt;</code>、<code>&lt;8052.h&gt;</code></li> <li>对于具体型号，使用通用头文件或自行定义： <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-41-1>1</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-41-1 name=__codelineno-41-1></a><span class=cp>#include</span><span class=w> </span><span class=cpf>&lt;8052.h&gt;</span><span class=w>  </span><span class=c1>// STC89C52RC兼容8052</span>
+</code></pre></div></td></tr></table></div></li> </ol> <hr> <h3 id=78>7.8 完整项目配置示例<a class=headerlink href=#78 title="Permanent link">&para;</a></h3> <p><strong>项目结构：</strong></p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-42-1> 1</a></span>
+<span class=normal><a href=#__codelineno-42-2> 2</a></span>
+<span class=normal><a href=#__codelineno-42-3> 3</a></span>
+<span class=normal><a href=#__codelineno-42-4> 4</a></span>
+<span class=normal><a href=#__codelineno-42-5> 5</a></span>
+<span class=normal><a href=#__codelineno-42-6> 6</a></span>
+<span class=normal><a href=#__codelineno-42-7> 7</a></span>
+<span class=normal><a href=#__codelineno-42-8> 8</a></span>
+<span class=normal><a href=#__codelineno-42-9> 9</a></span>
+<span class=normal><a href=#__codelineno-42-10>10</a></span>
+<span class=normal><a href=#__codelineno-42-11>11</a></span>
+<span class=normal><a href=#__codelineno-42-12>12</a></span>
+<span class=normal><a href=#__codelineno-42-13>13</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-42-1 name=__codelineno-42-1></a>my_sdcc_project/
+<a id=__codelineno-42-2 name=__codelineno-42-2></a>├── .vscode/
+<a id=__codelineno-42-3 name=__codelineno-42-3></a>│   ├── c_cpp_properties.json
+<a id=__codelineno-42-4 name=__codelineno-42-4></a>│   ├── tasks.json
+<a id=__codelineno-42-5 name=__codelineno-42-5></a>│   └── settings.json
+<a id=__codelineno-42-6 name=__codelineno-42-6></a>├── include/
+<a id=__codelineno-42-7 name=__codelineno-42-7></a>│   ├── sdcc_custom.h
+<a id=__codelineno-42-8 name=__codelineno-42-8></a>│   └── my_config.h
+<a id=__codelineno-42-9 name=__codelineno-42-9></a>├── src/
+<a id=__codelineno-42-10 name=__codelineno-42-10></a>│   └── main.c
+<a id=__codelineno-42-11 name=__codelineno-42-11></a>├── obj/
+<a id=__codelineno-42-12 name=__codelineno-42-12></a>├── bin/
+<a id=__codelineno-42-13 name=__codelineno-42-13></a>└── Makefile
+</code></pre></div></td></tr></table></div> <p><strong>settings.json</strong>（可选配置）：</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-43-1>1</a></span>
+<span class=normal><a href=#__codelineno-43-2>2</a></span>
+<span class=normal><a href=#__codelineno-43-3>3</a></span>
+<span class=normal><a href=#__codelineno-43-4>4</a></span>
+<span class=normal><a href=#__codelineno-43-5>5</a></span>
+<span class=normal><a href=#__codelineno-43-6>6</a></span>
+<span class=normal><a href=#__codelineno-43-7>7</a></span>
+<span class=normal><a href=#__codelineno-43-8>8</a></span>
+<span class=normal><a href=#__codelineno-43-9>9</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-43-1 name=__codelineno-43-1></a><span class=p>{</span>
+<a id=__codelineno-43-2 name=__codelineno-43-2></a><span class=w>    </span><span class=nt>"files.associations"</span><span class=p>:</span><span class=w> </span><span class=p>{</span>
+<a id=__codelineno-43-3 name=__codelineno-43-3></a><span class=w>        </span><span class=nt>"*.h"</span><span class=p>:</span><span class=w> </span><span class=s2>"c"</span><span class=p>,</span>
+<a id=__codelineno-43-4 name=__codelineno-43-4></a><span class=w>        </span><span class=nt>"*.c"</span><span class=p>:</span><span class=w> </span><span class=s2>"c"</span>
+<a id=__codelineno-43-5 name=__codelineno-43-5></a><span class=w>    </span><span class=p>},</span>
+<a id=__codelineno-43-6 name=__codelineno-43-6></a><span class=w>    </span><span class=nt>"C_Cpp.errorSquiggles"</span><span class=p>:</span><span class=w> </span><span class=s2>"Enabled"</span><span class=p>,</span>
+<a id=__codelineno-43-7 name=__codelineno-43-7></a><span class=w>    </span><span class=nt>"C_Cpp.intelliSenseCacheSize"</span><span class=p>:</span><span class=w> </span><span class=mi>5120</span><span class=p>,</span>
+<a id=__codelineno-43-8 name=__codelineno-43-8></a><span class=w>    </span><span class=nt>"C_Cpp.default.intelliSenseMode"</span><span class=p>:</span><span class=w> </span><span class=s2>"gcc-x64"</span>
+<a id=__codelineno-43-9 name=__codelineno-43-9></a><span class=p>}</span>
+</code></pre></div></td></tr></table></div> <hr> <h2 id=_6>💾 八、烧录与调试<a class=headerlink href=#_6 title="Permanent link">&para;</a></h2> <h3 id=81-stc-ispwindows>8.1 使用STC-ISP工具（Windows）<a class=headerlink href=#81-stc-ispwindows title="Permanent link">&para;</a></h3> <ol> <li>打开STC-ISP软件</li> <li>选择芯片型号（如STC89C52RC）</li> <li>加载生成的 <code>firmware.hex</code> 文件</li> <li>点击&rdquo;下载/编程&rdquo;，然后给单片机上电</li> </ol> <h3 id=82-stcgallinuxmac>8.2 使用stcgal命令行工具（Linux/Mac）<a class=headerlink href=#82-stcgallinuxmac title="Permanent link">&para;</a></h3> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-44-1> 1</a></span>
+<span class=normal><a href=#__codelineno-44-2> 2</a></span>
+<span class=normal><a href=#__codelineno-44-3> 3</a></span>
+<span class=normal><a href=#__codelineno-44-4> 4</a></span>
+<span class=normal><a href=#__codelineno-44-5> 5</a></span>
+<span class=normal><a href=#__codelineno-44-6> 6</a></span>
+<span class=normal><a href=#__codelineno-44-7> 7</a></span>
+<span class=normal><a href=#__codelineno-44-8> 8</a></span>
+<span class=normal><a href=#__codelineno-44-9> 9</a></span>
+<span class=normal><a href=#__codelineno-44-10>10</a></span>
+<span class=normal><a href=#__codelineno-44-11>11</a></span>
+<span class=normal><a href=#__codelineno-44-12>12</a></span>
+<span class=normal><a href=#__codelineno-44-13>13</a></span>
+<span class=normal><a href=#__codelineno-44-14>14</a></span>
+<span class=normal><a href=#__codelineno-44-15>15</a></span>
+<span class=normal><a href=#__codelineno-44-16>16</a></span>
+<span class=normal><a href=#__codelineno-44-17>17</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-44-1 name=__codelineno-44-1></a><span class=c1># 安装stcgal</span>
+<a id=__codelineno-44-2 name=__codelineno-44-2></a>pip<span class=w> </span>install<span class=w> </span>stcgal
+<a id=__codelineno-44-3 name=__codelineno-44-3></a>
+<a id=__codelineno-44-4 name=__codelineno-44-4></a><span class=c1># 查找串口</span>
+<a id=__codelineno-44-5 name=__codelineno-44-5></a>ls<span class=w> </span>/dev/ttyUSB*<span class=w>   </span><span class=c1># Linux USB转串口</span>
+<a id=__codelineno-44-6 name=__codelineno-44-6></a>ls<span class=w> </span>/dev/cu.*<span class=w>      </span><span class=c1># Mac</span>
+<a id=__codelineno-44-7 name=__codelineno-44-7></a>
+<a id=__codelineno-44-8 name=__codelineno-44-8></a><span class=c1># 烧录（STC89C52RC为例）</span>
+<a id=__codelineno-44-9 name=__codelineno-44-9></a>stcgal<span class=w> </span>-p<span class=w> </span>/dev/ttyUSB0<span class=w> </span><span class=se>\</span>
+<a id=__codelineno-44-10 name=__codelineno-44-10></a><span class=w>       </span>-b<span class=w> </span><span class=m>9600</span><span class=w> </span><span class=se>\</span>
+<a id=__codelineno-44-11 name=__codelineno-44-11></a><span class=w>       </span>-t<span class=w> </span><span class=m>11059200</span><span class=w> </span><span class=se>\</span>
+<a id=__codelineno-44-12 name=__codelineno-44-12></a><span class=w>       </span>firmware.hex
+<a id=__codelineno-44-13 name=__codelineno-44-13></a>
+<a id=__codelineno-44-14 name=__codelineno-44-14></a><span class=c1># 参数说明：</span>
+<a id=__codelineno-44-15 name=__codelineno-44-15></a><span class=c1># -p: 串口设备</span>
+<a id=__codelineno-44-16 name=__codelineno-44-16></a><span class=c1># -b: 波特率</span>
+<a id=__codelineno-44-17 name=__codelineno-44-17></a><span class=c1># -t: 目标晶振频率（用于波特率计算）</span>
+</code></pre></div></td></tr></table></div> <h3 id=83>8.3 常见烧录问题<a class=headerlink href=#83 title="Permanent link">&para;</a></h3> <table> <thead> <tr> <th>问题</th> <th>解决方法</th> </tr> </thead> <tbody> <tr> <td>无法识别芯片</td> <td>检查接线（TX/RX是否交叉），冷启动再上电</td> </tr> <tr> <td>烧录失败</td> <td>降低波特率，检查晶振频率设置</td> </tr> <tr> <td>程序不运行</td> <td>检查HEX文件格式，确认代码起始地址为0x0000</td> </tr> <tr> <td>串口权限不足</td> <td>Linux执行 <code>sudo usermod -a -G dialout $USER</code></td> </tr> </tbody> </table> <hr> <h2 id=_7>📚 九、进阶技巧<a class=headerlink href=#_7 title="Permanent link">&para;</a></h2> <h3 id=91>9.1 内联汇编<a class=headerlink href=#91 title="Permanent link">&para;</a></h3> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-45-1> 1</a></span>
+<span class=normal><a href=#__codelineno-45-2> 2</a></span>
+<span class=normal><a href=#__codelineno-45-3> 3</a></span>
+<span class=normal><a href=#__codelineno-45-4> 4</a></span>
+<span class=normal><a href=#__codelineno-45-5> 5</a></span>
+<span class=normal><a href=#__codelineno-45-6> 6</a></span>
+<span class=normal><a href=#__codelineno-45-7> 7</a></span>
+<span class=normal><a href=#__codelineno-45-8> 8</a></span>
+<span class=normal><a href=#__codelineno-45-9> 9</a></span>
+<span class=normal><a href=#__codelineno-45-10>10</a></span>
+<span class=normal><a href=#__codelineno-45-11>11</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-45-1 name=__codelineno-45-1></a><span class=cp>#include</span><span class=w> </span><span class=cpf>&lt;8051.h&gt;</span>
+<a id=__codelineno-45-2 name=__codelineno-45-2></a>
+<a id=__codelineno-45-3 name=__codelineno-45-3></a><span class=kt>void</span><span class=w> </span><span class=nf>delay_us</span><span class=p>(</span><span class=kt>unsigned</span><span class=w> </span><span class=kt>char</span><span class=w> </span><span class=n>us</span><span class=p>)</span><span class=w> </span><span class=p>{</span>
+<a id=__codelineno-45-4 name=__codelineno-45-4></a><span class=w>    </span><span class=c1>// SDCC内联汇编语法</span>
+<a id=__codelineno-45-5 name=__codelineno-45-5></a><span class=w>    </span><span class=kr>__asm</span>
+<a id=__codelineno-45-6 name=__codelineno-45-6></a><span class=w>        </span><span class=n>MOV</span><span class=w> </span><span class=n>R2</span><span class=p>,</span><span class=w> </span><span class=n>dpl</span><span class=w>     </span><span class=p>;</span><span class=w> </span><span class=n>参数在DPL寄存器</span>
+<a id=__codelineno-45-7 name=__codelineno-45-7></a><span class=w>    </span><span class=nl>delay_loop</span><span class=p>:</span>
+<a id=__codelineno-45-8 name=__codelineno-45-8></a><span class=w>        </span><span class=n>DJNZ</span><span class=w> </span><span class=n>R2</span><span class=p>,</span><span class=w> </span><span class=n>delay_loop</span>
+<a id=__codelineno-45-9 name=__codelineno-45-9></a><span class=w>        </span><span class=n>RET</span>
+<a id=__codelineno-45-10 name=__codelineno-45-10></a><span class=w>    </span><span class=n>__endasm</span><span class=p>;</span>
+<a id=__codelineno-45-11 name=__codelineno-45-11></a><span class=p>}</span>
+</code></pre></div></td></tr></table></div> <h3 id=92>9.2 自定义启动代码<a class=headerlink href=#92 title="Permanent link">&para;</a></h3> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-46-1>1</a></span>
+<span class=normal><a href=#__codelineno-46-2>2</a></span>
+<span class=normal><a href=#__codelineno-46-3>3</a></span>
+<span class=normal><a href=#__codelineno-46-4>4</a></span>
+<span class=normal><a href=#__codelineno-46-5>5</a></span>
+<span class=normal><a href=#__codelineno-46-6>6</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-46-1 name=__codelineno-46-1></a><span class=c1># 查看默认启动代码</span>
+<a id=__codelineno-46-2 name=__codelineno-46-2></a>sdcc<span class=w> </span>-mmcs51<span class=w> </span>--dumpall<span class=w> </span>main.c
+<a id=__codelineno-46-3 name=__codelineno-46-3></a>
+<a id=__codelineno-46-4 name=__codelineno-46-4></a><span class=c1># 使用自定义启动文件</span>
+<a id=__codelineno-46-5 name=__codelineno-46-5></a>crtstart.asm:
+<a id=__codelineno-46-6 name=__codelineno-46-6></a>sdcc<span class=w> </span>-mmcs51<span class=w> </span>--no-std-crt0<span class=w> </span>crtstart.asm<span class=w> </span>main.c
+</code></pre></div></td></tr></table></div> <h3 id=93>9.3 库函数使用<a class=headerlink href=#93 title="Permanent link">&para;</a></h3> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-47-1> 1</a></span>
+<span class=normal><a href=#__codelineno-47-2> 2</a></span>
+<span class=normal><a href=#__codelineno-47-3> 3</a></span>
+<span class=normal><a href=#__codelineno-47-4> 4</a></span>
+<span class=normal><a href=#__codelineno-47-5> 5</a></span>
+<span class=normal><a href=#__codelineno-47-6> 6</a></span>
+<span class=normal><a href=#__codelineno-47-7> 7</a></span>
+<span class=normal><a href=#__codelineno-47-8> 8</a></span>
+<span class=normal><a href=#__codelineno-47-9> 9</a></span>
+<span class=normal><a href=#__codelineno-47-10>10</a></span>
+<span class=normal><a href=#__codelineno-47-11>11</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-47-1 name=__codelineno-47-1></a><span class=cp>#include</span><span class=w> </span><span class=cpf>&lt;stdio.h&gt;</span>
+<a id=__codelineno-47-2 name=__codelineno-47-2></a><span class=cp>#include</span><span class=w> </span><span class=cpf>&lt;string.h&gt;</span>
+<a id=__codelineno-47-3 name=__codelineno-47-3></a><span class=cp>#include</span><span class=w> </span><span class=cpf>&lt;stdlib.h&gt;</span>
+<a id=__codelineno-47-4 name=__codelineno-47-4></a>
+<a id=__codelineno-47-5 name=__codelineno-47-5></a><span class=c1>// SDCC提供标准C库，但printf等需要重定向</span>
+<a id=__codelineno-47-6 name=__codelineno-47-6></a><span class=kt>void</span><span class=w> </span><span class=nf>putchar</span><span class=p>(</span><span class=kt>char</span><span class=w> </span><span class=n>c</span><span class=p>)</span><span class=w> </span><span class=p>{</span>
+<a id=__codelineno-47-7 name=__codelineno-47-7></a><span class=w>    </span><span class=c1>// 串口发送实现</span>
+<a id=__codelineno-47-8 name=__codelineno-47-8></a><span class=w>    </span><span class=n>SBUF</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>c</span><span class=p>;</span>
+<a id=__codelineno-47-9 name=__codelineno-47-9></a><span class=w>    </span><span class=k>while</span><span class=w> </span><span class=p>(</span><span class=o>!</span><span class=n>TI</span><span class=p>);</span>
+<a id=__codelineno-47-10 name=__codelineno-47-10></a><span class=w>    </span><span class=n>TI</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=mi>0</span><span class=p>;</span>
+<a id=__codelineno-47-11 name=__codelineno-47-11></a><span class=p>}</span>
+</code></pre></div></td></tr></table></div> <h3 id=94>9.4 多模块项目组织<a class=headerlink href=#94 title="Permanent link">&para;</a></h3> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-48-1> 1</a></span>
+<span class=normal><a href=#__codelineno-48-2> 2</a></span>
+<span class=normal><a href=#__codelineno-48-3> 3</a></span>
+<span class=normal><a href=#__codelineno-48-4> 4</a></span>
+<span class=normal><a href=#__codelineno-48-5> 5</a></span>
+<span class=normal><a href=#__codelineno-48-6> 6</a></span>
+<span class=normal><a href=#__codelineno-48-7> 7</a></span>
+<span class=normal><a href=#__codelineno-48-8> 8</a></span>
+<span class=normal><a href=#__codelineno-48-9> 9</a></span>
+<span class=normal><a href=#__codelineno-48-10>10</a></span>
+<span class=normal><a href=#__codelineno-48-11>11</a></span>
+<span class=normal><a href=#__codelineno-48-12>12</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-48-1 name=__codelineno-48-1></a>project/
+<a id=__codelineno-48-2 name=__codelineno-48-2></a>├── include/
+<a id=__codelineno-48-3 name=__codelineno-48-3></a>│   ├── config.h      # 项目配置
+<a id=__codelineno-48-4 name=__codelineno-48-4></a>│   ├── delay.h       # 延时函数声明
+<a id=__codelineno-48-5 name=__codelineno-48-5></a>│   └── uart.h        # 串口函数声明
+<a id=__codelineno-48-6 name=__codelineno-48-6></a>├── lib/
+<a id=__codelineno-48-7 name=__codelineno-48-7></a>│   ├── delay.c       # 延时函数实现
+<a id=__codelineno-48-8 name=__codelineno-48-8></a>│   └── uart.c        # 串口驱动实现
+<a id=__codelineno-48-9 name=__codelineno-48-9></a>├── src/
+<a id=__codelineno-48-10 name=__codelineno-48-10></a>│   └── main.c        # 主程序
+<a id=__codelineno-48-11 name=__codelineno-48-11></a>├── Makefile
+<a id=__codelineno-48-12 name=__codelineno-48-12></a>└── README.md
+</code></pre></div></td></tr></table></div> <p><strong>Makefile多文件编译：</strong></p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-49-1>1</a></span>
+<span class=normal><a href=#__codelineno-49-2>2</a></span>
+<span class=normal><a href=#__codelineno-49-3>3</a></span>
+<span class=normal><a href=#__codelineno-49-4>4</a></span>
+<span class=normal><a href=#__codelineno-49-5>5</a></span>
+<span class=normal><a href=#__codelineno-49-6>6</a></span>
+<span class=normal><a href=#__codelineno-49-7>7</a></span>
+<span class=normal><a href=#__codelineno-49-8>8</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-49-1 name=__codelineno-49-1></a><span class=nv>SOURCES</span><span class=w> </span><span class=o>=</span><span class=w> </span>src/main.c<span class=w> </span>lib/delay.c<span class=w> </span>lib/uart.c
+<a id=__codelineno-49-2 name=__codelineno-49-2></a><span class=nv>OBJECTS</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=k>$(</span>patsubst<span class=w> </span>%.c,%.rel,<span class=k>$(</span>SOURCES<span class=k>))</span>
+<a id=__codelineno-49-3 name=__codelineno-49-3></a>
+<a id=__codelineno-49-4 name=__codelineno-49-4></a><span class=nf>all</span><span class=o>:</span><span class=w> </span><span class=k>$(</span><span class=nv>OBJECTS</span><span class=k>)</span>
+<a id=__codelineno-49-5 name=__codelineno-49-5></a><span class=w>    </span><span class=k>$(</span>CC<span class=k>)</span><span class=w> </span><span class=k>$(</span>LDFLAGS<span class=k>)</span><span class=w> </span>-o<span class=w> </span><span class=k>$(</span>TARGET<span class=k>)</span>.ihx<span class=w> </span><span class=k>$(</span>OBJECTS<span class=k>)</span>
+<a id=__codelineno-49-6 name=__codelineno-49-6></a>
+<a id=__codelineno-49-7 name=__codelineno-49-7></a><span class=nf>%.rel</span><span class=o>:</span><span class=w> </span>%.<span class=n>c</span>
+<a id=__codelineno-49-8 name=__codelineno-49-8></a><span class=w>    </span><span class=k>$(</span>CC<span class=k>)</span><span class=w> </span><span class=k>$(</span>CFLAGS<span class=k>)</span><span class=w> </span>-c<span class=w> </span>$&lt;<span class=w> </span>-o<span class=w> </span><span class=nv>$@</span>
+</code></pre></div></td></tr></table></div> <hr> <h2 id=_8>十、蓝桥杯竞赛专用配置<a class=headerlink href=#_8 title="Permanent link">&para;</a></h2> <h3 id=101>10.1 蓝桥杯开发板资源<a class=headerlink href=#101 title="Permanent link">&para;</a></h3> <table> <thead> <tr> <th>资源</th> <th>地址/引脚</th> <th>说明</th> </tr> </thead> <tbody> <tr> <td>LED</td> <td>P0口（需外接上拉）</td> <td>8个LED，低电平点亮</td> </tr> <tr> <td>数码管</td> <td>P0（段码）+ P2（位选）</td> <td>共阳数码管</td> </tr> <tr> <td>按键</td> <td>P3.0-P3.3</td> <td>独立按键</td> </tr> <tr> <td>DS18B20</td> <td>P1.4</td> <td>温度传感器</td> </tr> <tr> <td>DS1302</td> <td>P2.0-P2.2</td> <td>时钟芯片</td> </tr> <tr> <td>PCF8591</td> <td>I2C（P2.1, P2.3）</td> <td>AD/DA转换</td> </tr> <tr> <td>AT24C02</td> <td>I2C（P2.1, P2.3）</td> <td>EEPROM</td> </tr> </tbody> </table> <h3 id=102-makefile>10.2 蓝桥杯专用Makefile<a class=headerlink href=#102-makefile title="Permanent link">&para;</a></h3> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-50-1> 1</a></span>
+<span class=normal><a href=#__codelineno-50-2> 2</a></span>
+<span class=normal><a href=#__codelineno-50-3> 3</a></span>
+<span class=normal><a href=#__codelineno-50-4> 4</a></span>
+<span class=normal><a href=#__codelineno-50-5> 5</a></span>
+<span class=normal><a href=#__codelineno-50-6> 6</a></span>
+<span class=normal><a href=#__codelineno-50-7> 7</a></span>
+<span class=normal><a href=#__codelineno-50-8> 8</a></span>
+<span class=normal><a href=#__codelineno-50-9> 9</a></span>
+<span class=normal><a href=#__codelineno-50-10>10</a></span>
+<span class=normal><a href=#__codelineno-50-11>11</a></span>
+<span class=normal><a href=#__codelineno-50-12>12</a></span>
+<span class=normal><a href=#__codelineno-50-13>13</a></span>
+<span class=normal><a href=#__codelineno-50-14>14</a></span>
+<span class=normal><a href=#__codelineno-50-15>15</a></span>
+<span class=normal><a href=#__codelineno-50-16>16</a></span>
+<span class=normal><a href=#__codelineno-50-17>17</a></span>
+<span class=normal><a href=#__codelineno-50-18>18</a></span>
+<span class=normal><a href=#__codelineno-50-19>19</a></span>
+<span class=normal><a href=#__codelineno-50-20>20</a></span>
+<span class=normal><a href=#__codelineno-50-21>21</a></span>
+<span class=normal><a href=#__codelineno-50-22>22</a></span>
+<span class=normal><a href=#__codelineno-50-23>23</a></span>
+<span class=normal><a href=#__codelineno-50-24>24</a></span>
+<span class=normal><a href=#__codelineno-50-25>25</a></span>
+<span class=normal><a href=#__codelineno-50-26>26</a></span>
+<span class=normal><a href=#__codelineno-50-27>27</a></span>
+<span class=normal><a href=#__codelineno-50-28>28</a></span>
+<span class=normal><a href=#__codelineno-50-29>29</a></span>
+<span class=normal><a href=#__codelineno-50-30>30</a></span>
+<span class=normal><a href=#__codelineno-50-31>31</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-50-1 name=__codelineno-50-1></a><span class=c># 蓝桥杯CT107D开发板专用Makefile</span>
+<a id=__codelineno-50-2 name=__codelineno-50-2></a>
+<a id=__codelineno-50-3 name=__codelineno-50-3></a><span class=nv>TARGET</span><span class=w>  </span><span class=o>=</span><span class=w> </span>bluecup
+<a id=__codelineno-50-4 name=__codelineno-50-4></a><span class=nv>CC</span><span class=w>      </span><span class=o>=</span><span class=w> </span>sdcc
+<a id=__codelineno-50-5 name=__codelineno-50-5></a><span class=nv>CFLAGS</span><span class=w>  </span><span class=o>=</span><span class=w> </span>-mmcs51<span class=w> </span>--model-small<span class=w> </span>-I./include
+<a id=__codelineno-50-6 name=__codelineno-50-6></a><span class=nv>LDFLAGS</span><span class=w> </span><span class=o>=</span><span class=w> </span>-mmcs51<span class=w> </span>--model-small<span class=w> </span><span class=se>\</span>
+<a id=__codelineno-50-7 name=__codelineno-50-7></a><span class=w>          </span>--code-loc<span class=w> </span>0x0000<span class=w> </span><span class=se>\</span>
+<a id=__codelineno-50-8 name=__codelineno-50-8></a><span class=w>          </span>--iram-size<span class=w> </span><span class=m>256</span><span class=w> </span><span class=se>\</span>
+<a id=__codelineno-50-9 name=__codelineno-50-9></a><span class=w>          </span>--xram-loc<span class=w> </span>0x0000
+<a id=__codelineno-50-10 name=__codelineno-50-10></a>
+<a id=__codelineno-50-11 name=__codelineno-50-11></a><span class=nv>SOURCES</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=k>$(</span>wildcard<span class=w> </span>src/*.c<span class=w> </span>drivers/*.c<span class=k>)</span>
+<a id=__codelineno-50-12 name=__codelineno-50-12></a><span class=nv>OBJS</span><span class=w>    </span><span class=o>=</span><span class=w> </span><span class=k>$(</span>SOURCES:.c<span class=o>=</span>.rel<span class=k>)</span>
+<a id=__codelineno-50-13 name=__codelineno-50-13></a>
+<a id=__codelineno-50-14 name=__codelineno-50-14></a><span class=nf>all</span><span class=o>:</span><span class=w> </span><span class=k>$(</span><span class=nv>TARGET</span><span class=k>)</span>.<span class=n>hex</span>
+<a id=__codelineno-50-15 name=__codelineno-50-15></a>
+<a id=__codelineno-50-16 name=__codelineno-50-16></a><span class=nf>%.rel</span><span class=o>:</span><span class=w> </span>%.<span class=n>c</span>
+<a id=__codelineno-50-17 name=__codelineno-50-17></a><span class=w>    </span><span class=k>$(</span>CC<span class=k>)</span><span class=w> </span><span class=k>$(</span>CFLAGS<span class=k>)</span><span class=w> </span>-c<span class=w> </span>$&lt;<span class=w> </span>-o<span class=w> </span><span class=nv>$@</span>
+<a id=__codelineno-50-18 name=__codelineno-50-18></a>
+<a id=__codelineno-50-19 name=__codelineno-50-19></a><span class=nf>$(TARGET).ihx</span><span class=o>:</span><span class=w> </span><span class=k>$(</span><span class=nv>OBJS</span><span class=k>)</span>
+<a id=__codelineno-50-20 name=__codelineno-50-20></a><span class=w>    </span><span class=k>$(</span>CC<span class=k>)</span><span class=w> </span><span class=k>$(</span>LDFLAGS<span class=k>)</span><span class=w> </span>-o<span class=w> </span><span class=nv>$@</span><span class=w> </span>$^
+<a id=__codelineno-50-21 name=__codelineno-50-21></a>
+<a id=__codelineno-50-22 name=__codelineno-50-22></a><span class=nf>$(TARGET).hex</span><span class=o>:</span><span class=w> </span><span class=k>$(</span><span class=nv>TARGET</span><span class=k>)</span>.<span class=n>ihx</span>
+<a id=__codelineno-50-23 name=__codelineno-50-23></a><span class=w>    </span>packihx<span class=w> </span>$&lt;<span class=w> </span>&gt;<span class=w> </span><span class=nv>$@</span>
+<a id=__codelineno-50-24 name=__codelineno-50-24></a>
+<a id=__codelineno-50-25 name=__codelineno-50-25></a><span class=nf>clean</span><span class=o>:</span>
+<a id=__codelineno-50-26 name=__codelineno-50-26></a><span class=w>    </span>rm<span class=w> </span>-f<span class=w> </span>*.rel<span class=w> </span>*.lst<span class=w> </span>*.sym<span class=w> </span>*.asm<span class=w> </span>*.rst<span class=w> </span>*.ihx<span class=w> </span>*.hex<span class=w> </span>src/*.rel<span class=w> </span>drivers/*.rel
+<a id=__codelineno-50-27 name=__codelineno-50-27></a>
+<a id=__codelineno-50-28 name=__codelineno-50-28></a><span class=nf>flash</span><span class=o>:</span><span class=w> </span><span class=k>$(</span><span class=nv>TARGET</span><span class=k>)</span>.<span class=n>hex</span>
+<a id=__codelineno-50-29 name=__codelineno-50-29></a><span class=w>    </span>stcgal<span class=w> </span>-p<span class=w> </span>/dev/ttyUSB0<span class=w> </span>-b<span class=w> </span><span class=m>9600</span><span class=w> </span><span class=k>$(</span>TARGET<span class=k>)</span>.hex
+<a id=__codelineno-50-30 name=__codelineno-50-30></a>
+<a id=__codelineno-50-31 name=__codelineno-50-31></a><span class=nf>.PHONY</span><span class=o>:</span><span class=w> </span><span class=n>all</span> <span class=n>clean</span> <span class=n>flash</span>
+</code></pre></div></td></tr></table></div> <hr> <h2 id=_9>十一、参考资源<a class=headerlink href=#_9 title="Permanent link">&para;</a></h2> <table> <thead> <tr> <th>资源</th> <th>链接</th> <th>说明</th> </tr> </thead> <tbody> <tr> <td><strong>SDCC官网</strong></td> <td><a href=https://sdcc.sourceforge.net/ >https://sdcc.sourceforge.net/</a></td> <td>官方文档和下载</td> </tr> <tr> <td><strong>GitHub仓库</strong></td> <td><a href=https://github.com/sdcc/sdcc>https://github.com/sdcc/sdcc</a></td> <td>源码和Issues</td> </tr> <tr> <td><strong>官方手册</strong></td> <td><a href=https://sdcc.sourceforge.net/doc/sdccman.pdf>https://sdcc.sourceforge.net/doc/sdccman.pdf</a></td> <td>完整使用手册</td> </tr> <tr> <td><strong>蓝桥杯官网</strong></td> <td><a href=https://www.lanqiao.cn/ >https://www.lanqiao.cn/</a></td> <td>竞赛信息和资料</td> </tr> <tr> <td><strong>STC-ISP下载</strong></td> <td><a href=http://www.stcmcudata.com/ >http://www.stcmcudata.com/</a></td> <td>官方烧录工具</td> </tr> <tr> <td><strong>stcgal项目</strong></td> <td><a href=https://github.com/grigorig/stcgal>https://github.com/grigorig/stcgal</a></td> <td>Linux/Mac烧录工具</td> </tr> </tbody> </table> <hr> <h2 id=faq>十二、常见问题排查（FAQ）<a class=headerlink href=#faq title="Permanent link">&para;</a></h2> <h3 id=121>12.1 编译问题<a class=headerlink href=#121 title="Permanent link">&para;</a></h3> <h4 id=q1-cannot-find-device-definition-file>Q1: 错误 &ldquo;cannot find device definition file&rdquo;<a class=headerlink href=#q1-cannot-find-device-definition-file title="Permanent link">&para;</a></h4> <p><strong>错误信息：</strong></p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-51-1>1</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-51-1 name=__codelineno-51-1></a>error: cannot find device definition file 'mcs51'
+</code></pre></div></td></tr></table></div> <p><strong>原因：</strong> SDCC安装不完整或路径配置错误</p> <p><strong>解决方案：</strong></p> <ol> <li>检查SDCC安装完整性</li> <li>确认环境变量PATH包含SDCC的bin目录</li> <li>重新安装SDCC</li> </ol> <hr> <h4 id=q2-undefined-reference-to-__sdcc_gsinit_startup>Q2: 错误 &ldquo;undefined reference to &lsquo;__sdcc_gsinit_startup&rsquo;&rdquo;<a class=headerlink href=#q2-undefined-reference-to-__sdcc_gsinit_startup title="Permanent link">&para;</a></h4> <p><strong>错误信息：</strong></p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-52-1>1</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-52-1 name=__codelineno-52-1></a>?ASlink-Warning-Undefined Global '__sdcc_gsinit_startup'
+</code></pre></div></td></tr></table></div> <p><strong>原因：</strong> 链接时缺少启动代码</p> <p><strong>解决方案：</strong></p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-53-1>1</a></span>
+<span class=normal><a href=#__codelineno-53-2>2</a></span>
+<span class=normal><a href=#__codelineno-53-3>3</a></span>
+<span class=normal><a href=#__codelineno-53-4>4</a></span>
+<span class=normal><a href=#__codelineno-53-5>5</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-53-1 name=__codelineno-53-1></a><span class=c1># 确保链接时包含所有必要的.rel文件</span>
+<a id=__codelineno-53-2 name=__codelineno-53-2></a>sdcc<span class=w> </span>-mmcs51<span class=w> </span>main.rel<span class=w> </span>-o<span class=w> </span>firmware.ihx
+<a id=__codelineno-53-3 name=__codelineno-53-3></a>
+<a id=__codelineno-53-4 name=__codelineno-53-4></a><span class=c1># 或者使用--no-std-crt0选项使用自定义启动代码</span>
+<a id=__codelineno-53-5 name=__codelineno-53-5></a>sdcc<span class=w> </span>-mmcs51<span class=w> </span>--no-std-crt0<span class=w> </span>crtstart.asm<span class=w> </span>main.c
+</code></pre></div></td></tr></table></div> <hr> <h4 id=q3-unreferenced-function-argument>Q3: 警告 &ldquo;unreferenced function argument&rdquo;<a class=headerlink href=#q3-unreferenced-function-argument title="Permanent link">&para;</a></h4> <p><strong>警告信息：</strong></p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-54-1>1</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-54-1 name=__codelineno-54-1></a>warning: unreferenced function argument
+</code></pre></div></td></tr></table></div> <p><strong>原因：</strong> 函数参数未使用</p> <p><strong>解决方案：</strong></p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-55-1>1</a></span>
+<span class=normal><a href=#__codelineno-55-2>2</a></span>
+<span class=normal><a href=#__codelineno-55-3>3</a></span>
+<span class=normal><a href=#__codelineno-55-4>4</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-55-1 name=__codelineno-55-1></a><span class=c1>// 使用 __unused 属性或强制类型转换</span>
+<a id=__codelineno-55-2 name=__codelineno-55-2></a><span class=kt>void</span><span class=w> </span><span class=nf>foo</span><span class=p>(</span><span class=kt>int</span><span class=w> </span><span class=n>__unused</span><span class=w> </span><span class=n>arg</span><span class=p>)</span><span class=w> </span><span class=p>{</span><span class=w> </span><span class=p>}</span>
+<a id=__codelineno-55-3 name=__codelineno-55-3></a><span class=c1>// 或</span>
+<a id=__codelineno-55-4 name=__codelineno-55-4></a><span class=kt>void</span><span class=w> </span><span class=nf>foo</span><span class=p>(</span><span class=kt>int</span><span class=w> </span><span class=n>arg</span><span class=p>)</span><span class=w> </span><span class=p>{</span><span class=w> </span><span class=p>(</span><span class=kt>void</span><span class=p>)</span><span class=n>arg</span><span class=p>;</span><span class=w> </span><span class=p>}</span>
+</code></pre></div></td></tr></table></div> <hr> <h4 id=q4>Q4: 编译后代码过大<a class=headerlink href=#q4 title="Permanent link">&para;</a></h4> <p><strong>问题：</strong> 生成的HEX文件比Keil编译的大很多</p> <p><strong>原因：</strong> SDCC默认优化级别较低</p> <p><strong>解决方案：</strong></p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-56-1>1</a></span>
+<span class=normal><a href=#__codelineno-56-2>2</a></span>
+<span class=normal><a href=#__codelineno-56-3>3</a></span>
+<span class=normal><a href=#__codelineno-56-4>4</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-56-1 name=__codelineno-56-1></a><span class=c1># 启用优化</span>
+<a id=__codelineno-56-2 name=__codelineno-56-2></a>sdcc<span class=w> </span>-mmcs51<span class=w> </span>--opt-code-size<span class=w>  </span><span class=c1># 优化代码大小</span>
+<a id=__codelineno-56-3 name=__codelineno-56-3></a>sdcc<span class=w> </span>-mmcs51<span class=w> </span>--opt-code-speed<span class=w> </span><span class=c1># 优化代码速度</span>
+<a id=__codelineno-56-4 name=__codelineno-56-4></a>sdcc<span class=w> </span>-mmcs51<span class=w> </span>--max-allocs-per-node<span class=w> </span><span class=m>100000</span><span class=w>  </span><span class=c1># 激进优化</span>
+</code></pre></div></td></tr></table></div> <hr> <h3 id=122>12.2 头文件问题<a class=headerlink href=#122 title="Permanent link">&para;</a></h3> <h4 id=q5-reg51h-reg52h>Q5: 找不到 <code>&lt;reg51.h&gt;</code> 或 <code>&lt;reg52.h&gt;</code><a class=headerlink href=#q5-reg51h-reg52h title="Permanent link">&para;</a></h4> <p><strong>错误信息：</strong></p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-57-1>1</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-57-1 name=__codelineno-57-1></a>fatal error: 'reg51.h' file not found
+</code></pre></div></td></tr></table></div> <p><strong>原因：</strong> SDCC使用不同的头文件名</p> <p><strong>解决方案：</strong></p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-58-1>1</a></span>
+<span class=normal><a href=#__codelineno-58-2>2</a></span>
+<span class=normal><a href=#__codelineno-58-3>3</a></span>
+<span class=normal><a href=#__codelineno-58-4>4</a></span>
+<span class=normal><a href=#__codelineno-58-5>5</a></span>
+<span class=normal><a href=#__codelineno-58-6>6</a></span>
+<span class=normal><a href=#__codelineno-58-7>7</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-58-1 name=__codelineno-58-1></a><span class=c1>// Keil的头文件</span>
+<a id=__codelineno-58-2 name=__codelineno-58-2></a><span class=cp>#include</span><span class=w> </span><span class=cpf>&lt;reg51.h&gt;</span>
+<a id=__codelineno-58-3 name=__codelineno-58-3></a>
+<a id=__codelineno-58-4 name=__codelineno-58-4></a><span class=c1>// SDCC使用以下之一</span>
+<a id=__codelineno-58-5 name=__codelineno-58-5></a><span class=cp>#include</span><span class=w> </span><span class=cpf>&lt;8051.h&gt;</span><span class=w>   </span><span class=c1>// 8051基础寄存器</span>
+<a id=__codelineno-58-6 name=__codelineno-58-6></a><span class=cp>#include</span><span class=w> </span><span class=cpf>&lt;8052.h&gt;</span><span class=w>   </span><span class=c1>// 8052兼容芯片</span>
+<a id=__codelineno-58-7 name=__codelineno-58-7></a><span class=cp>#include</span><span class=w> </span><span class=cpf>&lt;mcs51reg.h&gt;</span><span class=w> </span><span class=c1>// 通用8051寄存器定义</span>
+</code></pre></div></td></tr></table></div> <hr> <h4 id=q6>Q6: 自定义头文件路径问题<a class=headerlink href=#q6 title="Permanent link">&para;</a></h4> <p><strong>错误信息：</strong></p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-59-1>1</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-59-1 name=__codelineno-59-1></a>fatal error: 'myheader.h' file not found
+</code></pre></div></td></tr></table></div> <p><strong>解决方案：</strong></p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-60-1>1</a></span>
+<span class=normal><a href=#__codelineno-60-2>2</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-60-1 name=__codelineno-60-1></a><span class=c1># 使用 -I 指定头文件搜索路径</span>
+<a id=__codelineno-60-2 name=__codelineno-60-2></a>sdcc<span class=w> </span>-mmcs51<span class=w> </span>-I./include<span class=w> </span>-I./drivers<span class=w> </span>src/main.c
+</code></pre></div></td></tr></table></div> <p><strong>Makefile示例：</strong></p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-61-1>1</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-61-1 name=__codelineno-61-1></a><span class=nv>CFLAGS</span><span class=w> </span><span class=o>=</span><span class=w> </span>-mmcs51<span class=w> </span>-I./include<span class=w> </span>-I./drivers<span class=w> </span>-I/usr/share/sdcc/include
+</code></pre></div></td></tr></table></div> <hr> <h3 id=123>12.3 语法兼容问题<a class=headerlink href=#123 title="Permanent link">&para;</a></h3> <h4 id=q7-keilsdcc>Q7: Keil代码移植到SDCC出现大量错误<a class=headerlink href=#q7-keilsdcc title="Permanent link">&para;</a></h4> <p><strong>常见问题及解决方案：</strong></p> <table> <thead> <tr> <th>Keil语法</th> <th>SDCC语法</th> <th>说明</th> </tr> </thead> <tbody> <tr> <td><code>sfr P0 = 0x80;</code></td> <td><code>__sfr __at (0x80) P0;</code></td> <td>特殊功能寄存器</td> </tr> <tr> <td><code>sbit LED = P1^0;</code></td> <td><code>__sbit __at (0x90) LED;</code></td> <td>位定义</td> </tr> <tr> <td><code>bit flag;</code></td> <td><code>__bit flag;</code></td> <td>位变量</td> </tr> <tr> <td><code>interrupt 1</code></td> <td><code>__interrupt 1</code></td> <td>中断</td> </tr> <tr> <td><code>using 1</code></td> <td><code>__using 1</code></td> <td>寄存器组</td> </tr> <tr> <td><code>data</code>/<code>xdata</code></td> <td><code>__data</code>/<code>__xdata</code></td> <td>存储类型</td> </tr> </tbody> </table> <p><strong>批量替换脚本（Bash）：</strong></p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-62-1>1</a></span>
+<span class=normal><a href=#__codelineno-62-2>2</a></span>
+<span class=normal><a href=#__codelineno-62-3>3</a></span>
+<span class=normal><a href=#__codelineno-62-4>4</a></span>
+<span class=normal><a href=#__codelineno-62-5>5</a></span>
+<span class=normal><a href=#__codelineno-62-6>6</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-62-1 name=__codelineno-62-1></a><span class=c1># 转换Keil代码到SDCC兼容格式</span>
+<a id=__codelineno-62-2 name=__codelineno-62-2></a>sed<span class=w> </span>-i<span class=w> </span><span class=s1>'s/sfr \([A-Za-z0-9_]*\) = \([0-9xX]*\);/__sfr __at (\2) \1;/g'</span><span class=w> </span>*.c
+<a id=__codelineno-62-3 name=__codelineno-62-3></a>sed<span class=w> </span>-i<span class=w> </span><span class=s1>'s/sbit \([A-Za-z0-9_]*\) = \([A-Za-z0-9_]*\)\^\([0-9]*\);/__sbit __at (0x\3) \1;/g'</span><span class=w> </span>*.c
+<a id=__codelineno-62-4 name=__codelineno-62-4></a>sed<span class=w> </span>-i<span class=w> </span><span class=s1>'s/\bbool\b/__bit/g'</span><span class=w> </span>*.c
+<a id=__codelineno-62-5 name=__codelineno-62-5></a>sed<span class=w> </span>-i<span class=w> </span><span class=s1>'s/\binterrupt\b/__interrupt/g'</span><span class=w> </span>*.c
+<a id=__codelineno-62-6 name=__codelineno-62-6></a>sed<span class=w> </span>-i<span class=w> </span><span class=s1>'s/\busing\b/__using/g'</span><span class=w> </span>*.c
+</code></pre></div></td></tr></table></div> <hr> <h4 id=q8-__sbit>Q8: <code>__sbit</code> 定义位地址计算错误<a class=headerlink href=#q8-__sbit title="Permanent link">&para;</a></h4> <p><strong>问题：</strong> 不知道位地址如何计算</p> <p><strong>解决方案：</strong></p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-63-1>1</a></span>
+<span class=normal><a href=#__codelineno-63-2>2</a></span>
+<span class=normal><a href=#__codelineno-63-3>3</a></span>
+<span class=normal><a href=#__codelineno-63-4>4</a></span>
+<span class=normal><a href=#__codelineno-63-5>5</a></span>
+<span class=normal><a href=#__codelineno-63-6>6</a></span>
+<span class=normal><a href=#__codelineno-63-7>7</a></span>
+<span class=normal><a href=#__codelineno-63-8>8</a></span>
+<span class=normal><a href=#__codelineno-63-9>9</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-63-1 name=__codelineno-63-1></a><span class=c1>// 位地址计算公式：寄存器地址 + 位号</span>
+<a id=__codelineno-63-2 name=__codelineno-63-2></a><span class=c1>// P1 = 0x90, P1.0 = 0x90 + 0 = 0x90</span>
+<a id=__codelineno-63-3 name=__codelineno-63-3></a><span class=c1>// P1.7 = 0x90 + 7 = 0x97</span>
+<a id=__codelineno-63-4 name=__codelineno-63-4></a>
+<a id=__codelineno-63-5 name=__codelineno-63-5></a><span class=c1>// 正确的定义方式</span>
+<a id=__codelineno-63-6 name=__codelineno-63-6></a><span class=n>__sbit</span><span class=w> </span><span class=nf>__at</span><span class=w> </span><span class=p>(</span><span class=mh>0x90</span><span class=p>)</span><span class=w> </span><span class=n>P1_0</span><span class=p>;</span><span class=w>  </span><span class=c1>// P1.0</span>
+<a id=__codelineno-63-7 name=__codelineno-63-7></a><span class=n>__sbit</span><span class=w> </span><span class=nf>__at</span><span class=w> </span><span class=p>(</span><span class=mh>0x91</span><span class=p>)</span><span class=w> </span><span class=n>P1_1</span><span class=p>;</span><span class=w>  </span><span class=c1>// P1.1</span>
+<a id=__codelineno-63-8 name=__codelineno-63-8></a><span class=c1>// ...</span>
+<a id=__codelineno-63-9 name=__codelineno-63-9></a><span class=n>__sbit</span><span class=w> </span><span class=nf>__at</span><span class=w> </span><span class=p>(</span><span class=mh>0x97</span><span class=p>)</span><span class=w> </span><span class=n>P1_7</span><span class=p>;</span><span class=w>  </span><span class=c1>// P1.7</span>
+</code></pre></div></td></tr></table></div> <hr> <h3 id=124>12.4 链接问题<a class=headerlink href=#124 title="Permanent link">&para;</a></h3> <h4 id=q9>Q9: 多重定义错误<a class=headerlink href=#q9 title="Permanent link">&para;</a></h4> <p><strong>错误信息：</strong></p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-64-1>1</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-64-1 name=__codelineno-64-1></a>?ASlink-Error-Overlaying _delay_ms
+</code></pre></div></td></tr></table></div> <p><strong>原因：</strong> 函数在多个文件中被定义</p> <p><strong>解决方案：</strong></p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-65-1> 1</a></span>
+<span class=normal><a href=#__codelineno-65-2> 2</a></span>
+<span class=normal><a href=#__codelineno-65-3> 3</a></span>
+<span class=normal><a href=#__codelineno-65-4> 4</a></span>
+<span class=normal><a href=#__codelineno-65-5> 5</a></span>
+<span class=normal><a href=#__codelineno-65-6> 6</a></span>
+<span class=normal><a href=#__codelineno-65-7> 7</a></span>
+<span class=normal><a href=#__codelineno-65-8> 8</a></span>
+<span class=normal><a href=#__codelineno-65-9> 9</a></span>
+<span class=normal><a href=#__codelineno-65-10>10</a></span>
+<span class=normal><a href=#__codelineno-65-11>11</a></span>
+<span class=normal><a href=#__codelineno-65-12>12</a></span>
+<span class=normal><a href=#__codelineno-65-13>13</a></span>
+<span class=normal><a href=#__codelineno-65-14>14</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-65-1 name=__codelineno-65-1></a><span class=c1>// delay.h - 声明</span>
+<a id=__codelineno-65-2 name=__codelineno-65-2></a><span class=cp>#ifndef DELAY_H</span>
+<a id=__codelineno-65-3 name=__codelineno-65-3></a><span class=cp>#define DELAY_H</span>
+<a id=__codelineno-65-4 name=__codelineno-65-4></a><span class=kt>void</span><span class=w> </span><span class=nf>delay_ms</span><span class=p>(</span><span class=kt>unsigned</span><span class=w> </span><span class=kt>int</span><span class=w> </span><span class=n>ms</span><span class=p>);</span>
+<a id=__codelineno-65-5 name=__codelineno-65-5></a><span class=cp>#endif</span>
+<a id=__codelineno-65-6 name=__codelineno-65-6></a>
+<a id=__codelineno-65-7 name=__codelineno-65-7></a><span class=c1>// delay.c - 定义</span>
+<a id=__codelineno-65-8 name=__codelineno-65-8></a><span class=cp>#include</span><span class=w> </span><span class=cpf>"delay.h"</span>
+<a id=__codelineno-65-9 name=__codelineno-65-9></a><span class=kt>void</span><span class=w> </span><span class=nf>delay_ms</span><span class=p>(</span><span class=kt>unsigned</span><span class=w> </span><span class=kt>int</span><span class=w> </span><span class=n>ms</span><span class=p>)</span><span class=w> </span><span class=p>{</span>
+<a id=__codelineno-65-10 name=__codelineno-65-10></a><span class=w>    </span><span class=c1>// 实现</span>
+<a id=__codelineno-65-11 name=__codelineno-65-11></a><span class=p>}</span>
+<a id=__codelineno-65-12 name=__codelineno-65-12></a>
+<a id=__codelineno-65-13 name=__codelineno-65-13></a><span class=c1>// main.c - 使用</span>
+<a id=__codelineno-65-14 name=__codelineno-65-14></a><span class=cp>#include</span><span class=w> </span><span class=cpf>"delay.h"</span><span class=w>  </span><span class=c1>// 只包含头文件，不要包含delay.c</span>
+</code></pre></div></td></tr></table></div> <hr> <h4 id=q10>Q10: 内存溢出错误<a class=headerlink href=#q10 title="Permanent link">&para;</a></h4> <p><strong>错误信息：</strong></p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-66-1>1</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-66-1 name=__codelineno-66-1></a>?ASlink-Error-Insufficient space
+</code></pre></div></td></tr></table></div> <p><strong>原因：</strong> 代码或数据超出芯片容量</p> <p><strong>解决方案：</strong></p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-67-1>1</a></span>
+<span class=normal><a href=#__codelineno-67-2>2</a></span>
+<span class=normal><a href=#__codelineno-67-3>3</a></span>
+<span class=normal><a href=#__codelineno-67-4>4</a></span>
+<span class=normal><a href=#__codelineno-67-5>5</a></span>
+<span class=normal><a href=#__codelineno-67-6>6</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-67-1 name=__codelineno-67-1></a><span class=c1># 检查内存使用情况</span>
+<a id=__codelineno-67-2 name=__codelineno-67-2></a>sdcc<span class=w> </span>-mmcs51<span class=w> </span>--iram-size<span class=w> </span><span class=m>256</span><span class=w> </span>--xram-size<span class=w> </span><span class=m>256</span><span class=w> </span>--code-size<span class=w> </span><span class=m>8192</span><span class=w> </span>main.c
+<a id=__codelineno-67-3 name=__codelineno-67-3></a>
+<a id=__codelineno-67-4 name=__codelineno-67-4></a><span class=c1># 使用更小的存储模型</span>
+<a id=__codelineno-67-5 name=__codelineno-67-5></a>sdcc<span class=w> </span>-mmcs51<span class=w> </span>--model-small<span class=w>  </span><span class=c1># 优先尝试small</span>
+<a id=__codelineno-67-6 name=__codelineno-67-6></a>sdcc<span class=w> </span>-mmcs51<span class=w> </span>--model-medium<span class=w> </span><span class=c1># 代码大可尝试medium</span>
+</code></pre></div></td></tr></table></div> <hr> <h3 id=125-vscode>12.5 VSCode 配置问题<a class=headerlink href=#125-vscode title="Permanent link">&para;</a></h3> <h4 id=q11-vscode-sdcc>Q11: VSCode 中所有SDCC关键字都显示红色错误<a class=headerlink href=#q11-vscode-sdcc title="Permanent link">&para;</a></h4> <p><strong>解决方案：</strong></p> <ol> <li>确认已安装 <strong>C/C++</strong> 扩展 (Microsoft)</li> <li>按 <code>Ctrl+Shift+P</code> → &ldquo;C/C++: Edit Configurations (UI)&rdquo;</li> <li>设置：</li> </ol> <ul> <li><strong>编译器路径</strong>：指向 <code>sdcc.exe</code></li> <li><strong>IntelliSense 模式</strong>：<code>gcc-x64</code></li> <li><strong>包含路径</strong>：添加SDCC头文件目录</li> <li><strong>定义</strong>：添加 <code>"__SDCC"</code>、<code>"__SDCC_mcs51"</code> 4. 创建 <code>sdcc_custom.h</code> 解决关键字识别问题（详见第7章）</li> </ul> <hr> <h4 id=q12-vscode>Q12: VSCode 代码补全不工作<a class=headerlink href=#q12-vscode title="Permanent link">&para;</a></h4> <p><strong>排查步骤：</strong></p> <ol> <li>检查 <code>c_cpp_properties.json</code> 配置是否正确</li> <li>按 <code>Ctrl+Shift+P</code> → &ldquo;C/C++: Log Diagnostics&rdquo; 查看诊断信息</li> <li>确认 IntelliSense 已启用： <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-68-1>1</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-68-1 name=__codelineno-68-1></a><span class=nt>"C_Cpp.intelliSenseEngine"</span><span class=p>:</span><span class=w> </span><span class=s2>"default"</span>
+</code></pre></div></td></tr></table></div></li> <li>重启VSCode</li> </ol> <hr> <h3 id=126>12.6 烧录问题<a class=headerlink href=#126 title="Permanent link">&para;</a></h3> <h4 id=q13-stcgal-target-not-detected>Q13: stcgal 提示 &ldquo;Target not detected&rdquo;<a class=headerlink href=#q13-stcgal-target-not-detected title="Permanent link">&para;</a></h4> <p><strong>原因：</strong></p> <ol> <li>单片机未上电</li> <li>串口接线错误</li> <li>芯片进入不了下载模式</li> </ol> <p><strong>解决方案：</strong></p> <ol> <li>先运行stcgal命令，再给单片机上电（冷启动）</li> <li>检查TX/RX是否交叉连接（单片机TX接转接器RX）</li> <li>尝试不同的波特率：<code>-b 2400</code> 或 <code>-b 4800</code></li> </ol> <hr> <h4 id=q14>Q14: 烧录成功但程序不运行<a class=headerlink href=#q14 title="Permanent link">&para;</a></h4> <p><strong>排查步骤：</strong></p> <ol> <li>确认HEX文件格式正确（以 <code>:00000001FF</code> 结尾）</li> <li>检查代码起始地址：<code>--code-loc 0x0000</code></li> <li>确认看门狗未意外启用</li> <li>检查晶振是否起振</li> </ol> <hr> <h3 id=127>12.7 运行时问题<a class=headerlink href=#127 title="Permanent link">&para;</a></h3> <h4 id=q15>Q15: 程序跑飞或复位<a class=headerlink href=#q15 title="Permanent link">&para;</a></h4> <p><strong>可能原因：</strong></p> <ol> <li>堆栈溢出</li> <li>看门狗未喂狗</li> <li>数组越界</li> </ol> <p><strong>解决方案：</strong></p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-69-1> 1</a></span>
+<span class=normal><a href=#__codelineno-69-2> 2</a></span>
+<span class=normal><a href=#__codelineno-69-3> 3</a></span>
+<span class=normal><a href=#__codelineno-69-4> 4</a></span>
+<span class=normal><a href=#__codelineno-69-5> 5</a></span>
+<span class=normal><a href=#__codelineno-69-6> 6</a></span>
+<span class=normal><a href=#__codelineno-69-7> 7</a></span>
+<span class=normal><a href=#__codelineno-69-8> 8</a></span>
+<span class=normal><a href=#__codelineno-69-9> 9</a></span>
+<span class=normal><a href=#__codelineno-69-10>10</a></span>
+<span class=normal><a href=#__codelineno-69-11>11</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-69-1 name=__codelineno-69-1></a><span class=c1>// 1. 增加堆栈空间（在链接时指定）</span>
+<a id=__codelineno-69-2 name=__codelineno-69-2></a><span class=n>sdcc</span><span class=w> </span><span class=o>-</span><span class=n>mmcs51</span><span class=w> </span><span class=o>--</span><span class=n>iram</span><span class=o>-</span><span class=n>size</span><span class=w> </span><span class=mi>256</span><span class=w> </span><span class=o>--</span><span class=n>stack</span><span class=o>-</span><span class=n>loc</span><span class=w> </span><span class=mh>0x80</span>
+<a id=__codelineno-69-3 name=__codelineno-69-3></a>
+<a id=__codelineno-69-4 name=__codelineno-69-4></a><span class=c1>// 2. 禁用看门狗（STC单片机）</span>
+<a id=__codelineno-69-5 name=__codelineno-69-5></a><span class=cp>#include</span><span class=w> </span><span class=cpf>&lt;8052.h&gt;</span>
+<a id=__codelineno-69-6 name=__codelineno-69-6></a><span class=kt>void</span><span class=w> </span><span class=n>main</span><span class=p>()</span><span class=w> </span><span class=p>{</span>
+<a id=__codelineno-69-7 name=__codelineno-69-7></a><span class=w>    </span><span class=n>PCON</span><span class=w> </span><span class=o>|=</span><span class=w> </span><span class=mh>0x20</span><span class=p>;</span><span class=w>  </span><span class=c1>// 禁用看门狗（部分型号）</span>
+<a id=__codelineno-69-8 name=__codelineno-69-8></a><span class=w>    </span><span class=c1>// ...</span>
+<a id=__codelineno-69-9 name=__codelineno-69-9></a><span class=p>}</span>
+<a id=__codelineno-69-10 name=__codelineno-69-10></a>
+<a id=__codelineno-69-11 name=__codelineno-69-11></a><span class=c1>// 3. 检查数组边界</span>
+</code></pre></div></td></tr></table></div> <hr> <h4 id=q16>Q16: 中断不响应<a class=headerlink href=#q16 title="Permanent link">&para;</a></h4> <p><strong>排查步骤：</strong></p> <ol> <li>确认中断服务程序定义正确： <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-70-1>1</a></span>
+<span class=normal><a href=#__codelineno-70-2>2</a></span>
+<span class=normal><a href=#__codelineno-70-3>3</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-70-1 name=__codelineno-70-1></a><span class=kt>void</span><span class=w> </span><span class=nf>timer0_isr</span><span class=p>(</span><span class=kt>void</span><span class=p>)</span><span class=w> </span><span class=n>__interrupt</span><span class=w> </span><span class=mi>1</span><span class=w> </span><span class=n>__using</span><span class=w> </span><span class=mi>1</span><span class=w> </span><span class=p>{</span>
+<a id=__codelineno-70-2 name=__codelineno-70-2></a><span class=w>    </span><span class=c1>// 中断处理</span>
+<a id=__codelineno-70-3 name=__codelineno-70-3></a><span class=p>}</span>
+</code></pre></div></td></tr></table></div></li> <li>确认中断已使能：<code>ET0 = 1; EA = 1;</code></li> <li>检查中断向量表地址是否正确</li> </ol> <hr> <h2 id=_10>十三、快速检查清单<a class=headerlink href=#_10 title="Permanent link">&para;</a></h2> <table> <thead> <tr> <th>步骤</th> <th>检查项</th> <th>状态</th> </tr> </thead> <tbody> <tr> <td>1</td> <td>SDCC已安装并可运行 <code>sdcc --version</code></td> <td>⬜</td> </tr> <tr> <td>2</td> <td>头文件路径正确（<code>-I</code>参数）</td> <td>⬜</td> </tr> <tr> <td>3</td> <td>代码使用SDCC语法（<code>__sfr</code>、<code>__interrupt</code>）</td> <td>⬜</td> </tr> <tr> <td>4</td> <td>编译命令包含 <code>-mmcs51</code> 和存储模型</td> <td>⬜</td> </tr> <tr> <td>5</td> <td>生成了 <code>.hex</code> 文件（通过packihx）</td> <td>⬜</td> </tr> <tr> <td>6</td> <td>烧录前选择正确的芯片型号</td> <td>⬜</td> </tr> <tr> <td>7</td> <td>程序运行符合预期</td> <td>⬜</td> </tr> <tr> <td><strong>VSCode开发</strong></td> <td></td> <td></td> </tr> <tr> <td>8</td> <td>已安装C/C++扩展</td> <td>⬜</td> </tr> <tr> <td>9</td> <td><code>c_cpp_properties.json</code> 配置正确</td> <td>⬜</td> </tr> <tr> <td>10</td> <td>头文件路径已添加到 <code>includePath</code></td> <td>⬜</td> </tr> <tr> <td>11</td> <td>定义了 <code>__SDCC</code> 和 <code>__SDCC_mcs51</code></td> <td>⬜</td> </tr> <tr> <td>12</td> <td>IntelliSense工作正常（无红色波浪线）</td> <td>⬜</td> </tr> </tbody> </table> <hr> <h2 id=_11>总结<a class=headerlink href=#_11 title="Permanent link">&para;</a></h2> <table> <thead> <tr> <th>步骤</th> <th>检查项</th> <th>状态</th> </tr> </thead> <tbody> <tr> <td>1</td> <td>SDCC已安装并可运行 <code>sdcc --version</code></td> <td>⬜</td> </tr> <tr> <td>2</td> <td>头文件路径正确（<code>-I</code>参数）</td> <td>⬜</td> </tr> <tr> <td>3</td> <td>代码使用SDCC语法（<code>__sfr</code>、<code>__interrupt</code>）</td> <td>⬜</td> </tr> <tr> <td>4</td> <td>编译命令包含 <code>-mmcs51</code> 和存储模型</td> <td>⬜</td> </tr> <tr> <td>5</td> <td>生成了 <code>.hex</code> 文件（通过packihx）</td> <td>⬜</td> </tr> <tr> <td>6</td> <td>烧录前选择正确的芯片型号</td> <td>⬜</td> </tr> <tr> <td>7</td> <td>程序运行符合预期</td> <td>⬜</td> </tr> </tbody> </table> <hr> <h2 id=_12>总结<a class=headerlink href=#_12 title="Permanent link">&para;</a></h2> <table> <thead> <tr> <th>特性</th> <th>SDCC优势</th> </tr> </thead> <tbody> <tr> <td>💰 成本</td> <td>完全免费，开源无限制</td> </tr> <tr> <td>🌐 跨平台</td> <td>Windows/Linux/Mac原生支持</td> </tr> <tr> <td>🛠️ 工具链</td> <td>完整的编译、链接、烧录工具</td> </tr> <tr> <td>📚 学习</td> <td>适合深入理解编译原理</td> </tr> <tr> <td>🏆 竞赛</td> <td>蓝桥杯官方支持工具</td> </tr> </tbody> </table> <p><strong>下一步建议：</strong></p> <ol> <li>从简单的LED闪烁程序开始练习</li> <li>学习SDCC特有的语法（<code>__sfr</code>、<code>__interrupt</code>）</li> <li>尝试移植Keil项目到SDCC</li> <li>使用Makefile自动化构建流程</li> <li>掌握stcgal命令行烧录（Linux/Mac用户）</li> </ol> <hr> <p><em>最后更新：2026年2月</em> <em>适用于SDCC 4.x版本</em></p> <aside class=md-source-file> <span class=md-source-file__fact> <span class=md-icon title=最后更新> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg> </span> <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime" title="2026年9月28日 13:29:47 UTC">2026年9月28日 13:29:47</span> </span> </aside> </article> </div> <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script> <script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script> </div> <button type=button class="md-top md-icon" data-md-component=top hidden> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg> 回到页面顶部 </button> </main> <footer class=md-footer> <div class="md-footer-meta md-typeset"> <div class="md-footer-meta__inner md-grid"> <div class=md-copyright> <div class=md-copyright__highlight> Copyright &copy; 2026 Heureka </div> Made with <a href=https://squidfunk.github.io/mkdocs-material/ target=_blank rel=noopener> Material for MkDocs </a> </div> <div class=md-social> <a href=https://github.com/Fay-Liang target=_blank rel=noopener title=github.com class=md-social__link> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 512 512"><!-- Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg> </a> </div> </div> </div> </footer> </div> <div class=md-dialog data-md-component=dialog> <div class="md-dialog__inner md-typeset"></div> </div> <script id=__config type=application/json>{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.top", "navigation.expand", "navigation.instant", "navigation.indexes", "toc.integrate", "search.suggest", "search.highlight", "header.autohide", "content.code.copy", "content.tabs.link"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": {"provider": "mike"}}</script> <script src=../../assets/javascripts/bundle.d7400e89.min.js></script> <script src=../../assets/js/mathjax.js></script> <script src=https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js></script> </body> </html>
