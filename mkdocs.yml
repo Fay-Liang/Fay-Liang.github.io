@@ -1,6 +1,6 @@
 # ============================================================
 # MkDocs 配置文件 —— MyProject Docs
-# 主题: Material for MkDocs | 语言: 中文 | 部署: GitHub Pages + mike 多版本
+# 主题: Material for MkDocs | 语言: 中文 | 部署: GitHub Pages（mkdocs gh-deploy 根目录直出）
 # ============================================================
 
 # ---------- 站点基础信息 ----------
@@ -159,6 +159,6 @@ validation:                        # 链接与锚点校验级别（strict 模式
     omitted_files: warn            # 未出现在 nav 中的文件
     not_found: warn
 
-# ---------- mike 部署相关 ----------
-remote_branch: gh-pages            # gh-deploy / mike 目标分支
+# ---------- 部署相关 ----------
+remote_branch: gh-pages            # gh-deploy 目标分支
 remote_name: origin                # 远程仓库名
