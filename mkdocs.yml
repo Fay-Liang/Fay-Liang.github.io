@@ -39,13 +39,13 @@ theme:
     - content.tabs.link            # 内容标签页联动
   palette:
     - scheme: default              # 浅色模式
-      primary: black               # 深色顶栏：logo 的蓝/红在此底色上对比度达标
+      primary: teal                # 蓝绿色顶栏（logo 已加白色底垫，故颜色可自由选）
       accent: indigo
       toggle:
         icon: material/brightness-7
         name: 切换到深色模式
     - scheme: slate                # 深色模式
-      primary: black               # 深色顶栏：logo 的蓝/红在此底色上对比度达标
+      primary: teal                # 蓝绿色顶栏（logo 已加白色底垫，故颜色可自由选）
       accent: indigo
       toggle:
         icon: material/brightness-4
