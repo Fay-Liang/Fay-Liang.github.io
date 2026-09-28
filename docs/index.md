@@ -1,62 +1,36 @@
-# MyProject Docs
+# Heureka 的博客
 
-欢迎来到 **MyProject** 的官方文档。这里汇总了项目的安装、使用、配置与部署方法。
+> 代码如诗，远方如谜，唯上下求索。
 
-## 快速导航
+这里是 **Heureka** 的个人博客，主要记录 **物联网 (IoT)**、**嵌入式系统** 与 **前端开发** 的学习笔记、技术心得与实践项目。
 
-- [安装](getting-started/installation.md) —— 环境准备与依赖安装
-- [快速上手](getting-started/quickstart.md) —— 5 分钟跑通第一个示例
-- [配置说明](user-guide/configuration.md) —— 全量配置项详解
-- [部署指南](user-guide/deployment.md) —— GitHub Pages / GitLab Pages / 静态托管
-- [常见问题](user-guide/faq.md) —— 高频问题速查
-- [关于](about.md) —— 项目信息与联系方式
+## 内容导航
 
-## 特性一览
+- [关于](关于.md) —— 关于我、项目、版权声明与联系方式
+- [邮箱](邮箱.md) —— 邮箱地址
+- [友链](友链.md) —— 小伙伴们与友链申请方法
 
-- 纯 Markdown 写作，一个 `mkdocs.yml` 集中管理全部配置
-- 本地实时预览，保存即刷新
-- 支持数学公式、Mermaid 图表、代码高亮与复制按钮
-- 深浅色主题一键切换，中文搜索开箱即用
-- 基于 mike 的多版本文档管理
+### 学习笔记
 
-## 语法速览
+- [51单片机](学习笔记/51单片机.md) —— 单片机基础与实战
+- [STM32](学习笔记/STM32.md) —— STM32 开发笔记
+- [ESP32](学习笔记/ESP32.md) —— ESP32 开发笔记
+- [Linux](学习笔记/Linux.md) —— Linux 学习笔记
 
-本站启用了丰富的 Markdown 扩展，下面快速演示。
+### 教程文档
 
-### 数学公式
+- [SDCC使用指南](教程文档/SDCC使用指南.md) —— SDCC 编译器使用教程
+- [Ubuntu开机亮度无法自动调节](教程文档/Ubuntu开机亮度无法自动调节.md) —— Ubuntu 亮度问题解决方案
 
-行内公式：$E = mc^2$，独立公式：
+### 项目实战
 
-$$
-\int_{-\infty}^{+\infty} e^{-x^2}\,\mathrm{d}x = \sqrt{\pi}
-$$
+- [六足机器人](项目开发/六足机器人.md) —— Hexapod 项目分析与复刻指南
+- [可自主预警的天气小助手](项目开发/可自主预警的天气小助手.md) —— ESP32 智能天气预警系统
 
-### Mermaid 图表
+### 参赛笔记
 
-```mermaid
-graph LR
-    A[Markdown] --> B[MkDocs 构建]
-    B --> C[静态站点]
-    C --> D[GitHub Pages]
-```
+- [蓝桥杯单片机](参赛笔记/蓝桥杯.md) —— 蓝桥杯备赛笔记
 
-### 提示框与折叠块
+---
 
-!!! note "提示"
-    使用 `admonition` 扩展可以快速插入提示框。
-
-??? tip "点击展开"
-    使用 `pymdownx.details` 扩展可以创建可折叠内容块。
-
-### 任务列表
-
-- [x] 安装 MkDocs 与 Material 主题
-- [x] 配置 `mkdocs.yml`
-- [ ] 部署到 GitHub Pages
-
-!!! warning "注意"
-    所有文档页面都应出现在 `nav` 中，否则在 `strict` 模式下构建会失败。
-
-## 版权
-
-Copyright &copy; 2026 MyProject 团队。基于 [Material for MkDocs](https://squidfunk.github.io/mkdocs-material/) 构建。
+Copyright &copy; 2026 Heureka。基于 [Material for MkDocs](https://squidfunk.github.io/mkdocs-material/) 构建。

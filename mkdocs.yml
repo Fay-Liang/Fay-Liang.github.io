@@ -5,16 +5,14 @@
 
 # ---------- 站点基础信息 ----------
 site_name: MyProject Docs
-# TODO: 替换为你的 GitHub Pages 实际地址，例如 https://username.github.io/note/
-site_url: https://your-github-username.github.io/your-repo/
-site_description: MyProject 的使用、开发与部署文档
-site_author: Zhang San
-copyright: Copyright &copy; 2026 Zhang San
+site_url: https://fay-liang.github.io/
+site_description: Heureka 的使用、开发与部署文档
+site_author: Heureka
+copyright: Copyright &copy; 2026 Heureka
 
 # ---------- 仓库与编辑链接 ----------
-# TODO: 替换为你的实际仓库地址
-repo_url: https://github.com/your-github-username/your-repo
-repo_name: your-github-username/your-repo
+repo_url: https://github.com/Fay-Liang/Fay-Liang.github.io
+repo_name: Fay-Liang.github.io
 edit_uri: blob/main/docs/          # "编辑此页" 跳转路径
 
 # ---------- 目录设置 ----------
@@ -61,14 +59,22 @@ theme:
 # ---------- 导航配置 ----------
 nav:
   - 首页: index.md
-  - 快速开始:
-      - 安装: getting-started/installation.md
-      - 快速上手: getting-started/quickstart.md
-  - 用户指南:
-      - 配置说明: user-guide/configuration.md
-      - 部署指南: user-guide/deployment.md
-      - 常见问题: user-guide/faq.md
-  - 关于: about.md
+  - 关于: 关于.md
+  - 邮箱: 邮箱.md
+  - 友链: 友链.md
+  - 学习笔记:
+      - 51单片机: 学习笔记/51单片机.md
+      - STM32: 学习笔记/STM32.md
+      - ESP32: 学习笔记/ESP32.md
+      - Linux: 学习笔记/Linux.md
+  - 教程文档:
+      - SDCC使用指南: 教程文档/SDCC使用指南.md
+      - Ubuntu开机亮度无法自动调节: 教程文档/Ubuntu开机亮度无法自动调节.md
+  - 项目开发:
+      - 六足机器人: 项目开发/六足机器人.md
+      - 可自主预警的天气小助手: 项目开发/可自主预警的天气小助手.md
+  - 参赛笔记:
+      - 蓝桥杯单片机: 参赛笔记/蓝桥杯.md
 
 # ---------- Markdown 扩展 ----------
 markdown_extensions:
@@ -132,11 +138,9 @@ plugins:
 extra:
   version:                         # mike 多版本文档
     provider: mike
-  social:                          # 页脚社交链接（TODO: 替换为真实链接）
+  social:
     - icon: fontawesome/brands/github
-      link: https://github.com/your-github-username/your-repo
-    - icon: fontawesome/brands/x-twitter
-      link: https://x.com/your-handle
+      link: https://github.com/Fay-Liang
 
 extra_css:
   - assets/css/extra.css           # 追加自定义样式
