@@ -83,3 +83,27 @@
   align-items: center;
   display: flex;
 }
+
+/* ============================================================
+   首页：隐藏左右侧边栏后放宽整体宽度
+   ------------------------------------------------------------
+   index.md 的 front matter 设了 hide: [navigation, toc]，Material
+   会给两个侧边栏加上 hidden 属性（见 Material 的 base.html）。
+   此时正文被 .md-grid 的 max-width: 61rem 限制，全屏下两侧留白
+   过多，比例失衡。
+
+   为什么要用 body 级的 :has() 而不是只改 .md-main__inner：
+   顶栏、标签栏、正文、页脚各自都是一个 .md-grid，宽度互不相干。
+   只放宽正文会让顶栏 logo 与正文左边缘错开近 200px，反而更难看。
+   这里挂在 body 上统一放宽，四处重新对齐。
+
+   :has() 用于"按子元素状态选父元素"，Chrome 105+ / Safari 15.4+ /
+   Firefox 121+ 支持。未支持的旧浏览器只是维持原宽度，不影响使用。
+   ============================================================ */
+body:has(.md-sidebar--primary[hidden]):has(.md-sidebar--secondary[hidden]) .md-grid {
+  /* 上限 80rem；同时保证两侧至少留 2rem 边距，
+     否则在 1440px 这类笔记本屏上内容会顶到屏幕边缘。
+     注意 1rem 在宽屏下是 22px（Material 在 >=100em 时把根字号提到 137.5%），
+     所以 80rem 在 1920 视口下实际是 1760px。 */
+  max-width: min(100% - 4rem, 80rem);
+}
