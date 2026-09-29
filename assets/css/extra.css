@@ -70,3 +70,16 @@
   background-position: center;
   border-radius: 50%;
 }
+
+/* 仓库数那行（图标 + 数字）的垂直对齐
+   ------------------------------------------------------------
+   Material 默认用 vertical-align: baseline，伪元素图标高 12px、
+   文字仅 .55rem，图标底部压在基线上，看起来明显偏高、与数字错位。
+
+   这里不用 vertical-align 微调：它依赖字体度量（x-height），换字体
+   或字号就会重新错位。改为把这一项变成 flex 容器，让图标伪元素和
+   数字都成为 flex 项，由 align-items: center 精确居中。 */
+.md-source__fact {
+  align-items: center;
+  display: flex;
+}
