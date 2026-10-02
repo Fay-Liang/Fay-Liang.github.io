@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<title>顶栏图标与数字对齐 —— 方案对照</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+  :root{--icon:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M2 2.5A2.5 2.5 0 0 1 4.5 0h8.75a.75.75 0 0 1 .75.75v12.5a.75.75 0 0 1-.75.75h-2.5a.75.75 0 0 1 0-1.5h1.75v-2h-8a1 1 0 0 0-.714 1.7.75.75 0 1 1-1.072 1.05A2.5 2.5 0 0 1 2 11.5Zm10.5-1h-8a1 1 0 0 0-1 1v6.708A2.5 2.5 0 0 1 4.5 9h8ZM5 12.25a.25.25 0 0 1 .25-.25h3.5a.25.25 0 0 1 .25.25v3.25a.25.25 0 0 1-.4.2l-1.45-1.087a.25.25 0 0 0-.3 0L5.4 15.7a.25.25 0 0 1-.4-.2Z"/></svg>')}
+  body{background:#4051b5;color:#fff;margin:0;padding:28px 32px;
+        font-family:'Noto Sans SC',-apple-system,'Segoe UI',sans-serif}
+  h1{font-size:17px;font-weight:700;margin:0 0 8px}
+  p.hint{font-size:13px;opacity:.85;margin:0 0 22px;line-height:1.8}
+  .row{display:flex;align-items:center;gap:28px;padding:18px 0;
+        border-bottom:1px solid rgba(255,255,255,.22)}
+  .tag{width:230px;flex-shrink:0;font-size:13px;opacity:.9}
+  .src{display:flex;flex-direction:column;justify-content:center}
+  .name{font-size:16px;font-weight:500;line-height:1.25}
+  /* 以下复刻 Material 的实际规则 */
+  .md-source__facts{display:flex;font-size:.55rem;gap:.4rem;margin:.1rem 0 0;
+                     opacity:.75;overflow:hidden;padding:0}
+  .md-source__fact{overflow:hidden;text-overflow:ellipsis}
+  .md-source__fact::before{content:"";display:inline-block;width:.6rem;height:.6rem;
+      margin-right:.1rem;background-color:currentColor;
+      -webkit-mask-image:var(--icon);mask-image:var(--icon);
+      -webkit-mask-size:contain;mask-size:contain;
+      -webkit-mask-repeat:no-repeat;mask-repeat:no-repeat}
+</style>
+</head>
+<body>
+  <h1>顶栏「图标 + 数字」对齐方案对照</h1>
+  <p class="hint">
+    请用你自己的浏览器打开这一页（这里能正确加载 Noto Sans SC 字体，和我截图用的兜底字体不同）。<br>
+    看每行左侧小图标与右边数字「26」的垂直关系，<b>把看起来最整齐的那个字母告诉我</b>。
+  </p>
+
+  <div class="row">
+    <div class="tag">A. Material 原版</div>
+    <div class="src">
+      <div class="name">Fay-Liang</div>
+      <div class="md-source__facts"><span class="md-source__fact">26</span></div>
+    </div>
+  </div>
+  <style></style>
+  <div class="row">
+    <div class="tag">B. vertical-align: middle</div>
+    <div class="src">
+      <div class="name">Fay-Liang</div>
+      <div class="md-source__facts"><span class="md-source__fact">26</span></div>
+    </div>
+  </div>
+  <style>.row:nth-of-type(2) .md-source__fact::before{vertical-align:middle}</style>
+  <div class="row">
+    <div class="tag">C. flex 居中</div>
+    <div class="src">
+      <div class="name">Fay-Liang</div>
+      <div class="md-source__facts"><span class="md-source__fact">26</span></div>
+    </div>
+  </div>
+  <style>.row:nth-of-type(3) .md-source__fact{align-items:center;display:flex}</style>
+  <div class="row">
+    <div class="tag">D. flex 居中 + line-height:1</div>
+    <div class="src">
+      <div class="name">Fay-Liang</div>
+      <div class="md-source__facts"><span class="md-source__fact">26</span></div>
+    </div>
+  </div>
+  <style>.row:nth-of-type(4) .md-source__fact{align-items:center;display:flex;line-height:1}</style>
+  <div class="row">
+    <div class="tag">E. flex 居中 + 图标下移 1px</div>
+    <div class="src">
+      <div class="name">Fay-Liang</div>
+      <div class="md-source__facts"><span class="md-source__fact">26</span></div>
+    </div>
+  </div>
+  <style>.row:nth-of-type(5) .md-source__fact{align-items:center;display:flex}.row:nth-of-type(5) .md-source__fact::before{transform:translateY(1px)}</style>
+</body>
+</html>

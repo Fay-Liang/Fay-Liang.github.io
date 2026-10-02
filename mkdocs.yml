@@ -67,18 +67,32 @@ theme:
 # ---------- 导航配置 ----------
 nav:
   - 首页: index.md
+  # 以下四个章节用的是「索引页 + 子页」结构：
+  # 章节下的第一项是总览页，【必须命名为 index.md】—— MkDocs 判断一个页面
+  # 是否为索引页的条件是 file.name == 'index'（见 mkdocs/structure/pages.py
+  # 的 Page.is_index）。用其他文件名（如 学习笔记/学习笔记.md）不会生效，
+  # 总览页会被当成普通页面、在左侧列表里重复列一条。
+  #
+  # 配合已启用的 navigation.indexes：章节标题成为指向总览页的链接，且不在
+  # 列表里重复出现；打开子页面时左侧仍显示同级文章。URL 也更干净，
+  # 由 /学习笔记/学习笔记/ 变为 /学习笔记/。
   - 学习笔记:
+      - 学习笔记/index.md
       - 51单片机: 学习笔记/51单片机.md
       - STM32: 学习笔记/STM32.md
+      - C++: 学习笔记/C++.md
       - ESP32: 学习笔记/ESP32.md
       - Linux: 学习笔记/Linux.md
   - 教程文档:
+      - 教程文档/index.md
       - SDCC使用指南: 教程文档/SDCC使用指南.md
       - Ubuntu开机亮度无法自动调节: 教程文档/Ubuntu开机亮度无法自动调节.md
   - 项目开发:
+      - 项目开发/index.md
       - 六足机器人: 项目开发/六足机器人.md
       - 可自主预警的天气小助手: 项目开发/可自主预警的天气小助手.md
   - 参赛笔记:
+      - 参赛笔记/index.md
       - 蓝桥杯单片机: 参赛笔记/蓝桥杯.md
   - 关于: 关于.md
 
@@ -135,6 +149,12 @@ plugins:
       type: datetime
       locale: zh
       fallback_to_build_date: true # 非 git 仓库/无历史时回退为构建日期
+      strict: false                # 该插件自身的开关，默认 true。
+                                   # 它会在文件尚无 git 提交记录时打 WARNING
+                                   # （提示改用构建日期），被全局 strict 升级为
+                                   # 致命错误，导致每新建一个文件 mkdocs serve
+                                   # 就卡住。设为 false 后降为 INFO，不中断构建。
+                                   # 注意 fallback_to_build_date 管不到这条日志。
   - minify:                        # 压缩产物
       minify_html: true
       minify_css: true
