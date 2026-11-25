@@ -32,22 +32,6 @@ hide:
 </div>
 
 <div class="card-list">
-  <a class="card" href="FOC控制板/">
-    <div class="card-title">STM32G431 FOC 六层控制板</div>
-    <div class="card-desc">双路 FOC 控制板：六层 PCB、FD6288 驱动、SVPWM / V/f 固件与 VOFA 波形联调</div>
-  </a>
-  <a class="card" href="STM32两轮平衡车/">
-    <div class="card-title">STM32 两轮平衡车</div>
-    <div class="card-desc">100 Hz 控制环、MPU6500 + 双编码器、三环 PID、状态机与 Python 上位机</div>
-  </a>
-  <a class="card" href="STM32F407最小系统板/">
-    <div class="card-title">STM32F407 最小系统板</div>
-    <div class="card-desc">四层板从原理图到焊接点亮，含 Keil / ARM-GCC 双工具链与串口上位机</div>
-  </a>
-  <a class="card" href="ROS2移动机器人/">
-    <div class="card-title">ROS 2 移动机器人底盘</div>
-    <div class="card-desc">树莓派 5 + ROS 2 Humble 接入深度相机与 DRV8323 底盘，梳理 25 个功能包</div>
-  </a>
   <a class="card" href="六足机器人/">
     <div class="card-title">六足机器人</div>
     <div class="card-desc">基于 Linkit 7697 的复刻项目，含机械、电子与软件全流程分析</div>
